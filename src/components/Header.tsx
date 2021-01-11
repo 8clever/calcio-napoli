@@ -1,4 +1,4 @@
-import { A, AmpImg, AmpSidebar, Button } from "react-amphtml";
+import { AmpImg, AmpSidebar, Button } from "react-amphtml";
 
 const menuItems = [
   {
@@ -9,101 +9,101 @@ const menuItems = [
 
 export const Header = () => {
   return (
-    <>
-      <header style={{
-        padding: 20,
+    <header>
+      <div style={{
         display: "flex",
-        justifyContent: "space-between",
-        alignItems: "center",
-        boxShadow: "0px 0px 15px #9eb2f7"
+        alignItems: "center"
       }}>
-        <div style={{
-          display: "flex",
-          alignItems: "center"
-        }}>
-          <AmpImg
-            style={{
-              minWidth: 40
-            }}
-            width="40"
-            height="40"
-            layout="fixed"
-            specName="default"
-            src="/images/favicon.png"
-          />
-          <span style={{
-            color: "blue",
-            padding: "0px 15px",
-            fontWeight: "bold",
-            fontSize: "20px"
-          }}>
-            Calcio Napoli
-          </span>
-        </div>
-        <div>
-          <Button 
-            style={{
-              border: "none",
-              backgroundColor: "transparent",
-              width: 40,
-              height: 26,
-              display: "flex",
-              flexDirection: "column",
-              justifyContent: "space-around",
-              alignItems: "center"
-            }}
-            specName="default" 
-            on="tap:header-sidebar.toggle">
+        <AmpImg
+          style={{
+            minWidth: 40
+          }}
+          width="40"
+          height="40"
+          layout="fixed"
+          specName="default"
+          src="/images/favicon.png"
+        />
+        <span className="brand-text">
+          Calcio Napoli
+        </span>
+      </div>
+      <div>
+        <Button 
+          className="hamburger"
+          specName="default" 
+          on="tap:header-sidebar.toggle">
+          <div />
+          <div />
+          <div />
+        </Button>
+      </div>
+      <AmpSidebar 
+        specName="default"
+        id="header-sidebar" 
+        layout="nodisplay" 
+        side="right">
+        <ul className="sidebar-list">
+          <li>
             {
-              [1,2,3].map((_,idx) => {
+              menuItems.map(i => {
                 return (
-                  <div 
-                    style={{
-                      width: 25,
-                      height: 3,
-                      backgroundColor: "black"
-                    }}
-                    key={idx}
-                  />
+                  <a
+                    href={i.href}>
+                    {i.label}
+                  </a>
                 )
               })
             }
-          </Button>
-        </div>
-        <AmpSidebar 
-          specName="default"
-          id="header-sidebar" 
-          layout="nodisplay" 
-          side="right">
-          <ul style={{
-            minWidth: 200,
-            padding: 40,
-            listStyle: "none",
-            display: "flex",
-            flexDirection: "column"
-          }}>
-            <li>
-              {
-                menuItems.map(i => {
-                  return (
-                    <A
-                      style={{
-                        textDecoration: "none",
-                        padding: 8
-                      }}
-                      specName="default"
-                      href={i.href}>
-                      {i.label}
-                    </A>
-                  )
-                })
-              }
-            </li>
-          </ul>
-        </AmpSidebar>
-      </header>
+          </li>
+        </ul>
+      </AmpSidebar>
       <style jsx>{`
+        header {
+          padding: 20px;
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          box-shadow: 0px 0px 15px #9eb2f7;
+        }
+
+        header .sidebar-list {
+          min-width: 200px;
+          padding: 40px;
+          list-style: none;
+          display: flex;
+          flex-direction: column
+        }
+
+        header .sidebar-list a {
+          text-decoration: none;
+          padding: 8px
+        }
+
+        header .brand-text {
+          color: blue;
+          padding: 0px 15px;
+          font-weight: bold;
+          font-size: 20px;
+        }
+
+        header :global(.hamburger) {
+          border: none;
+          background-color: transparent;
+          width: 40px;
+          height: 26px;
+          display: flex;
+          flex-direction: column;
+          justify-content: space-around;
+          align-items: center
+        }
+
+        header :global(.hamburger) div {
+          width: 25px;
+          height: 3px;
+          background-color: black;
+        }
       `}</style>
-    </>
+    </header>
   )
 }
