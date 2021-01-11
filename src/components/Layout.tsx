@@ -13,6 +13,7 @@ const Layout = ({ children, title = 'This is the default title' }: Props) => (
     <Head>
       <title>{title}</title>
       <meta charSet="utf-8" />
+      <link rel="shortcut icon" type="image/png" href="/images/favicon.png" />
     </Head>
     <Header />
     {children}
@@ -20,7 +21,6 @@ const Layout = ({ children, title = 'This is the default title' }: Props) => (
     <style jsx global>{`
       body {
         font-family: Roboto, sans-serif;
-        padding: 30px;
         color: #444;
       }
     `}</style>
