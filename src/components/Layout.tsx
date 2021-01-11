@@ -1,22 +1,30 @@
-import React from "react";
-import { Header } from "./Header";
-import Head from "next/head";
+import React, { ReactNode } from 'react'
+import Head from 'next/head'
+import { Header } from './Header'
+import { Footer } from './Footer'
 
-interface IProps {
-  children?: React.ReactNode,
-  title: string;
-  description: string;
+type Props = {
+  children?: ReactNode
+  title?: string
 }
 
-export const Layout = (props: IProps) => {
-  return (
-    <>
-      <Head>
-        <title>{props.title}</title>
-        <meta name="description" content={props.description || ""} />
-      </Head>
-      <Header />
-      {props.children}
-    </>
-  )
-}
+const Layout = ({ children, title = 'This is the default title' }: Props) => (
+  <>
+    <Head>
+      <title>{title}</title>
+      <meta charSet="utf-8" />
+    </Head>
+    <Header />
+    {children}
+    <Footer />
+    <style jsx global>{`
+      body {
+        font-family: Roboto, sans-serif;
+        padding: 30px;
+        color: #444;
+      }
+    `}</style>
+  </>
+)
+
+export default Layout

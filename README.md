@@ -1,67 +1,41 @@
-# ampreact
-⚡⚛ [AMP HTML][], [Next.js][], [React][], [styled-components][], [GraphQL][],
-and [TypeScript][] — The most trendy website boilerplate possible.
+# TypeScript Next.js example
 
-## About
+This is a really simple project that shows the usage of Next.js with TypeScript.
 
-The core of `ampreact` is built on [Next.js][], used for all the routing and
-serving of pages. For styling, [styled-components][] makes it easy—with
-just a small modification to the rendering of the `<style />` tags generated,
-it works nicely with [AMP HTML][]. Finally, [`react-amphtml`][]
-is used for rendering all of the [AMP HTML][] built-ins, extensions, and
-the `<script />` tags needed to use them.
+## Deploy your own
 
-[`react-amphtml`]: https://github.com/dfrankland/react-amphtml/
+Deploy the example using [Vercel](https://vercel.com):
 
-The pages generated should all by properly validated by [AMP HTML][] 💯
+[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/git/external?repository-url=https://github.com/vercel/next.js/tree/canary/examples/with-typescript&project-name=with-typescript&repository-name=with-typescript)
 
-## Usage
+## How to use it?
 
-All the usage and benefits of [Next.js][] are available to `ampreact`.
+Execute [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app) with [npm](https://docs.npmjs.com/cli/init) or [Yarn](https://yarnpkg.com/lang/en/docs/cli/create/) to bootstrap the example:
 
-*   Installation:
+```bash
+npx create-next-app --example with-typescript with-typescript-app
+# or
+yarn create next-app --example with-typescript with-typescript-app
+```
 
-    ```bash
-    npm install
-    ```
+Deploy it to the cloud with [Vercel](https://vercel.com/new?utm_source=github&utm_medium=readme&utm_campaign=next-example) ([Documentation](https://nextjs.org/docs/deployment)).
 
-*   Development:
+## Notes
 
-    ```bash
-    npm run dev
-    ```
+This example shows how to integrate the TypeScript type system into Next.js. Since TypeScript is supported out of the box with Next.js, all we have to do is to install TypeScript.
 
-*   Production:
+```
+npm install --save-dev typescript
+```
 
-    ```bash
-    npm run build
-    npm run start
-    ```
+To enable TypeScript's features, we install the type declarations for React and Node.
 
-## Example & Validation
+```
+npm install --save-dev @types/react @types/react-dom @types/node
+```
 
-An example of `ampreact` can be seen here: <https://ampreact.dfrankland.now.sh/>
+When we run `next dev` the next time, Next.js will start looking for any `.ts` or `.tsx` files in our project and builds it. It even automatically creates a `tsconfig.json` file for our project with the recommended settings.
 
-### For proof of validation, either:
+Next.js has built-in TypeScript declarations, so we'll get autocompletion for Next.js' modules straight away.
 
-1.  Append `#development=1` to the URL and check the console for errors
-
-2.  Paste the page HTML into <https://validator.ampproject.org/#url=https%3A%2F%2Fampreact.dfrankland.now.sh%2F>
-
-## Deployment
-
-Because `ampreact` is built on top of [Next.js][] it is simple to deploy to
-[Now][] or any other cloud infrastructure providers.
-
-[![Deploy to now][]][now deploy ampreact]
-
-[Now]: https://zeit.co/now/
-[Deploy to now]: https://deploy.now.sh/static/button.svg
-[now deploy ampreact]: https://deploy.now.sh/?repo=https://github.com/dfrankland/ampreact
-
-[AMP HTML]: https://github.com/ampproject/amphtml/
-[Next.js]: https://github.com/zeit/next.js/
-[React]: https://github.com/facebook/react/
-[styled-components]: https://github.com/styled-components/styled-components/
-[GraphQL]: https://github.com/graphql/graphql-js
-[TypeScript]: https://github.com/microsoft/TypeScript
+A `type-check` script is also added to `package.json`, which runs TypeScript's `tsc` CLI in `noEmit` mode to run type-checking separately. You can then include this, for example, in your `test` scripts.

@@ -1,57 +1,22 @@
 {
-  "private": true,
-  "name": "ampreact",
-  "version": "4.0.0",
-  "description": "⚡⚛ AMP HTML + React — The most trendy website boilerplate possible.",
-  "main": "",
+  "name": "with-typescript",
+  "version": "1.0.0",
   "scripts": {
     "dev": "next",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint --ext .ts --ext .tsx --ext .js .",
-    "format": "prettier --write '**/*.js' '**/*.jsx' '**/*.ts' '**/*.tsx' '**/*.md'",
-    "typecheck": "tsc -p ./tsconfig.json --noEmit"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/dfrankland/ampreact.git"
-  },
-  "keywords": [
-    "amp",
-    "react",
-    "trendy"
-  ],
-  "author": "Dylan Frankland <dylan@frankland.io> (http://dylan.frankland.io/)",
-  "license": "MIT",
-  "bugs": {
-    "url": "https://github.com/dfrankland/ampreact/issues"
-  },
-  "homepage": "https://github.com/dfrankland/ampreact#readme",
-  "devDependencies": {
-    "@types/node": "^12.0.10",
-    "@types/react": "^16.8.22",
-    "@types/react-dom": "^16.8.4",
-    "@types/styled-components": "^4.1.16",
-    "@typescript-eslint/eslint-plugin": "^1.11.0",
-    "@typescript-eslint/parser": "^1.11.0",
-    "babel-eslint": "^10.0.2",
-    "babel-plugin-styled-components": "^1.10.4",
-    "eslint": "^5.16.0",
-    "eslint-config-airbnb": "^17.1.0",
-    "eslint-config-prettier": "^6.0.0",
-    "eslint-plugin-import": "^2.18.0",
-    "eslint-plugin-jsx-a11y": "^6.2.1",
-    "eslint-plugin-prettier": "^3.1.0",
-    "eslint-plugin-react": "^7.14.2",
-    "prettier": "^1.18.2",
-    "typescript": "^3.5.2"
+    "type-check": "tsc"
   },
   "dependencies": {
-    "next": "^10.0.5",
-    "next-server": "^9.0.5",
-    "react": "^16.8.6",
-    "react-amphtml": "^4.0.2",
-    "react-dom": "^16.8.6",
-    "styled-components": "^4.3.2"
-  }
+    "next": "latest",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0"
+  },
+  "devDependencies": {
+    "@types/node": "^12.12.21",
+    "@types/react": "^16.9.16",
+    "@types/react-dom": "^16.9.4",
+    "typescript": "4.0"
+  },
+  "license": "MIT"
 }
