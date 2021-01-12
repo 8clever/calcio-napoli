@@ -15,22 +15,23 @@ export const getServerSideProps: GetServerSideProps<IProps> = async () => {
 
   return {
     props: {
-      list: {
-        ...list,
-        playlist: list.playlist.slice(0, 10)
-      }
+      list
     }
   }
 }
 
 const IndexPage = (props: IProps) => { 
+  const videoList = props.list.playlist.slice(0, 10);
+
   return (
     <Layout title="Calcio Napoli | Home">
       <div className="container">
         <Container>
+          <h1>Fresh News</h1>
+          <hr></hr>
           <Row>
             {
-              props.list.playlist.map(i => {
+              videoList.map(i => {
                 return (
                   <Col 
                     key={i.id}
@@ -50,11 +51,26 @@ const IndexPage = (props: IProps) => {
               })
             }
           </Row>
+          <h2>Last news</h2>
+          <hr />
+          <Row>
+            {
+              props.list.playlist.map(i => {
+                return (
+                  <Col md={6}>
+                    <a href={`/news/${i.id}`}>{i.name}</a>
+                    <small>{i.title}</small>
+                  </Col>
+                )
+              })
+            }
+          </Row>
         </Container>
       </div>
       <style jsx>{`
         a {
-          color: ${theme.color.white}
+          color: ${theme.color.white};
+          text-decoration: none;
         }
         .container {
           min-height: 100vh;
