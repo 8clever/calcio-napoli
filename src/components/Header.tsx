@@ -8,8 +8,8 @@ export const menuItems = [
     label: "Pagina iniziale"
   },
   {
-    href: "/",
-    label: "Notizia"
+    href: "/rss",
+    label: "Calcio Napoli 24"
   }
 ]
 
