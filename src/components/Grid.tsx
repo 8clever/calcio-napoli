@@ -28,6 +28,10 @@ export const Container = (props: IProps) => {
     <div>
       {props.children}
       <style jsx>{`
+        div {
+          margin: 0 10px;
+        }
+
         @media only screen and (min-width: 600px) {
           div {
             margin: 0 40px;

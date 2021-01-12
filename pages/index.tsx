@@ -55,7 +55,9 @@ const IndexPage = (props: IProps) => {
             {
               props.list.playlist.map(i => {
                 return (
-                  <Col md={6}>
+                  <Col 
+                    key={i.id}
+                    md={6}>
                     <a href={`/news/${i.id}`}>{i.name}</a>
                     <small>{i.title}</small>
                   </Col>
