@@ -7,13 +7,15 @@ import { theme } from './Theme'
 type Props = {
   children?: ReactNode
   title?: string
+  description?: string;
 }
 
-const Layout = ({ children, title = 'This is the default title' }: Props) => (
+const Layout = ({ children, title = 'This is the default title', description = "" }: Props) => (
   <>
     <Head>
       <title>{title}</title>
       <meta charSet="utf-8" />
+      <meta name="description" content={description} />
       <link rel="shortcut icon" type="image/png" href="/images/favicon.png" />
     </Head>
     <Header />

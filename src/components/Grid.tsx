@@ -9,6 +9,8 @@ export const Row = (props: IProps) => {
       <style jsx>{`
         div {
           box-sizing: border-box;
+          margin-left: -15px;
+          margin-right: -15px;
         }
 
         div::after {
@@ -58,7 +60,7 @@ export const Col = (props: ICol) => {
         [class*="col-"] {
           width: 100%;
           float: left;
-          padding: 15px;
+          padding: 0 15px 15px 15px;
         }
         @media only screen and (min-width: 600px) {
           /* For tablets: */

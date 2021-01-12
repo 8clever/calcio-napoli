@@ -48,17 +48,19 @@ export const Footer = () => {
       </footer>
       <style jsx>{`
         footer {
+          padding-top: 15px;
           background: ${theme.color.primary};
         }
         footer ul {
+          margin: 0;
+          padding: 0;
           list-style: none;
         }
         footer ul li {
-          padding: 8px;
+          padding: 8px 0;
         }
         footer ul a {
           text-decoration: none;
-          padding: 8;
           color: ${theme.color.white};
         }
       `}</style>

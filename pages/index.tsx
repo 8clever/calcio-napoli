@@ -28,7 +28,6 @@ const IndexPage = (props: IProps) => {
       <div className="container">
         <Container>
           <h1>Fresh News</h1>
-          <hr></hr>
           <Row>
             {
               videoList.map(i => {
@@ -52,7 +51,6 @@ const IndexPage = (props: IProps) => {
             }
           </Row>
           <h2>Last news</h2>
-          <hr />
           <Row>
             {
               props.list.playlist.map(i => {
@@ -81,7 +79,7 @@ const IndexPage = (props: IProps) => {
           padding-top: 56%
         }
         .img-responsive:hover {
-          transform: scale(1.1);
+          transform: scale(1.03);
         }
         .img-responsive h3 {
           position: absolute;
