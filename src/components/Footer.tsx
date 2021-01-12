@@ -1,42 +1,41 @@
+import { menuItems } from "./Header"
+import { theme } from "./Theme";
 
-const items = [
-  {
-    href: "/",
-    label: "Home"
-  },
-  {
-    href: "/news",
-    label: "News"
-  }
-]
+const items = menuItems;
 
 export const Footer = () => {
   return (
     <>
-      <footer style={{
-        backgroundColor: "#779ecb",
-        padding: "50px 15px"
-      }}>
-        <ul style={{
-          display: "flex",
-          flexDirection: "column",
-        }}>
+      <footer>
+        <ul>
           {items.map(i => {
             return (
-              <a 
-                style={{
-                  textDecoration: "none",
-                  padding: 8
-                }}
-                key={i.href}
-                href={i.href}>
-                {i.label}
-              </a>
+              <li key={i.href}>
+                <a 
+                  href={i.href}>
+                  {i.label}
+                </a>
+              </li>
             )
           })}
         </ul>
       </footer>
       <style jsx>{`
+        footer {
+          background: ${theme.color.primary};
+          padding: 50px 15px;
+        }
+        footer ul {
+          list-style: none;
+        }
+        footer ul li {
+          padding: 8px;
+        }
+        footer ul a {
+          text-decoration: none;
+          padding: 8;
+          color: ${theme.color.white};
+        }
       `}</style>
     </>
   )

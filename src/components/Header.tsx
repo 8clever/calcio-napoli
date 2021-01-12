@@ -1,7 +1,12 @@
 import { AmpImg, AmpSidebar, Button } from "react-amphtml";
 import { Container } from "./Grid";
+import { theme } from "./Theme";
 
-const menuItems = [
+export const menuItems = [
+  {
+    href: "/",
+    label: "Home"
+  },
   {
     href: "/news",
     label: "News"
@@ -49,53 +54,52 @@ export const Header = () => {
         layout="nodisplay" 
         side="right">
         <ul className="sidebar-list">
-          <li>
-            {
-              menuItems.map(i => {
-                return (
+          {
+            menuItems.map(i => {
+              return (
+                <li
+                  key={i.href}>
                   <a
-                    key={i.href}
                     href={i.href}>
                     {i.label}
                   </a>
-                )
-              })
-            }
-          </li>
+                </li>
+              )
+            })
+          }
         </ul>
       </AmpSidebar>
       <style jsx>{`
         header {
-          box-shadow: 0px 0px 15px #9eb2f7;
+          background: ${theme.color.primary};
         }
-
         header .head {
           padding: 15px;
           display: flex;
           justify-content: space-between;
           align-items: center;
         }
-
         header .sidebar-list {
           min-width: 200px;
           padding: 40px;
           list-style: none;
-          display: flex;
-          flex-direction: column
         }
-
+        header .sidebar-list li {
+          padding: 8px;
+        }
         header .sidebar-list a {
+          color: ${theme.color.white};
           text-decoration: none;
-          padding: 8px
         }
-
         header .brand-text {
-          color: blue;
+          color: ${theme.color.white};
           padding: 0px 15px;
           font-weight: bold;
           font-size: 20px;
         }
-
+        header :global(#header-sidebar) {
+          background: ${theme.color.black};
+        }
         header :global(.hamburger) {
           border: none;
           background-color: transparent;
@@ -106,11 +110,10 @@ export const Header = () => {
           justify-content: space-around;
           align-items: center
         }
-
         header :global(.hamburger) div {
           width: 25px;
           height: 3px;
-          background-color: black;
+          background-color: ${theme.color.white};
         }
       `}</style>
     </header>

@@ -2,6 +2,7 @@ import React, { ReactNode } from 'react'
 import Head from 'next/head'
 import { Header } from './Header'
 import { Footer } from './Footer'
+import { theme } from './Theme'
 
 type Props = {
   children?: ReactNode
@@ -21,7 +22,9 @@ const Layout = ({ children, title = 'This is the default title' }: Props) => (
     <style jsx global>{`
       body {
         font-family: Roboto, sans-serif;
-        color: #444;
+        font-size: 14px;
+        background-color: ${theme.color.black};
+        color: ${theme.color.white};
       }
     `}</style>
   </>
