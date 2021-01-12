@@ -1,17 +1,7 @@
 import { AmpImg, AmpSidebar, Button } from "react-amphtml";
 import { Container } from "./Grid";
+import { media } from "./Media";
 import { theme } from "./Theme";
-
-export const menuItems = [
-  {
-    href: "/",
-    label: "Pagina iniziale"
-  },
-  {
-    href: "/rss",
-    label: "Calcio Napoli 24"
-  }
-]
 
 export const Header = () => {
   return (
@@ -53,21 +43,27 @@ export const Header = () => {
         id="header-sidebar" 
         layout="nodisplay" 
         side="right">
-        <ul className="sidebar-list">
-          {
-            menuItems.map(i => {
-              return (
-                <li
-                  key={i.href}>
-                  <a
-                    href={i.href}>
-                    {i.label}
-                  </a>
-                </li>
-              )
-            })
-          }
-        </ul>
+        {[ media.menu, media.media ].map((i,idx) => {
+          return (
+            <ul 
+              key={idx}
+              className="sidebar-list">
+              {
+                i.map(i => {
+                  return (
+                    <li
+                      key={i.href}>
+                      <a
+                        href={i.href}>
+                        {i.label}
+                      </a>
+                    </li>
+                  )
+                })
+              }
+            </ul>
+          )
+        })}
       </AmpSidebar>
       <style jsx>{`
         header {

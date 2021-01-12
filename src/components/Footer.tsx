@@ -1,23 +1,6 @@
 import { Col, Container, Row } from "./Grid";
-import { menuItems } from "./Header"
+import { media } from "./Media";
 import { theme } from "./Theme";
-
-const items = menuItems;
-
-const channels = [
-  {
-    href: "",
-    label: "YouTube"
-  },
-  {
-    href: "",
-    label: "FaceBook"
-  },
-  {
-    href: "",
-    label: "Twitter"
-  }
-]
 
 export const Footer = () => {
   return (
@@ -25,7 +8,7 @@ export const Footer = () => {
       <footer>
         <Container>
           <Row>
-            {[ items, channels, [] ].map((list, idx) => {
+            {[ media.menu, media.media ].map((list, idx) => {
               return (
                 <Col md={4} key={idx}>
                   <ul>
