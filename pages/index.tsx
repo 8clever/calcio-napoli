@@ -78,15 +78,21 @@ const IndexPage = (props: IProps) => {
         .img-responsive {
           transition: all 0.3s;
           position: relative;
-          padding-top: 56%
+          padding-top: 56%;
+          overflow: hidden;
+        }
+        .img-responsive :global(amp-img) {
+          margin-top: -10%;
+          margin-bottom: -10%;
         }
         .img-responsive:hover {
           transform: scale(1.03);
         }
         .img-responsive h3 {
+          margin: 0;
           position: absolute;
-          left: 10px;
-          top: 10px;
+          left: 5px;
+          bottom: 5px;
         }
       `}</style>
     </Layout>

@@ -34,12 +34,12 @@ export const Container = (props: IProps) => {
 
         @media only screen and (min-width: 600px) {
           div {
-            margin: 0 40px;
+            margin: 0 10%;
           }
         }
         @media only screen and (min-width: 768px) {
           div {
-            margin: 0 80px;
+            margin: 0 20%;
           }
         }
       `}</style>

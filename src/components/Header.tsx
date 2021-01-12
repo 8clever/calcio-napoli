@@ -101,9 +101,9 @@ export const Header = () => {
           background: ${theme.color.black};
         }
         header :global(.hamburger) {
+          padding: 0;
           border: none;
           background-color: transparent;
-          width: 40px;
           height: 26px;
           display: flex;
           flex-direction: column;
