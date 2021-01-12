@@ -24,10 +24,10 @@ const IndexPage = (props: IProps) => {
   const videoList = props.list.playlist.slice(0, 10);
 
   return (
-    <Layout title="Calcio Napoli | Home">
+    <Layout title="Calcio Napoli | Ultime notizie">
       <div className="container">
         <Container>
-          <h1>Fresh News</h1>
+          <h1>Ultime notizie</h1>
           <Row>
             {
               videoList.map(i => {
@@ -50,7 +50,7 @@ const IndexPage = (props: IProps) => {
               })
             }
           </Row>
-          <h2>Last news</h2>
+          <h2>Ultime novità</h2>
           <Row>
             {
               props.list.playlist.map(i => {
@@ -90,9 +90,11 @@ const IndexPage = (props: IProps) => {
         }
         .img-responsive h3 {
           margin: 0;
+          padding: 5px;
+          background: rgba(0,0,0,0.5);
           position: absolute;
-          left: 5px;
-          bottom: 5px;
+          left: 0;
+          bottom: 0;
         }
       `}</style>
     </Layout>

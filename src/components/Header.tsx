@@ -5,11 +5,11 @@ import { theme } from "./Theme";
 export const menuItems = [
   {
     href: "/",
-    label: "Home"
+    label: "Pagina iniziale"
   },
   {
-    href: "/news",
-    label: "News"
+    href: "/",
+    label: "Notizia"
   }
 ]
 
@@ -104,7 +104,7 @@ export const Header = () => {
           padding: 0;
           border: none;
           background-color: transparent;
-          height: 26px;
+          height: 27px;
           display: flex;
           flex-direction: column;
           justify-content: space-around;
