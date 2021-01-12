@@ -15,16 +15,7 @@ interface IQuery extends ParsedUrlQuery {
 }
 
 export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (props) => {
-  const valid = await ytdl.validateID(props.params?.id || "");
-  if (!valid) {
-    return {
-      redirect: {
-        statusCode: 301,
-        destination: "/"
-      }
-    }
-  }
-  const info = await ytdl.getInfo(props.params!.id);
+  const info = await ytdl.getBasicInfo(props.params!.id);
   delete info.videoDetails.author.subscriber_count
   return {
     props: {
