@@ -1,29 +1,54 @@
+import { Col, Container, Row } from "./Grid";
 import { menuItems } from "./Header"
 import { theme } from "./Theme";
 
 const items = menuItems;
 
+const channels = [
+  {
+    href: "",
+    label: "YouTube"
+  },
+  {
+    href: "",
+    label: "FaceBook"
+  },
+  {
+    href: "",
+    label: "Twitter"
+  }
+]
+
 export const Footer = () => {
   return (
     <>
       <footer>
-        <ul>
-          {items.map(i => {
-            return (
-              <li key={i.href}>
-                <a 
-                  href={i.href}>
-                  {i.label}
-                </a>
-              </li>
-            )
-          })}
-        </ul>
+        <Container>
+          <Row>
+            {[ items, channels, [] ].map((list, idx) => {
+              return (
+                <Col md={4} key={idx}>
+                  <ul>
+                    {list.map(i => {
+                      return (
+                        <li key={i.href}>
+                          <a 
+                            href={i.href}>
+                            {i.label}
+                          </a>
+                        </li>
+                      )
+                    })}
+                  </ul>
+                </Col>
+              )
+            })}
+          </Row>
+        </Container>
       </footer>
       <style jsx>{`
         footer {
           background: ${theme.color.primary};
-          padding: 50px 15px;
         }
         footer ul {
           list-style: none;
