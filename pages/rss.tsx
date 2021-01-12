@@ -57,7 +57,11 @@ export const RSS = (props: IProps) => {
           margin-bottom: 15px;
         }
         .feed h3 {
+          transition: all 0.3s;
           margin-bottom: 5px;
+        }
+        .feed h3:hover {
+          color: ${theme.color.primary}
         }
         .feed a {
           color: ${theme.color.white};
