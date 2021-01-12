@@ -1,4 +1,5 @@
 import { AmpImg, AmpSidebar, Button } from "react-amphtml";
+import { Container } from "./Grid";
 
 const menuItems = [
   {
@@ -10,34 +11,38 @@ const menuItems = [
 export const Header = () => {
   return (
     <header>
-      <div style={{
-        display: "flex",
-        alignItems: "center"
-      }}>
-        <AmpImg
-          style={{
-            minWidth: 40
-          }}
-          width="40"
-          height="40"
-          layout="fixed"
-          specName="default"
-          src="/images/favicon.png"
-        />
-        <span className="brand-text">
-          Calcio Napoli
-        </span>
-      </div>
-      <div>
-        <Button 
-          className="hamburger"
-          specName="default" 
-          on="tap:header-sidebar.toggle">
-          <div />
-          <div />
-          <div />
-        </Button>
-      </div>
+      <Container>
+        <div className="head">
+          <div style={{
+            display: "flex",
+            alignItems: "center"
+          }}>
+            <AmpImg
+              style={{
+                minWidth: 40
+              }}
+              width="40"
+              height="40"
+              layout="fixed"
+              specName="default"
+              src="/images/favicon.png"
+            />
+            <span className="brand-text">
+              Calcio Napoli
+            </span>
+          </div>
+          <div>
+            <Button 
+              className="hamburger"
+              specName="default" 
+              on="tap:header-sidebar.toggle">
+              <div />
+              <div />
+              <div />
+            </Button>
+          </div>
+        </div>
+      </Container>
       <AmpSidebar 
         specName="default"
         id="header-sidebar" 
@@ -49,6 +54,7 @@ export const Header = () => {
               menuItems.map(i => {
                 return (
                   <a
+                    key={i.href}
                     href={i.href}>
                     {i.label}
                   </a>
@@ -60,11 +66,14 @@ export const Header = () => {
       </AmpSidebar>
       <style jsx>{`
         header {
-          padding: 20px;
+          box-shadow: 0px 0px 15px #9eb2f7;
+        }
+
+        header .head {
+          padding: 15px;
           display: flex;
           justify-content: space-between;
           align-items: center;
-          box-shadow: 0px 0px 15px #9eb2f7;
         }
 
         header .sidebar-list {
