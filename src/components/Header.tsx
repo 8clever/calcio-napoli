@@ -8,10 +8,13 @@ export const Header = () => {
     <header>
       <Container>
         <div className="head">
-          <div style={{
-            display: "flex",
-            alignItems: "center"
-          }}>
+          <a 
+            style={{ 
+              textDecoration: "none",
+              display: 'flex', 
+              alignItems: 'center' 
+            }}
+            href="/">
             <AmpImg
               style={{
                 minWidth: 40
@@ -25,7 +28,7 @@ export const Header = () => {
             <span className="brand-text">
               Calcio Napoli
             </span>
-          </div>
+          </a>
           <div>
             <Button 
               className="hamburger"
