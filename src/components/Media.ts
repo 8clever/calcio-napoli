@@ -20,7 +20,7 @@ export const media = {
       label: "Classifica Serie a tim"
     },
     {
-      href: "/ssc",
+      href: "/sscnapoli",
       label: "#SSCNapoli"
     }
   ] as Media[],

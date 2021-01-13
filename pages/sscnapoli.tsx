@@ -15,8 +15,8 @@ export const News = () => {
             width: 300,
             height: 400
           }}
-          data-timeline-source-type="url"
-          data-timeline-url="https://twitter.com/GoalsNapoli"
+          data-timeline-source-type="list"
+          data-timeline-id="1349427952413503492"
         />
       </Container>
     </Layout>
