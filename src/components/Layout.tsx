@@ -18,7 +18,6 @@ const Layout = ({ children, title = 'This is the default title', description = "
       <meta charSet="utf-8" />
       <meta name="description" content={description} />
       <link rel="shortcut icon" type="image/png" href="/images/favicon.png" />
-      <script data-ad-client="ca-pub-7579927697787840" async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
     </Head>
     <AmpAnalytics
       type="gtag" 
