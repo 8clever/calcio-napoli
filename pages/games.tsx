@@ -16,7 +16,7 @@ export const getServerSideProps: GetServerSideProps<IProps> = async () => {
     .replace(/^.+(<table)/gm, "$1")
     .replace(/(<\/table>).+/, "$1")
     .replace(/!important/gmi, "")
-    .replace(/img/gmi, "amp-img height='40'");
+    .replace(/img/gmi, "amp-img layout='responsive' height='20'");
   return {
     props: {
       html
@@ -47,6 +47,8 @@ export const Games = (props: IProps) => {
         }
 
         :global(.leaguetable) {
+          width: 100%;
+          border-spacing:0;
           margin: 0;
           padding: 0;
         }
@@ -99,15 +101,6 @@ export const Games = (props: IProps) => {
         }
 
         /**/
-
-        :global(.leaguetable) {
-          width: 300px;
-          float: left;
-            border-spacing:0;
-          margin: 0 15px 20px 0;
-          
-        }
-
         :global(.leaguetable) tr td {
           padding: 2px 0;
           
