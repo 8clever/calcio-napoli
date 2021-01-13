@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { Header } from './Header'
 import { Footer } from './Footer'
 import { theme } from './Theme'
-import { AmpAnalytics } from 'react-amphtml'
+import { AmpAnalytics, AmpAutoAds } from 'react-amphtml'
 
 type Props = {
   children?: ReactNode
@@ -25,6 +25,10 @@ const Layout = ({ children, title = 'This is the default title', description = "
       config={"/analytics.json"}
       data-credentials="include">
     </AmpAnalytics>
+    <AmpAutoAds 
+      type="adsense"
+      data-ad-client="ca-pub-7579927697787840"
+    />
     <Header />
     {children}
     <Footer />
