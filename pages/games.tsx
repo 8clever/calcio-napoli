@@ -27,10 +27,10 @@ export const getServerSideProps: GetServerSideProps<IProps> = async () => {
 export const Games = (props: IProps) => {
   return (
     <Layout 
-      description="Classifica Serie a tim"
-      title="Calcio Napoli | Classifica Serie a tim">
+      description="Classifica Serie A tim"
+      title="Calcio Napoli | Classifica Serie A tim">
       <Container page>
-        <h1>Classifica Serie a tim</h1>
+        <h1>Classifica Serie A tim</h1>
         <div className="table">
           <div dangerouslySetInnerHTML={{
             __html: props.html
