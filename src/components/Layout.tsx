@@ -3,7 +3,7 @@ import Head from 'next/head'
 import { Header } from './Header'
 import { Footer } from './Footer'
 import { theme } from './Theme'
-import { AmpAnalytics, AmpAutoAds, AmpScript } from 'react-amphtml'
+import { AmpAnalytics, AmpAutoAds } from 'react-amphtml'
 
 type Props = {
   children?: ReactNode
@@ -19,10 +19,6 @@ const Layout = ({ children, title = 'This is the default title', description = "
       <meta name="description" content={description} />
       <link rel="shortcut icon" type="image/png" href="/images/favicon.png" />
     </Head>
-    <AmpScript 
-      data-ad-client="ca-pub-7579927697787840" 
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" 
-    />
     <AmpAnalytics
       type="gtag" 
       id={"gtag"}
