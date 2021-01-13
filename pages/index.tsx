@@ -12,7 +12,6 @@ interface IProps {
 export const getServerSideProps: GetServerSideProps<IProps> = async () => {
   const listId = "PL2HP8OJyZJpNe-5yJdL9o5n-utvD_H2pP";
   const list = await scrapePlaylist(listId);
-
   return {
     props: {
       list
