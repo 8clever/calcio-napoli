@@ -14,6 +14,10 @@ export const media = {
     {
       href: "/rss",
       label: "Calcio Napoli 24"
+    },
+    {
+      href: "/games",
+      label: "Classifica Serie a tim"
     }
   ] as Media[],
   media: [

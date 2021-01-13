@@ -24,55 +24,50 @@ const IndexPage = (props: IProps) => {
 
   return (
     <Layout title="Calcio Napoli | Ultime notizie">
-      <div className="container">
-        <Container>
-          <h1>Ultime notizie</h1>
-          <Row>
-            {
-              videoList.map(i => {
-                return (
-                  <Col 
-                    key={i.id}
-                    md={6}>
-                    <a href={`/news/${i.id}`}>
-                      <div className="img-responsive">
-                        <AmpImg 
-                          specName="default"
-                          src={`https://img.youtube.com/vi/${i.id}/hqdefault.jpg`}
-                          layout="fill"
-                        />
-                        <h3>{i.name}</h3>
-                      </div>
-                    </a>
-                  </Col>
-                )
-              })
-            }
-          </Row>
-          <h2>Ultime novità</h2>
-          <Row>
-            {
-              props.list.playlist.map(i => {
-                return (
-                  <Col 
-                    key={i.id}
-                    md={6}>
-                    <a href={`/news/${i.id}`}>{i.name}</a>
-                    <small>{i.title}</small>
-                  </Col>
-                )
-              })
-            }
-          </Row>
-        </Container>
-      </div>
+      <Container page>
+        <h1>Ultime notizie</h1>
+        <Row>
+          {
+            videoList.map(i => {
+              return (
+                <Col 
+                  key={i.id}
+                  md={6}>
+                  <a href={`/news/${i.id}`}>
+                    <div className="img-responsive">
+                      <AmpImg 
+                        specName="default"
+                        src={`https://img.youtube.com/vi/${i.id}/hqdefault.jpg`}
+                        layout="fill"
+                      />
+                      <h3>{i.name}</h3>
+                    </div>
+                  </a>
+                </Col>
+              )
+            })
+          }
+        </Row>
+        <h2>Ultime novità</h2>
+        <Row>
+          {
+            props.list.playlist.map(i => {
+              return (
+                <Col 
+                  key={i.id}
+                  md={6}>
+                  <a href={`/news/${i.id}`}>{i.name}</a>
+                  <small>{i.title}</small>
+                </Col>
+              )
+            })
+          }
+        </Row>
+      </Container>
       <style jsx>{`
         a {
           color: ${theme.color.white};
           text-decoration: none;
-        }
-        .container {
-          min-height: 100vh;
         }
         .img-responsive {
           transition: all 0.3s;

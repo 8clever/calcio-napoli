@@ -23,13 +23,22 @@ export const Row = (props: IProps) => {
   )
 }
 
-export const Container = (props: IProps) => {
+interface IContainer extends IProps {
+  page?: boolean;
+}
+
+export const Container = (props: IContainer) => {
   return (
     <div>
       {props.children}
       <style jsx>{`
         div {
           margin: 0 10px;
+          ${
+            props.page ?
+            "min-height: 100vh;" :
+            ""
+          }
         }
 
         @media only screen and (min-width: 600px) {
