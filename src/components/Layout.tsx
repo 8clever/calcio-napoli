@@ -3,6 +3,7 @@ import Head from 'next/head'
 import { Header } from './Header'
 import { Footer } from './Footer'
 import { theme } from './Theme'
+import { AmpAnalytics } from 'react-amphtml'
 
 type Props = {
   children?: ReactNode
@@ -18,6 +19,12 @@ const Layout = ({ children, title = 'This is the default title', description = "
       <meta name="description" content={description} />
       <link rel="shortcut icon" type="image/png" href="/images/favicon.png" />
     </Head>
+    <AmpAnalytics
+      type="gtag" 
+      id={"gtag"}
+      config={"/analytics.json"}
+      data-credentials="include">
+    </AmpAnalytics>
     <Header />
     {children}
     <Footer />
