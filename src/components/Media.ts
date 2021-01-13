@@ -5,6 +5,7 @@ interface Media {
 }
 
 export const media = {
+  domain: "https://www.calcio-napoli.com",
   menu: [
     {
       href: "/",
