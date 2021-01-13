@@ -18,6 +18,10 @@ export const media = {
     {
       href: "/games",
       label: "Classifica Serie a tim"
+    },
+    {
+      href: "/ssc",
+      label: "#SSCNapoli"
     }
   ] as Media[],
   media: [
