@@ -9,12 +9,16 @@ interface IProps {
   list: Playlist
 }
 
-export const getServerSideProps: GetServerSideProps<IProps> = async () => {
+export const getNewsList = async () => {
   const listId = "PL2HP8OJyZJpNe-5yJdL9o5n-utvD_H2pP";
   const list = await scrapePlaylist(listId);
+  return list;
+}
+
+export const getServerSideProps: GetServerSideProps<IProps> = async () => {
   return {
     props: {
-      list
+      list: await getNewsList()
     }
   }
 }
