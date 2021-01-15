@@ -13,17 +13,30 @@ type Props = {
   description?: string;
 }
 
-const Layout = ({ children, title = 'Calcio Napoli', description = "Calcio Napoli | News" }: Props) => {
+export const LayoutHead = (props: {
+  title: string;
+  description: string;
+}) => {
+  const { title, description } = props;
   const router = useRouter();
   return (
+    <Head>
+      <title>{title}</title>
+      <meta charSet="utf-8" />
+      <meta name="description" content={description} />
+      <link rel="shortcut icon" type="image/png" href="/images/favicon.png" />
+      <link rel="canonical" href={media.domain + router.asPath} />
+    </Head>
+  )
+}
+
+const Layout = ({ children, title = 'Calcio Napoli', description = "Calcio Napoli | News" }: Props) => {
+  return (
     <>
-      <Head>
-        <title>{title}</title>
-        <meta charSet="utf-8" />
-        <meta name="description" content={description} />
-        <link rel="shortcut icon" type="image/png" href="/images/favicon.png" />
-        <link rel="canonical" href={media.domain + router.asPath} />
-      </Head>
+      <LayoutHead 
+        title={title}
+        description={description}
+      />
       <AmpAnalytics
         type="gtag" 
         id={"gtag"}

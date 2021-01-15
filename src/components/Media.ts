@@ -36,6 +36,10 @@ export const media = {
     {
       href: "https://twitter.com/GoalsNapoli",
       label: "Twitter"
+    },
+    {
+      href: "/story",
+      label: "Stories"
     }
   ] as Media[]
 }

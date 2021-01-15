@@ -5,7 +5,7 @@ import { Playlist, scrapePlaylist } from "youtube-playlist-scraper";
 import { AmpImg } from 'react-amphtml';
 import { theme } from '../src/components/Theme';
 
-interface IProps {
+export interface IProps {
   list: Playlist
 }
 

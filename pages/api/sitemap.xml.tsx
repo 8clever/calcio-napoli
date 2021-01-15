@@ -32,6 +32,7 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
   items.push(item("/games", "weekly"));
   items.push(item("/rss", "hourly"));
   items.push(item("/sscnapoli", "hourly"));
+  items.push(item("/story", "hourly"));
 
   const list = await getNewsList();
 
