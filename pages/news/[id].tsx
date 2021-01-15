@@ -50,7 +50,13 @@ export const News = (props: IProps) => {
             } as any}
             data-videoid={props.info.videoId}
           />
-          <p>{props.info.description}</p>
+          <p 
+            style={{
+              fontSize: 20
+            }}
+            dangerouslySetInnerHTML={{
+            __html: props.info.description?.replace(/\n/gmi, "<br/>") || ""
+          }}></p>
           <p>
             <small>{props.info.keywords?.join(", ")}</small>
           </p>
