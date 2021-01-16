@@ -33,40 +33,47 @@ const Story = (props: IProps) => {
         publisher-logo-src={img}
         poster-portrait-src={img}
         poster-landscape-src={img}
+        entity-logo-src={img}
         specName="default">
         {list.map(i => {
           return (
             <AmpStoryPage 
               id={i.id}
               key={i.id}>
-              <AmpStoryGridLayer template="vertical">
+              <AmpStoryGridLayer template="fill">
                 <AmpImg
-                  animate-in="fly-in-top"
-                  style={{
-                    marginTop: "15%"
-                  }}
+                  animate-in="fade-in"
                   specName="default"
-                  src={`https://img.youtube.com/vi/${i.id}/hqdefault.jpg`}
-                  width={600}
-                  height={450}
-                  layout={"responsive"}
+                  srcset={`https://img.youtube.com/vi/${i.id}/maxresdefault.jpg`}
+                  width={853}
+                  height={640}
+                  layout={"fill"}
                 >
                 </AmpImg>
               </AmpStoryGridLayer>
-              <AmpStoryGridLayer template="vertical">
+              <AmpStoryGridLayer 
+                template="vertical">
                 <div className="container">
-                  <div className="ico" animate-in="fade-in">
+                  <div 
+                    className="ico" 
+                    animate-in-delay="0.3s"
+                    animate-in-duration="2s"
+                    animate-in="fade-in">
                     <AmpImg 
                       src={img}
                       specName="default" 
-                      height={60}
-                      width={60}
+                      height={30}
+                      width={30}
                     />
                     <div className="brand">
                       Calcio Napoli
                     </div>
                   </div>
-                  <h1 animate-in="fly-in-bottom">{i.name}</h1>
+                  <a href={media.domain + "/news/" + i.id}>
+                    <h1 animate-in="fly-in-bottom">
+                      {i.name}
+                    </h1>
+                  </a>
                 </div>
               </AmpStoryGridLayer>
             </AmpStoryPage>
@@ -83,7 +90,6 @@ const Story = (props: IProps) => {
         }
         .ico {
           display: flex;
-          margin-bottom: 15px;
         }
         .ico .brand {
           align-self: flex-end;
@@ -91,12 +97,24 @@ const Story = (props: IProps) => {
           font-size: 18px;
         }
         .container {
+          display: flex;
           position: absolute;
-          padding: 20px;
+          flex-direction: column;
+          justify-content: space-between;
+          left:0;
+          top:0;
+          right:0;
           bottom: 0;
+          padding: 40px 20px;
           color: ${theme.color.white};
           font-family: Roboto, sans-serif;
           font-size: 25px;
+          background: rgba(0,0,0,0.4);
+        }
+        .container a {
+          font-size: 30px;
+          text-decoration: none;
+          color: ${theme.color.white};
         }
       `}</style>
     </>
