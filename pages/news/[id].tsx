@@ -47,11 +47,7 @@ export const News = (props: IProps) => {
     ],
     "datePublished": props.info.publishDate,
     "dateModified": props.info.publishDate,
-    "author": {
-      "@type": "Person",
-      "name": props.info.author
-    },
-      "publisher": {
+    "publisher": {
       "@type": "Organization",
       "name": "VIP Software",
       "logo": {
