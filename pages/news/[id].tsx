@@ -5,6 +5,9 @@ import ytdl from "ytdl-core";
 import Layout from "../../src/components/Layout";
 import _ from 'lodash';
 import { Container } from "../../src/components/Grid";
+import { WithContext, Thing } from "schema-dts";
+import Head from "next/head";
+import { media } from "../../src/components/Media"
 
 interface IProps {
   info: ytdl.videoInfo["videoDetails"]
@@ -35,10 +38,37 @@ export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (pro
 }
 
 export const News = (props: IProps) => {
+  const thing: WithContext<Thing> = {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    "headline": props.info.title,
+    "image": [
+      `https://img.youtube.com/vi/${props.info.videoId}/hqdefault.jpg`
+    ],
+    "datePublished": props.info.publishDate,
+    "dateModified": props.info.publishDate,
+    "author": {
+      "@type": "Person",
+      "name": props.info.author
+    },
+      "publisher": {
+      "@type": "Organization",
+      "name": "VIP Software",
+      "logo": {
+        "@type": "ImageObject",
+        "url": media.domain + "/images/favicon.png"
+      }
+    }
+  }
   return (
     <Layout 
       description={props.info.description || ""}
       title={props.info.title}>
+      <Head>
+        <script type="application/ld+json" dangerouslySetInnerHTML={{
+          __html: JSON.stringify(thing)
+        }} />
+      </Head>
       <div style={{ minHeight: "100vh" }}>
         <Container>
           <h1>{props.info.title}</h1>
