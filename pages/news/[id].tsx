@@ -41,12 +41,20 @@ export const News = (props: IProps) => {
     "@context": "https://schema.org",
     "@type": "NewsArticle",
     "headline": props.info.title,
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": media.domain + "/news/" + props.info.videoId
+    },
     "image": [
       `https://img.youtube.com/vi/${props.info.videoId}/hqdefault.jpg`
     ],
     "datePublished": props.info.publishDate,
     "dateModified": props.info.publishDate,
     "publisher": {
+      "@type": "Organization",
+      "name": "VIP Software"
+    },
+    "author": {
       "@type": "Person",
       "name": props.info.author.name
     }
