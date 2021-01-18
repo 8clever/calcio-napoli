@@ -7,6 +7,7 @@ import _ from 'lodash';
 import { Container } from "../../src/components/Grid";
 import { WithContext, Thing } from "schema-dts";
 import Head from "next/head";
+import { media } from "../../src/components/Media"
 
 interface IProps {
   info: ytdl.videoInfo["videoDetails"]
