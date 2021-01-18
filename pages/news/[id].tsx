@@ -7,7 +7,6 @@ import _ from 'lodash';
 import { Container } from "../../src/components/Grid";
 import { WithContext, Thing } from "schema-dts";
 import Head from "next/head";
-import { media } from "../../src/components/Media"
 
 interface IProps {
   info: ytdl.videoInfo["videoDetails"]
@@ -48,12 +47,8 @@ export const News = (props: IProps) => {
     "datePublished": props.info.publishDate,
     "dateModified": props.info.publishDate,
     "publisher": {
-      "@type": "Organization",
-      "name": "VIP Software",
-      "logo": {
-        "@type": "ImageObject",
-        "url": media.domain + "/images/favicon.png"
-      }
+      "@type": "Person",
+      "name": props.info.author.name
     }
   }
   return (
