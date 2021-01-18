@@ -53,7 +53,11 @@ export const News = (props: IProps) => {
     "dateModified": props.info.publishDate,
     "publisher": {
       "@type": "Organization",
-      "name": "VIP Software"
+      "name": "Calcio Napoli",
+      "logo": {
+        "@type": "ImageObject",
+        "url": media.domain + "/images/favicon.png"
+      }
     },
     "author": {
       "@type": "Person",
