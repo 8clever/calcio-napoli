@@ -1,0 +1,29 @@
+{
+  "vars": {
+    "gtag_id": "UA-55674089-5",
+    "config": {
+     "UA-55674089-5": { "groups": "default" }
+    }
+  },
+  "triggers": {
+    "storyProgress": {
+      "on": "story-page-visible",
+      "vars": {
+        "event_name": "custom",
+        "event_action": "story_progress",
+        "event_category": "${title}",
+        "event_label": "${storyPageId}",
+        "send_to": ["UA-55674089-5"]
+      }
+    },
+    "storyEnd": {
+      "on": "story-last-page-visible",
+      "vars": {
+        "event_name": "custom",
+        "event_action": "story_complete",
+        "event_category": "${title}",
+        "send_to": ["UA-55674089-5"]
+      }
+    }
+  }
+}

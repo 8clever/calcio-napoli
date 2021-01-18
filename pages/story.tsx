@@ -1,5 +1,5 @@
 import { GetServerSideProps } from "next";
-import { AmpImg, AmpStory, AmpStoryGridLayer, AmpStoryPage } from "react-amphtml";
+import { AmpAnalytics, AmpImg, AmpStory, AmpStoryGridLayer, AmpStoryPage } from "react-amphtml";
 import { media } from "../src/components/Media";
 import { theme } from "../src/components/Theme";
 import { LayoutHead } from "../src/components/Layout"
@@ -35,6 +35,12 @@ const Story = (props: IProps) => {
         poster-landscape-src={img}
         entity-logo-src={img}
         specName="default">
+        <AmpAnalytics
+          type="gtag" 
+          id={"gtag"}
+          config={"/analytics_story.json"}
+          data-credentials="include">
+        </AmpAnalytics>
         {list.map(i => {
           return (
             <AmpStoryPage 
@@ -44,7 +50,7 @@ const Story = (props: IProps) => {
                 <AmpImg
                   animate-in="fade-in"
                   specName="default"
-                  srcset={`https://img.youtube.com/vi/${i.id}/maxresdefault.jpg`}
+                  src={`https://img.youtube.com/vi/${i.id}/maxresdefault.jpg`}
                   width={853}
                   height={640}
                   layout={"fill"}
