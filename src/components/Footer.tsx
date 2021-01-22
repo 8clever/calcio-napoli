@@ -8,7 +8,7 @@ export const Footer = () => {
       <footer>
         <Container>
           <Row>
-            {[ media.menu, media.media ].map((list, idx) => {
+            {[ media.menu, media.media, media.partners ].map((list, idx) => {
               return (
                 <Col md={4} key={idx}>
                   <ul>

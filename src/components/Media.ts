@@ -41,5 +41,11 @@ export const media = {
       href: "/story",
       label: "Stories"
     }
+  ] as Media[],
+  partners: [
+    {
+      href: "https://vip-software.herokuapp.com",
+      label: "VIP Software"
+    }
   ] as Media[]
 }
