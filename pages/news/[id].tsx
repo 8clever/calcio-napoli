@@ -67,7 +67,7 @@ export const News = (props: IProps) => {
   return (
     <Layout 
       description={props.info.description || ""}
-      title={props.info.title}>
+      title={"Calcio Napoli | " + props.info.title}>
       <Head>
         <script type="application/ld+json" dangerouslySetInnerHTML={{
           __html: JSON.stringify(thing)
