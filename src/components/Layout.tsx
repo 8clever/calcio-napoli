@@ -48,7 +48,9 @@ const Layout = ({ children, title = 'Calcio Napoli', description = "Calcio Napol
         data-ad-client="ca-pub-7579927697787840"
       />
       <Header />
-      {children}
+      <div>
+        {children}
+      </div>
       <Footer />
       <style jsx global>{`
         body {
