@@ -33,6 +33,10 @@ export const LayoutHead = (props: {
 const Layout = ({ children, title = 'Calcio Napoli', description = "Calcio Napoli | News" }: Props) => {
   return (
     <>
+      <AmpAutoAds 
+        type="adsense"
+        data-ad-client="ca-pub-7579927697787840"
+      />
       <LayoutHead 
         title={title}
         description={description}
@@ -43,10 +47,6 @@ const Layout = ({ children, title = 'Calcio Napoli', description = "Calcio Napol
         config={"/analytics.json"}
         data-credentials="include">
       </AmpAnalytics>
-      <AmpAutoAds 
-        type="adsense"
-        data-ad-client="ca-pub-7579927697787840"
-      />
       <Header />
       <div>
         {children}

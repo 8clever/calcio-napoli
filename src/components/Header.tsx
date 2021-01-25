@@ -5,7 +5,7 @@ import { theme } from "./Theme";
 
 export const Header = () => {
   return (
-    <header>
+    <div className="header">
       <Container>
         <div className="head">
           <a 
@@ -69,37 +69,37 @@ export const Header = () => {
         })}
       </AmpSidebar>
       <style jsx>{`
-        header {
+        .header {
           background: ${theme.color.primary};
         }
-        header .head {
+        .header .head {
           padding: 5px 0;
           display: flex;
           justify-content: space-between;
           align-items: center;
         }
-        header .sidebar-list {
+        .header .sidebar-list {
           min-width: 200px;
           padding: 40px;
           list-style: none;
         }
-        header .sidebar-list li {
+        .header .sidebar-list li {
           padding: 8px;
         }
-        header .sidebar-list a {
+        .header .sidebar-list a {
           color: ${theme.color.white};
           text-decoration: none;
         }
-        header .brand-text {
+        .header .brand-text {
           color: ${theme.color.white};
           padding: 0px 15px;
           font-weight: bold;
           font-size: 20px;
         }
-        header :global(#header-sidebar) {
+        .header :global(#header-sidebar) {
           background: ${theme.color.black};
         }
-        header :global(.hamburger) {
+        .header :global(.hamburger) {
           padding: 0;
           border: none;
           background-color: transparent;
@@ -109,12 +109,12 @@ export const Header = () => {
           justify-content: space-around;
           align-items: center
         }
-        header :global(.hamburger) div {
+        .header :global(.hamburger) div {
           width: 25px;
           height: 3px;
           background-color: ${theme.color.white};
         }
       `}</style>
-    </header>
+    </div>
   )
 }
