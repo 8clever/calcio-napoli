@@ -5,7 +5,7 @@ import { theme } from "./Theme";
 
 export const Header = () => {
   return (
-    <div className="header">
+    <header className="header">
       <Container>
         <div className="head">
           <a 
@@ -115,6 +115,6 @@ export const Header = () => {
           background-color: ${theme.color.white};
         }
       `}</style>
-    </div>
+    </header>
   )
 }
