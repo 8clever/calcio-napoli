@@ -6,8 +6,7 @@ import { theme } from './Theme'
 import { AmpAnalytics } from 'react-amphtml'
 import { media } from './Media'
 import { useRouter } from "next/router";
-import { AdResponsive, AdSmallBanner } from './AdSlot'
-import { Container } from './Grid'
+import { AdAuto } from './AdSlot'
 
 type Props = {
   children?: ReactNode
@@ -35,6 +34,7 @@ export const LayoutHead = (props: {
 const Layout = ({ children, title = 'Calcio Napoli', description = "Calcio Napoli | News" }: Props) => {
   return (
     <>
+      <AdAuto />
       <LayoutHead 
         title={title}
         description={description}
@@ -47,13 +47,7 @@ const Layout = ({ children, title = 'Calcio Napoli', description = "Calcio Napol
       </AmpAnalytics>
       <Header />
       <div>
-        <Container>
-          <AdSmallBanner />
-        </Container>
         {children}
-        <Container>
-          <AdResponsive />
-        </Container>
       </div>
       <Footer />
       <style jsx global>{`

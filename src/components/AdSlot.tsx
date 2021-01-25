@@ -1,4 +1,4 @@
-import { AmpAd } from "react-amphtml"
+import { AmpAd, AmpAutoAds } from "react-amphtml"
 
 const caPub = "ca-pub-7579927697787840"
 
@@ -26,6 +26,15 @@ export const AdSmallBanner = () => {
       width={"320"}
       height={"60"}
       slot="8947055145"
+    />
+  )
+}
+
+export const AdAuto = () => {
+  return (
+    <AmpAutoAds 
+      type="adsense"
+      data-ad-client={caPub}
     />
   )
 }
