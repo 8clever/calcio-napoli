@@ -4,6 +4,7 @@ import Layout from '../src/components/Layout'
 import { Playlist, scrapePlaylist } from "youtube-playlist-scraper";
 import { AmpImg } from 'react-amphtml';
 import { theme } from '../src/components/Theme';
+import { AdResponsive } from '../src/components/AdSlot';
 
 export interface IProps {
   list: Playlist
@@ -52,6 +53,7 @@ const IndexPage = (props: IProps) => {
             })
           }
         </Row>
+        <AdResponsive />
         <h2>Ultime novità</h2>
         <Row>
           {

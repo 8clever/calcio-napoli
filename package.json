@@ -17,7 +17,7 @@
     "rss-parser": "^3.10.0",
     "schema-dts": "^0.8.2",
     "youtube-playlist-scraper": "^2.1.1",
-    "ytdl-core": "^4.4.4"
+    "ytdl-core": "^4.4.5"
   },
   "devDependencies": {
     "@types/lodash": "^4.14.167",

@@ -3,9 +3,11 @@ import Head from 'next/head'
 import { Header } from './Header'
 import { Footer } from './Footer'
 import { theme } from './Theme'
-import { AmpAnalytics, AmpAutoAds } from 'react-amphtml'
+import { AmpAnalytics } from 'react-amphtml'
 import { media } from './Media'
 import { useRouter } from "next/router";
+import { AdResponsive, AdSmallBanner } from './AdSlot'
+import { Container } from './Grid'
 
 type Props = {
   children?: ReactNode
@@ -33,10 +35,6 @@ export const LayoutHead = (props: {
 const Layout = ({ children, title = 'Calcio Napoli', description = "Calcio Napoli | News" }: Props) => {
   return (
     <>
-      <AmpAutoAds 
-        type="adsense"
-        data-ad-client="ca-pub-7579927697787840"
-      />
       <LayoutHead 
         title={title}
         description={description}
@@ -49,7 +47,13 @@ const Layout = ({ children, title = 'Calcio Napoli', description = "Calcio Napol
       </AmpAnalytics>
       <Header />
       <div>
+        <Container>
+          <AdSmallBanner />
+        </Container>
         {children}
+        <Container>
+          <AdResponsive />
+        </Container>
       </div>
       <Footer />
       <style jsx global>{`
