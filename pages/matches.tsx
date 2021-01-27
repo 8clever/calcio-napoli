@@ -1,37 +1,77 @@
+import { GetServerSideProps } from "next"
 import { AmpIframe } from "react-amphtml"
-import { Container } from "../src/components/Grid"
+import { Col, Container, Row } from "../src/components/Grid"
 import Layout from "../src/components/Layout"
 import { theme } from "../src/components/Theme"
+import matchesParser, { Match } from "livesoccertv-parser";
 
-const title = "Calcio Napoli - Classifica Serie A tim. Ultima partita Napoli. Prossima partita Napoli"
+const title = "Calcio Napoli - Classifica Serie A tim. Ultima partite Napoli. Prossima partite Napoli"
 
-export const Matches = () => {
+interface IProps {
+  matches: Match[]
+}
+
+export const getServerSideProps: GetServerSideProps<IProps> = async () => {
+
+  const matches = await matchesParser("italy", "napoli", {
+    timezone: "Europe/Rome"
+  });
+
+  return {
+    props: {
+      matches
+    }
+  }
+}
+
+export const Matches = (props: IProps) => {
   return (
     <Layout title={title} description={title}>
       <Container>
-        <h1>{title}</h1>
+        <h1>Ultima partite Napoli. Prossima partite Napoli</h1>
       </Container>
       <Container>
-        <div style={{
-          height: "75vh",
-          display: "flex",
-          backgroundImage: "url(/images/matches_bg.jpg)",
-          backgroundRepeat: "no-repeat",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          marginBottom: 20,
-        }}>
-          <h2 style={{
-            margin: "auto",
-            padding: 10,
-            background: "rgba(0,0,0,0.4)",
-            color: theme.color.white
-          }}>
-            Puoi controllare le tabelle qui sotto
-          </h2>
-        </div>
+        <Row>
+          {
+            props.matches.reverse().map((m,idx) => {
+              return (
+                <Col key={idx} md={6}>
+                  <h2 style={{
+                    marginBottom: 5
+                  }}>{m.game}</h2>
+                  <h4 style={{
+                    marginTop: 0,
+                    marginBottom: 5
+                  }}>{m.competition}</h4>
+                  <small style={{
+                    marginBottom: 15
+                  }}>
+                    {
+                      m.live ?
+                      <span style={{
+                        color: "#d81920"
+                      }}>vivere</span> :
+
+                      m.played ?
+                      <span style={{
+                        color: "#13cf00"
+                      }}>Giocato</span> :
+
+                      <span style={{
+                        color: "gray"
+                      }}>Non giocato</span>
+                    }: {m.date} {m.time}
+                    <br />
+                    TV: {m.tvs.join(", ")}
+                  </small>
+                </Col>
+              )
+            })
+          }
+        </Row>
       </Container>
       <Container>
+        <h2>Classifica Serie A tim</h2>
         <div 
           className="iframe-container"
           style={{
@@ -39,18 +79,6 @@ export const Matches = () => {
             flexDirection: "column",
             alignItems: "center"
           }}>
-          <AmpIframe frameborder="0"  scrolling="no" 
-            {...{
-              width:"400",
-              height:"200"
-            }}
-            src="https://www.fctables.com/teams/ssc-napoli-194680/iframe/?type=team-last-match&lang_id=5&country=108&template=17&team=194680&timezone=Europe/Rome&time=24&width=400&height=200&font=Verdana&fs=12&lh=22&bg=FFFFFF&fc=333333&logo=1&tlink=1&scfs=22&scfc=333333&scb=1&sclg=1&teamls=80&sh=1&hfb=1&hbc=3bafda&hfc=FFFFFF" />
-          <AmpIframe frameborder="0"  scrolling="no" 
-            {...{
-              width: "400",
-              height: "200"
-            }}
-            src="https://www.fctables.com/teams/ssc-napoli-194680/iframe/?type=team-next-match&lang_id=5&country=108&template=17&team=194680&timezone=Europe/Rome&time=24&width=400&height=200&font=Verdana&fs=12&lh=22&bg=FFFFFF&fc=333333&logo=1&tlink=1&scfs=22&scfc=333333&scb=1&sclg=1&teamls=80&sh=1&hfb=1&hbc=3bafda&hfc=FFFFFF" />
           <AmpIframe frameborder="0"  scrolling="no" 
             {...{
               width: "400",
@@ -73,7 +101,7 @@ export const Matches = () => {
       </Container>
       <style jsx>{`
         .iframe-container :global(amp-iframe) {
-          margin-bottom: 20px;
+          margin-bottom: 40px;
         }
       `}</style>
     </Layout>
