@@ -28,17 +28,16 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
 
   const items: string[] = [];
 
-  items.push(item("/", "daily"));
-  items.push(item("/games", "weekly"));
-  items.push(item("/rss", "hourly"));
-  items.push(item("/sscnapoli", "hourly"));
-  items.push(item("/story", "hourly"));
+  media.menu.forEach(i => {
+    items.push(item(i.href, i.changefreq || "never"))
+  })
 
   const list = await getNewsList();
 
   list.playlist.forEach(i => {
     items.push(item("/news/" + i.id, "never"))
   });
+  
   res.setHeader("Content-type", "application/xml; charset=utf-8");
   res.send(
     container(

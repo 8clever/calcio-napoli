@@ -2,6 +2,7 @@
 interface Media {
   href: string;
   label: string;
+  changefreq?: "hourly" | "weekly" | "daily" | "never"
 }
 
 export const media = {
@@ -9,19 +10,23 @@ export const media = {
   menu: [
     {
       href: "/",
-      label: "Pagina iniziale"
+      label: "Pagina iniziale",
+      changefreq: "hourly"
     },
     {
       href: "/rss",
-      label: "Calcio Napoli 24"
+      label: "Calcio Napoli 24",
+      changefreq: "hourly"
     },
     {
-      href: "/games",
-      label: "Classifica Serie a tim"
+      href: "/matches",
+      label: "Classifica Serie A",
+      changefreq: "daily"
     },
     {
       href: "/sscnapoli",
-      label: "#SSCNapoli"
+      label: "#SSCNapoli",
+      changefreq: "hourly"
     }
   ] as Media[],
   media: [
