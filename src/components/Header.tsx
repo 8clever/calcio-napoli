@@ -83,6 +83,8 @@ export const Header = () => {
           padding: 40px 40px 20px 40px;
         }
         .search-input * {
+          display: flex;
+          border-radius: 0;
           font-size: 14px;
         }
         .search-input *[type='submit'] {
