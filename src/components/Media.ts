@@ -20,6 +20,11 @@ export const media = {
     },
     {
       href: "/matches",
+      label: "Ultimissime partite Napoli",
+      changefreq: "daily"
+    },
+    {
+      href: "/seriea",
       label: "Classifica Serie A",
       changefreq: "daily"
     },
