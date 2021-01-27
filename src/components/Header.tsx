@@ -141,8 +141,8 @@ export const Header = () => {
         .search-input {
           margin-top: 60px;
         }
-        .search-input 
-          *[type='search'] {
+        .search-input *[type='search'] {
+            -webkit-appearance: none;
             width: 80%;
           }  
         }
