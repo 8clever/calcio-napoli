@@ -127,6 +127,7 @@ export const Header = () => {
       <style jsx>{`
         :global(*) {
           outline: none;
+          appearance: none;
         }
         .header :global(.search-icon) {
           background: none;
@@ -142,7 +143,6 @@ export const Header = () => {
           margin-top: 60px;
         }
         .search-input *[type='search'] {
-            -webkit-appearance: none;
             width: 80%;
           }  
         }
