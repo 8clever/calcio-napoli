@@ -46,7 +46,7 @@ export const Matches = (props: IProps) => {
                       m.live ?
                       <span style={{
                         color: "#d81920"
-                      }}>vivere</span> :
+                      }}>Vivere</span> :
 
                       m.played ?
                       <span style={{
