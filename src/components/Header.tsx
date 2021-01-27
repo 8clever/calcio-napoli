@@ -1,5 +1,6 @@
-import { AmpImg, AmpSidebar, Button } from "react-amphtml";
+import { AmpImg, AmpLightbox, AmpSidebar, Button } from "react-amphtml";
 import { Container } from "./Grid";
+import { Search } from "./Icon";
 import { media } from "./Media";
 import { theme } from "./Theme";
 
@@ -29,7 +30,16 @@ export const Header = () => {
               Calcio Napoli
             </span>
           </a>
-          <div>
+          <div style={{
+            display: "flex",
+            alignItems: "center"
+          }}>
+            <Button 
+              specName="default"
+              on="tap:search-sidebar"
+              className="search-icon">
+              <Search />
+            </Button>
             <Button 
               className="hamburger"
               specName="default" 
@@ -41,21 +51,57 @@ export const Header = () => {
           </div>
         </div>
       </Container>
+      <AmpLightbox
+        role="main"
+        tabindex="1"
+        style={{
+          background: "rgba(0,0,0,0.9)",
+        }}
+        specName="default"
+        layout="nodisplay"
+        id="search-sidebar">
+        <Container>
+          <div style={{
+            marginTop: 15,
+            textAlign: "right"
+          }}>
+            <Button 
+              style={{
+                fontSize: 20,
+                cursor: "pointer",
+                background: "none",
+                border: "none",
+                color: theme.color.white
+              }}
+              on="tap:search-sidebar.close"
+              specName="default">X
+            </Button>
+          </div>
+          <div 
+            className="search-input">
+            <form method="GET" action="https://www.google.com/cse" target="_top">
+              <input name="cx" type="hidden" value="2f88dc326f65152c5" />
+              <input name="ie" type="hidden" value="UTF-8" />
+              <input 
+                type="search"
+                placeholder="Ricerca..."
+                name="q" 
+                required 
+              />
+              <button 
+                type="submit">
+                Go
+              </button>
+            </form>
+          </div>
+        </Container>
+      </AmpLightbox>
       <AmpSidebar 
         specName="default"
+        class="sidebar"
         id="header-sidebar" 
         layout="nodisplay" 
         side="right">
-        <div className="search-input">
-          <form method="GET" action="https://www.google.com/cse" target="_top">
-            <input name="cx" type="hidden" value="2f88dc326f65152c5" />
-            <input name="ie" type="hidden" value="UTF-8" />
-            <input type="search" placeholder="Ricerca..." name="q" required />
-            <button type="submit">
-              Go
-            </button>
-          </form>
-        </div>
         {[ media.menu, media.media ].map((i,idx) => {
           return (
             <ul 
@@ -79,8 +125,31 @@ export const Header = () => {
         })}
       </AmpSidebar>
       <style jsx>{`
+        :global(*) {
+          outline: none;
+        }
+        .header :global(.search-icon) {
+          background: none;
+          border: none;
+          padding: 2px;
+          margin-right: 15px;
+          height: 25px;
+          width: 25px;
+          color: ${theme.color.white};
+          cursor: pointer;
+        }
         .search-input {
-          padding: 40px 40px 20px 40px;
+          margin-top: 60px;
+        }
+        .search-input 
+          *[type='search'] {
+            width: 80%;
+          }  
+        }
+        .search-input :global(button) {
+          width: 20%;
+          justify-content: center;
+          cursor: pointer;
         }
         .search-input * {
           display: flex;
@@ -108,13 +177,13 @@ export const Header = () => {
           align-items: center;
         }
         .header .sidebar-list {
-          margin: 0;
           min-width: 200px;
-          padding: 20px 40px;
+          margin: 40px;
+          padding: 0;
           list-style: none;
         }
         .header .sidebar-list li {
-          padding: 8px 0px;
+          padding: 8px;
         }
         .header .sidebar-list a {
           color: ${theme.color.white};
@@ -126,11 +195,12 @@ export const Header = () => {
           font-weight: bold;
           font-size: 20px;
         }
-        .header :global(#header-sidebar) {
+        .header :global(.sidebar) {
           background: ${theme.color.black};
         }
         .header :global(.hamburger) {
           padding: 0;
+          cursor: pointer;
           border: none;
           background-color: transparent;
           height: 27px;
