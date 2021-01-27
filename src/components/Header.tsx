@@ -46,6 +46,16 @@ export const Header = () => {
         id="header-sidebar" 
         layout="nodisplay" 
         side="right">
+        <div className="search-input">
+          <form method="GET" action="https://www.google.com/cse" target="_top">
+            <input name="cx" type="hidden" value="2f88dc326f65152c5" />
+            <input name="ie" type="hidden" value="UTF-8" />
+            <input type="search" placeholder="Ricerca..." name="q" required />
+            <button type="submit">
+              Go
+            </button>
+          </form>
+        </div>
         {[ media.menu, media.media ].map((i,idx) => {
           return (
             <ul 
@@ -69,6 +79,23 @@ export const Header = () => {
         })}
       </AmpSidebar>
       <style jsx>{`
+        .search-input {
+          padding: 40px 40px 20px 40px;
+        }
+        .search-input * {
+          font-size: 14px;
+        }
+        .search-input *[type='submit'] {
+          border: none;
+          padding: 10px;
+          color: ${theme.color.white};
+          background: ${theme.color.primary};
+        }
+        .search-input *[type='search'] {
+          border: none;
+          padding: 10px;
+          margin-right: 5px;
+        }
         .header {
           background: ${theme.color.primary};
         }
@@ -79,12 +106,13 @@ export const Header = () => {
           align-items: center;
         }
         .header .sidebar-list {
+          margin: 0;
           min-width: 200px;
-          padding: 40px;
+          padding: 20px 40px;
           list-style: none;
         }
         .header .sidebar-list li {
-          padding: 8px;
+          padding: 8px 0px;
         }
         .header .sidebar-list a {
           color: ${theme.color.white};
