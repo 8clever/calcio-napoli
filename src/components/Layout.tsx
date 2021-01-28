@@ -27,6 +27,9 @@ export const LayoutHead = (props: Pick<Props, "title" | "description" | "og">) =
       <meta name="description" content={description} />
       <link rel="shortcut icon" type="image/png" href="/images/favicon.png" />
       <link rel="canonical" href={media.domain + router.asPath} />
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:site" content="@GoalsNapoli" />
+      <meta name="twitter:creator" content="@godofluck89" />
       <meta property="og:title" content={title} />
       <meta property="og:description" content={description} />
       <meta property="og:image" content={
