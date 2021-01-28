@@ -66,8 +66,11 @@ export const News = (props: IProps) => {
   }
   return (
     <Layout 
+      og={{
+        image: `https://img.youtube.com/vi/${props.info.videoId}/hqdefault.jpg`
+      }}
       description={props.info.description || ""}
-      title={"Calcio Napoli | " + props.info.title}>
+      title={props.info.title}>
       <Head>
         <script type="application/ld+json" dangerouslySetInnerHTML={{
           __html: JSON.stringify(thing)

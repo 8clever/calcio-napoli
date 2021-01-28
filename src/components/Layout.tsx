@@ -10,14 +10,14 @@ import { AdAuto } from './AdSlot'
 
 type Props = {
   children?: ReactNode
-  title?: string
-  description?: string;
+  title: string
+  description: string;
+  og?: {
+    image?: string;
+  }
 }
 
-export const LayoutHead = (props: {
-  title: string;
-  description: string;
-}) => {
+export const LayoutHead = (props: Pick<Props, "title" | "description" | "og">) => {
   const { title, description } = props;
   const router = useRouter();
   return (
@@ -27,18 +27,25 @@ export const LayoutHead = (props: {
       <meta name="description" content={description} />
       <link rel="shortcut icon" type="image/png" href="/images/favicon.png" />
       <link rel="canonical" href={media.domain + router.asPath} />
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
+      {
+        props.og?.image ?
+        <meta property="og:image" content={media.domain + props.og.image} /> :
+        null
+      }
+      <meta property="og:url" content={media.domain + router.asPath} />
+      <meta property="og:type" content="website" />
     </Head>
   )
 }
 
-const Layout = ({ children, title = 'Calcio Napoli', description = "Calcio Napoli | News" }: Props) => {
+const Layout = (props: Props) => {
+  const { children } = props;
   return (
     <>
       <AdAuto />
-      <LayoutHead 
-        title={title}
-        description={description}
-      />
+      <LayoutHead {...props} />
       <AmpAnalytics
         type="gtag" 
         id={"gtag"}

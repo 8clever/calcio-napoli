@@ -28,7 +28,9 @@ const IndexPage = (props: IProps) => {
   const videoList = props.list.playlist.slice(0, 10);
 
   return (
-    <Layout title="Calcio Napoli | Ultime notizie">
+    <Layout 
+      description="Calcio Napoli | Ultime notizie"
+      title="Calcio Napoli | Ultime notizie">
       <Container page>
         <h1>Ultime notizie</h1>
         <Row>
