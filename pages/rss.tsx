@@ -29,6 +29,7 @@ export const getServerSideProps: GetServerSideProps<IProps> = async () => {
 export const RSS = (props: IProps) => {
   return (
     <Layout
+      description="Calcio Napoli - 24 tutto napoli"
       title="Calcio Napoli | 24">
       <div style={{ minHeight: "100vh" }}>
         <Container>
