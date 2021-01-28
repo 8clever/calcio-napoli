@@ -31,7 +31,7 @@ export const LayoutHead = (props: Pick<Props, "title" | "description" | "og">) =
       <meta property="og:description" content={description} />
       {
         props.og?.image ?
-        <meta property="og:image" content={media.domain + props.og.image} /> :
+        <meta property="og:image" content={props.og.image} /> :
         null
       }
       <meta property="og:url" content={media.domain + router.asPath} />
