@@ -1,9 +1,9 @@
 import React from "react";
 import Head from "next/head";
-import { Thing, WithContext } from "schema-dts";
+import { WithContext } from "schema-dts";
 
 interface IProps {
-  data: WithContext<Thing>
+  data: WithContext<any>
 }
 
 export const StructuredData = (props: IProps) => {

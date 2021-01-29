@@ -79,9 +79,7 @@ export const Header = () => {
           </div>
           <div 
             className="search-input">
-            <form method="GET" action="https://www.google.com/cse" target="_top">
-              <input name="cx" type="hidden" value="2f88dc326f65152c5" />
-              <input name="ie" type="hidden" value="UTF-8" />
+            <form method="GET" action="/search" target="_top">
               <input 
                 type="search"
                 placeholder="Ricerca..."

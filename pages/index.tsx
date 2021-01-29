@@ -46,6 +46,18 @@ const IndexPage = (props: IProps) => {
           })
         }}
       />
+      <StructuredData 
+        data={{
+          "@context": "https://schema.org",
+          "@type": "WebSite",
+          "url": media.domain,
+          "potentialAction": {
+            "@type": "SearchAction",
+            "target": media.domain + "/search?q={search_term_string}",
+            "query-input": "required name=search_term_string"
+          }
+        }}
+      />
       <Container page>
         <h1>Ultime notizie</h1>
         <Row>
