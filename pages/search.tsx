@@ -1,13 +1,28 @@
+import { GetServerSideProps } from "next";
+import { ParsedUrlQuery } from "querystring";
 import { Container } from "../src/components/Grid";
 import { GlobalStyle, LayoutHead } from "../src/components/Layout";
 import { StaticContent } from "../src/components/StaticContent";
 
-export const Search = () => {
+interface IProps {
+  query: ParsedUrlQuery;
+}
+
+export const getServerSideProps: GetServerSideProps<IProps> = async (props) => {
+  return {
+    props: {
+      query: props.query
+    }
+  }
+}
+
+export const Search = (props: IProps) => {
+  const { q = "Ricerca" } = props.query;
   return (
     <>
       <LayoutHead 
-        description="Calcio Napoli - Ricerca" 
-        title="Calcio Napoli - Ricerca"
+        description={`Calcio Napoli - ${q}`}
+        title={`Calcio Napoli - ${q}`}
       />
       <Container>
         <StaticContent>
