@@ -83,10 +83,22 @@ const IndexPage = (props: IProps) => {
           }
         </Row>
         <AdResponsive />
+        <h2>Risultati di ricerca più popolari</h2>
+        <Row>
+          {
+            media.search.map((i,idx) => {
+              return (
+                <Col md={6} key={idx}>
+                  <a href={i.href}>{i.label}</a>
+                </Col>
+              )
+            })
+          }
+        </Row>
         <h2>Ultime novità</h2>
         <Row>
           {
-            props.list.playlist.map(i => {
+            props.list.playlist.map((i) => {
               return (
                 <Col 
                   key={i.id}

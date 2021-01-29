@@ -28,8 +28,10 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
 
   const items: string[] = [];
 
-  media.menu.forEach(i => {
-    items.push(item(i.href, i.changefreq || "never"))
+  [ media.menu, media.search ].forEach(m => {
+    m.forEach(i => {
+      items.push(item(i.href, i.changefreq || "never"))
+    })
   })
 
   const list = await getNewsList();
