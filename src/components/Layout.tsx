@@ -56,6 +56,9 @@ export const GlobalStyle = () => {
       .gsc-cursor * {
         color: ${theme.color.white};
       }
+      div > .gsc-control-cse {
+        padding: 0;
+      }
     `}</style>
   )
 }
