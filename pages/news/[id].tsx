@@ -6,8 +6,8 @@ import Layout from "../../src/components/Layout";
 import _ from 'lodash';
 import { Container } from "../../src/components/Grid";
 import { WithContext, Thing } from "schema-dts";
-import Head from "next/head";
 import { media } from "../../src/components/Media"
+import { StructuredData } from "../../src/components/StructuredData";
 
 interface IProps {
   info: ytdl.videoInfo["videoDetails"]
@@ -71,11 +71,9 @@ export const News = (props: IProps) => {
       }}
       description={props.info.description || ""}
       title={props.info.title}>
-      <Head>
-        <script type="application/ld+json" dangerouslySetInnerHTML={{
-          __html: JSON.stringify(thing)
-        }} />
-      </Head>
+      <StructuredData
+        data={thing}
+      />
       <div style={{ minHeight: "100vh" }}>
         <Container>
           <h1>{props.info.title}</h1>

@@ -5,6 +5,8 @@ import { Playlist, scrapePlaylist } from "youtube-playlist-scraper";
 import { AmpImg } from 'react-amphtml';
 import { theme } from '../src/components/Theme';
 import { AdResponsive } from '../src/components/AdSlot';
+import { StructuredData } from '../src/components/StructuredData';
+import { media } from '../src/components/Media';
 
 export interface IProps {
   list: Playlist
@@ -31,6 +33,19 @@ const IndexPage = (props: IProps) => {
     <Layout 
       description="Calcio Napoli | Ultime notizie"
       title="Calcio Napoli | Ultime notizie">
+      <StructuredData 
+        data={{
+          "@context":"https://schema.org",
+          "@type":"ItemList",
+          "itemListElement": videoList.map((v,idx) => {
+            return {
+              "@type":"ListItem",
+              "position": idx + 1,
+              "url": media.domain + "/news/" + v.id
+            }
+          })
+        }}
+      />
       <Container page>
         <h1>Ultime notizie</h1>
         <Row>
