@@ -31,7 +31,7 @@ const IndexPage = (props: IProps) => {
 
   return (
     <Layout 
-      description="Calcio Napoli | Ultime notizie"
+      description="Calcio Napoli, Tutto Napoli 24, Ultime notizie"
       title="Calcio Napoli | Ultime notizie">
       <StructuredData 
         data={{
