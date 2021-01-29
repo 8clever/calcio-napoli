@@ -42,6 +42,24 @@ export const LayoutHead = (props: Pick<Props, "title" | "description" | "og">) =
   )
 }
 
+export const GlobalStyle = () => {
+  return (
+    <style jsx global>{`
+      body {
+        font-family: Roboto, sans-serif;
+        font-size: 14px;
+        background-color: ${theme.color.black};
+        color: ${theme.color.white};
+        max-width: 100vw;
+        overflow-x: hidden;
+      }
+      .gsc-cursor * {
+        color: ${theme.color.white};
+      }
+    `}</style>
+  )
+}
+
 const Layout = (props: Props) => {
   const { children } = props;
   return (
@@ -59,16 +77,7 @@ const Layout = (props: Props) => {
         {children}
       </div>
       <Footer />
-      <style jsx global>{`
-        body {
-          font-family: Roboto, sans-serif;
-          font-size: 14px;
-          background-color: ${theme.color.black};
-          color: ${theme.color.white};
-          max-width: 100vw;
-          overflow-x: hidden;
-        }
-      `}</style>
+      <GlobalStyle />
     </>
   )
 }
