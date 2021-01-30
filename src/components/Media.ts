@@ -15,8 +15,13 @@ export const media = {
     },
     {
       href: "/rss",
-      label: "Calcio Napoli 24",
+      label: "Calcio Napoli 24 News",
       changefreq: "hourly"
+    },
+    {
+      href: "/channels/CN24_Live",
+      label: "Calcio Napoli 24 Live",
+      changefreq: "daily"
     },
     {
       href: "/matches",
