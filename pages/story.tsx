@@ -3,22 +3,22 @@ import { AmpAnalytics, AmpImg, AmpStory, AmpStoryGridLayer, AmpStoryPage } from 
 import { media } from "../src/components/Media";
 import { theme } from "../src/components/Theme";
 import { LayoutHead } from "../src/components/Layout"
+import { IProps as ChannelProps } from "../src/components/Channel";
 import { 
   getServerSideProps as indexProps,
-  IProps
 } from "./index";
 
 export const config = {
   amp: true
 }
 
-export const getServerSideProps: GetServerSideProps<IProps> = indexProps;
+export const getServerSideProps: GetServerSideProps<ChannelProps> = indexProps;
 
 const title = "Calcio Napoli | Stories"
 
 const img = media.domain + "/images/favicon.png";
 
-const Story = (props: IProps) => {
+const Story = (props: ChannelProps) => {
   const list = props.list.playlist.slice(0, 10);
   return (
     <>
