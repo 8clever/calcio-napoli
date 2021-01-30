@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
+import { getNewsList } from "../../src/components/Channel";
 import { media } from "../../src/components/Media";
-import { getNewsList } from "../index";
 
 export default async function handler (req: NextApiRequest, res: NextApiResponse) {
   req
