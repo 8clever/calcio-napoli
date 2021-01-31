@@ -8,6 +8,7 @@ import { Container } from "../../src/components/Grid";
 import { WithContext, Thing } from "schema-dts";
 import { media } from "../../src/components/Media"
 import { StructuredData } from "../../src/components/StructuredData";
+import { AdResponsive } from "../../src/components/AdSlot";
 
 interface IProps {
   info: ytdl.videoInfo["videoDetails"]
@@ -92,6 +93,7 @@ export const News = (props: IProps) => {
             dangerouslySetInnerHTML={{
             __html: props.info.description?.replace(/\n/gmi, "<br/>") || ""
           }}></p>
+          <AdResponsive />
           <p>
             <small>{props.info.keywords?.join(", ")}</small>
           </p>
