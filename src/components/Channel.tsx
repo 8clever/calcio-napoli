@@ -1,27 +1,26 @@
 import { Col, Container, Row } from '../components/Grid'
 import Layout from '../components/Layout'
-import { Playlist, scrapePlaylist } from "youtube-playlist-scraper";
 import { AmpImg } from 'react-amphtml';
 import { theme } from '../components/Theme';
-import { AdResponsive } from '../components/AdSlot';
 import { StructuredData } from '../components/StructuredData';
 import { media } from '../components/Media';
+import { Video } from "scrape-yt";
+import { Pagination } from './Pagination';
+import React from "react";
+import { AdResponsive } from './AdSlot';
 
 export interface IProps {
-  list: Playlist
-}
-
-export const getNewsList = async (id: string = "PL2HP8OJyZJpNe-5yJdL9o5n-utvD_H2pP") => {
-  const list = await scrapePlaylist(id);
-  return list;
+  list: Video[];
+  title: string
+  pagination?: boolean;
 }
 
 export const Channel = (props: IProps) => { 
-  const videoList = props.list.playlist.slice(0, 10);
+  const videoList = props.list;
   return (
     <Layout 
-      description={props.list.title}
-      title={props.list.title}>
+      description={props.title}
+      title={props.title}>
       <StructuredData 
         data={{
           "@context":"https://schema.org",
@@ -49,58 +48,43 @@ export const Channel = (props: IProps) => {
       />
       <Container page>
         <h1>
-          {props.list.title}
+          {props.title}
         </h1>
         <Row>
           {
-            videoList.map(i => {
+            videoList.map((i,idx) => {
               return (
-                <Col 
-                  key={i.id}
-                  md={6}>
-                  <a href={`/news/${i.id}`}>
-                    <div className="img-responsive">
-                      <AmpImg 
-                        specName="default"
-                        src={`https://img.youtube.com/vi/${i.id}/hqdefault.jpg`}
-                        layout="fill"
-                      />
-                      <h3>{i.name}</h3>
-                    </div>
-                  </a>
-                </Col>
+                <React.Fragment key={i.id}>
+                  <Col 
+                    md={6}>
+                    <a href={`/news/${i.id}`}>
+                      <div className="img-responsive">
+                        <AmpImg 
+                          specName="default"
+                          src={i.thumbnail}
+                          layout="fill"
+                        />
+                        <h3>{i.title}</h3>
+                      </div>
+                    </a>
+                  </Col>
+                  {
+                    idx % 6 === 5 ?
+                    <Col>
+                      <AdResponsive />
+                    </Col> : 
+                    null
+                  }
+                </React.Fragment>
               )
             })
           }
         </Row>
-        <AdResponsive />
-        <h2>Risultati di ricerca più popolari</h2>
-        <Row>
-          {
-            media.search.map((i,idx) => {
-              return (
-                <Col md={6} key={idx}>
-                  <a href={i.href}>{i.label}</a>
-                </Col>
-              )
-            })
-          }
-        </Row>
-        <h2>Ultime novità</h2>
-        <Row>
-          {
-            props.list.playlist.map((i) => {
-              return (
-                <Col 
-                  key={i.id}
-                  md={6}>
-                  <a href={`/news/${i.id}`}>{i.name}</a>
-                  <small>{i.title}</small>
-                </Col>
-              )
-            })
-          }
-        </Row>
+        {
+          props.pagination ?
+          <Pagination /> :
+          null
+        }
       </Container>
       <style jsx>{`
         a {
@@ -114,8 +98,6 @@ export const Channel = (props: IProps) => {
           overflow: hidden;
         }
         .img-responsive :global(amp-img) {
-          margin-top: -10%;
-          margin-bottom: -10%;
         }
         .img-responsive:hover {
           transform: scale(1.03);

@@ -19,7 +19,6 @@ const title = "Calcio Napoli | Stories"
 const img = media.domain + "/images/favicon.png";
 
 const Story = (props: ChannelProps) => {
-  const list = props.list.playlist.slice(0, 10);
   return (
     <>
       <LayoutHead 
@@ -41,7 +40,7 @@ const Story = (props: ChannelProps) => {
           config={"/analytics_story.json"}
           data-credentials="include">
         </AmpAnalytics>
-        {list.map(i => {
+        {props.list.map(i => {
           return (
             <AmpStoryPage 
               id={i.id}
@@ -50,7 +49,7 @@ const Story = (props: ChannelProps) => {
                 <AmpImg
                   animate-in="fade-in"
                   specName="default"
-                  src={`https://img.youtube.com/vi/${i.id}/maxresdefault.jpg`}
+                  src={i.thumbnail}
                   width={853}
                   height={640}
                   layout={"fill"}
@@ -77,7 +76,7 @@ const Story = (props: ChannelProps) => {
                   </div>
                   <a href={media.domain + "/news/" + i.id}>
                     <h1 animate-in="fly-in-bottom">
-                      {i.name}
+                      {i.title}
                     </h1>
                   </a>
                 </div>

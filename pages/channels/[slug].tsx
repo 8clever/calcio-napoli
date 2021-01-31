@@ -1,30 +1,27 @@
 import { GetServerSideProps } from "next";
 import { Channel, IProps as ChannelProps } from "../../src/components/Channel";
-import { search } from "scrape-yt";
 import { ParsedUrlQuery } from "querystring";
+import { search } from "scrape-yt";
 
 interface IParams extends ParsedUrlQuery {
-  slug: string
+  slug: string;
+  page: string;
 }
 
 export const getServerSideProps: GetServerSideProps<ChannelProps, IParams> = async (props) => {
-  const title = (props.params?.slug || "Calcio Napoli").replace(/_/gmi, " ")
-  const videos = await search(title, {
-    type: "video",
-    limit: 100
-  });
+  const title = (props.params?.slug || "SSC Napoli podcasts").replace(/_/gmi, " ")
+  const page = Number(props.query.page) || 1;
+  const limit = 10;
   return {
     props: {
-      list: {
-        title,
-        playlist: videos.map(v => {
-          return {
-            id: v.id,
-            title: v.title,
-            name: v.title
-          }
-        })
-      }
+      pagination: true,
+      title,
+      list: await search(title, {
+        useWorkerThread: true,
+        type: "video",
+        page,
+        limit
+      })
     }
   }
 }

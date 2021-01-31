@@ -4,6 +4,8 @@ import RssParser from "rss-parser";
 import { Container } from "../src/components/Grid";
 import moment from "moment";
 import { theme } from "../src/components/Theme";
+import React from "react";
+import { AdResponsive } from "../src/components/AdSlot";
 
 interface IProps {
   items: Feed[]
@@ -37,16 +39,23 @@ export const RSS = (props: IProps) => {
           {
             props.items.map((i,idx) => {
               return (
-                <div 
-                  key={idx}
-                  className="feed">
-                  <a href={i.link}>
-                    <h3 dangerouslySetInnerHTML={{
-                      __html: i.title
-                    }} />
-                    {moment.utc(i.isoDate).local().format("DD.MM.YYYY HH:mm")}
-                  </a>
-                </div>
+                <React.Fragment key={idx}>
+                  <div 
+                    key={idx}
+                    className="feed">
+                    <a href={i.link}>
+                      <h3 dangerouslySetInnerHTML={{
+                        __html: i.title
+                      }} />
+                      {moment.utc(i.isoDate).local().format("DD.MM.YYYY HH:mm")}
+                    </a>
+                  </div>
+                  {
+                    idx % 10 === 9 ?
+                    <AdResponsive /> : 
+                    null
+                  }
+                </React.Fragment>
               )
             })
           }

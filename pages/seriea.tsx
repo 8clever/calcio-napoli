@@ -2,6 +2,7 @@ import { Container } from "../src/components/Grid"
 import Layout from "../src/components/Layout"
 import moment from "moment";
 import { GetServerSideProps } from "next";
+import { AdResponsive } from "../src/components/AdSlot";
 
 interface IProps {
   html: string;
@@ -36,10 +37,12 @@ export const Games = (props: IProps) => {
             __html: props.html
           }} />
         </div>
+        <AdResponsive />
       </Container>
       <style jsx>{`
         .table {
           display: flex;
+          margin-bottom: 15px;
         }
 
         div > div {

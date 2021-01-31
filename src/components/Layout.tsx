@@ -6,7 +6,6 @@ import { theme } from './Theme'
 import { AmpAnalytics } from 'react-amphtml'
 import { media } from './Media'
 import { useRouter } from "next/router";
-import { AdAuto } from './AdSlot'
 
 type Props = {
   children?: ReactNode
@@ -67,7 +66,6 @@ const Layout = (props: Props) => {
   const { children } = props;
   return (
     <>
-      <AdAuto />
       <LayoutHead {...props} />
       <AmpAnalytics
         type="gtag" 

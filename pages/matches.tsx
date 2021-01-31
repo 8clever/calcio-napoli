@@ -1,7 +1,9 @@
 import { GetServerSideProps } from "next"
 import { Col, Container, Row } from "../src/components/Grid"
 import Layout from "../src/components/Layout"
+import React from "react";
 import matchesParser, { Match } from "livesoccertv-parser";
+import { AdResponsive } from "../src/components/AdSlot";
 
 const title = "Calcio Napoli - Ultima partite Napoli. Prossima partite Napoli"
 
@@ -31,36 +33,45 @@ export const Matches = (props: IProps) => {
           {
             props.matches.reverse().map((m,idx) => {
               return (
-                <Col key={idx} md={6}>
-                  <h2 style={{
-                    marginBottom: 5
-                  }}>{m.game}</h2>
-                  <h4 style={{
-                    marginTop: 0,
-                    marginBottom: 5
-                  }}>{m.competition}</h4>
-                  <small style={{
-                    marginBottom: 15
-                  }}>
-                    {
-                      m.live ?
-                      <span style={{
-                        color: "#d81920"
-                      }}>Vivere</span> :
+                <React.Fragment key={idx}>
+                  <Col md={6}>
+                    <h2 style={{
+                      marginBottom: 5
+                    }}>{m.game}</h2>
+                    <h4 style={{
+                      marginTop: 0,
+                      marginBottom: 5
+                    }}>{m.competition}</h4>
+                    <small style={{
+                      marginBottom: 15
+                    }}>
+                      {
+                        m.live ?
+                        <span style={{
+                          color: "#d81920"
+                        }}>Vivere</span> :
 
-                      m.played ?
-                      <span style={{
-                        color: "#13cf00"
-                      }}>Giocato</span> :
+                        m.played ?
+                        <span style={{
+                          color: "#13cf00"
+                        }}>Giocato</span> :
 
-                      <span style={{
-                        color: "gray"
-                      }}>Non giocato</span>
-                    }: {m.date} {m.time}
-                    <br />
-                    TV: {m.tvs.join(", ")}
-                  </small>
-                </Col>
+                        <span style={{
+                          color: "gray"
+                        }}>Non giocato</span>
+                      }: {m.date} {m.time}
+                      <br />
+                      TV: {m.tvs.join(", ")}
+                    </small>
+                  </Col>
+                  {
+                    idx % 6 === 5 ?
+                    <Col>
+                      <AdResponsive />
+                    </Col> :
+                    null
+                  }
+                </React.Fragment>
               )
             })
           }
