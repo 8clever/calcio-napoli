@@ -88,10 +88,15 @@ export const News = (props: IProps) => {
           />
           <p 
             style={{
-              fontSize: 20
+              fontSize: 20,
+              overflow: "hidden"
             }}
             dangerouslySetInnerHTML={{
-            __html: props.info.description?.replace(/\n/gmi, "<br/>") || ""
+            __html: props.info.description?.trim()
+              .replace(/(https:\/\/([^\/\s]+)[^\s]*)/gmi, "<a target='_blank' href='$1'>$2</a>")
+              .replace(/#([^\s]+)/gmi, "<a target='_blank' href='https://youtube.com/hashtag/$1'>#$1</a>")
+              .replace(/\n/gmi, "<br/>")
+              || ""
           }}></p>
           <AdResponsive />
           <p>
