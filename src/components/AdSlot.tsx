@@ -52,6 +52,7 @@ export const AdResponsive = () => {
       data-auto-format="rspv"
       data-full-width="">
       <div {...{overflow:""} as any}></div>
+      <div {...{fallback:""}}>AD NONE</div>
     </AmpAd>
   )
 }
