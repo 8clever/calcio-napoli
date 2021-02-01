@@ -8,15 +8,11 @@ export const Row = (props: IProps) => {
       {props.children}
       <style jsx>{`
         div {
-          box-sizing: border-box;
-          margin-left: -15px;
-          margin-right: -15px;
-        }
-
-        div::after {
-          content: "";
-          clear: both;
-          display: table;
+          grid-template: "1 2 3 4 5 6 7 8 9 10 11 12";
+          grid-template-columns: repeat(12, 1fr);
+          display: grid;
+          padding-bottom: 15px;
+          gap: 15px;
         }
       `}</style>
     </div>
@@ -66,44 +62,39 @@ export const Col = (props: ICol) => {
     <div className={`col-${props.md || 12} col-s-${props.sm || 12}`}>
       {props.children}
       <style jsx>{`
-        div {
-          box-sizing: border-box;
-        }
         /* For mobile phones: */
         [class*="col-"] {
-          width: 100%;
-          float: left;
-          padding: 0 15px 15px 15px;
+          grid-column: span 12;
         }
         @media only screen and (min-width: 600px) {
           /* For tablets: */
-          .col-s-1 {width: 8.33%;}
-          .col-s-2 {width: 16.66%;}
-          .col-s-3 {width: 25%;}
-          .col-s-4 {width: 33.33%;}
-          .col-s-5 {width: 41.66%;}
-          .col-s-6 {width: 50%;}
-          .col-s-7 {width: 58.33%;}
-          .col-s-8 {width: 66.66%;}
-          .col-s-9 {width: 75%;}
-          .col-s-10 {width: 83.33%;}
-          .col-s-11 {width: 91.66%;}
-          .col-s-12 {width: 100%;}
+          .col-s-1 {grid-column: span 1}
+          .col-s-2 {grid-column: span 2}
+          .col-s-3 {grid-column: span 3}
+          .col-s-4 {grid-column: span 4}
+          .col-s-5 {grid-column: span 5}
+          .col-s-6 {grid-column: span 6}
+          .col-s-7 {grid-column: span 7}
+          .col-s-8 {grid-column: span 8}
+          .col-s-9 {grid-column: span 9}
+          .col-s-10 {grid-column: span 10}
+          .col-s-11 {grid-column: span 11}
+          .col-s-12 {grid-column: span 12}
         }
         @media only screen and (min-width: 768px) {
           /* For desktop: */
-          .col-1 {width: 8.33%;}
-          .col-2 {width: 16.66%;}
-          .col-3 {width: 25%;}
-          .col-4 {width: 33.33%;}
-          .col-5 {width: 41.66%;}
-          .col-6 {width: 50%;}
-          .col-7 {width: 58.33%;}
-          .col-8 {width: 66.66%;}
-          .col-9 {width: 75%;}
-          .col-10 {width: 83.33%;}
-          .col-11 {width: 91.66%;}
-          .col-12 {width: 100%;}
+          .col-1 {grid-column: span 1}
+          .col-2 {grid-column: span 2}
+          .col-3 {grid-column: span 3}
+          .col-4 {grid-column: span 4}
+          .col-5 {grid-column: span 5}
+          .col-6 {grid-column: span 6}
+          .col-7 {grid-column: span 7}
+          .col-8 {grid-column: span 8}
+          .col-9 {grid-column: span 9}
+          .col-10 {grid-column: span 10}
+          .col-11 {grid-column: span 11}
+          .col-12 {grid-column: span 12}
         }  
       `}</style>
     </div>

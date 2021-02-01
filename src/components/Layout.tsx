@@ -58,9 +58,6 @@ export const GlobalStyle = () => {
       div > .gsc-control-cse {
         padding: 0;
       }
-      .body-container {
-        overflow: auto;
-      }
     `}</style>
   )
 }
@@ -77,9 +74,7 @@ const Layout = (props: Props) => {
         data-credentials="include">
       </AmpAnalytics>
       <Header />
-      <div className="body-container">
-        {children}
-      </div>
+      {children}
       <Footer />
       <GlobalStyle />
     </>
