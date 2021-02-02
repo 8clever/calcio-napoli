@@ -53,13 +53,31 @@ export const LayoutHead = (props: Pick<Props, "title" | "description" | "og" | "
       <meta property="og:url" content={media.domain + router.asPath} />
       <meta property="og:type" content="website" />
       {
-        isAmp ? null :
-        <script
-          key="adsense"
-          async
-          data-ad-client={media.google.caPub}
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-        />
+        isAmp ? 
+        <>
+          <AmpAnalytics
+            type="gtag" 
+            id={"gtag"}
+            config={"/analytics.json"}
+            data-credentials="include">
+          </AmpAnalytics>
+        </> : <>
+          <script
+            key="adsense"
+            async
+            data-ad-client={media.google.caPub}
+            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+          />
+          <script async src="https://www.googletagmanager.com/gtag/js?id=UA-55674089-5"></script>
+          <script dangerouslySetInnerHTML={{
+            __html: `
+              window.dataLayer = window.dataLayer || [];
+              function gtag(){dataLayer.push(arguments);}
+              gtag('js', new Date());
+              gtag('config', 'UA-55674089-5');
+            `
+          }} />
+        </>
       }
     </Head>
   )
@@ -92,12 +110,6 @@ const Layout = (props: Props) => {
   return (
     <>
       <LayoutHead {...props} />
-      <AmpAnalytics
-        type="gtag" 
-        id={"gtag"}
-        config={"/analytics.json"}
-        data-credentials="include">
-      </AmpAnalytics>
       <Header />
       {children}
       <Footer />

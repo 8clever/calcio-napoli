@@ -27,6 +27,7 @@ export const Image = (props: ImageProps) => {
     <LazyLoad height={props.height || 200} offset={100} once>
       <img
         style={{
+          minHeight: props.height || 120,
           width: "100%",
           height: "auto"
         }}
