@@ -8,6 +8,7 @@ const writePlayList = async () => {
     useWorkerThread: true
   });
   writeCache(cache.keys.ytchannel, list);
+  console.log("task:writePlayList");
 };
 
 export default () => {
@@ -16,6 +17,5 @@ export default () => {
 
   new CronJob('00 */10 * * * *', async function() {
     await writePlayList();
-    console.log("task:writePlayList");
   }).start();
 }
