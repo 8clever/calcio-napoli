@@ -1,14 +1,11 @@
 import { GetServerSideProps } from "next"
-import { getPlaylist, PlaylistDetailed } from "scrape-yt";
+import { PlaylistDetailed } from "scrape-yt";
 import { Channel, IProps as ChannelProps } from "../src/components/Channel"
-
-export const playListId = "PL2HP8OJyZJpNe-5yJdL9o5n-utvD_H2pP";
+import { cache, getCache } from "../src/components/Cache";
 
 export const getServerSideProps: GetServerSideProps<ChannelProps> = async () => {
   const title = "Calcio Napoli Podcasts";
-  const playlist = await getPlaylist(playListId, {
-    useWorkerThread: true
-  }) as PlaylistDetailed;
+  const playlist = getCache(cache.keys.ytchannel) as PlaylistDetailed;
   return {
     props: {
       title,

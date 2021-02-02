@@ -1,6 +1,5 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { getPlaylist, PlaylistDetailed } from "scrape-yt";
-import { playListId } from "..";
 import { media } from "../../src/components/Media";
 
 export default async function handler (req: NextApiRequest, res: NextApiResponse) {
@@ -35,7 +34,7 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
     })
   })
 
-  const indexVideos = await getPlaylist(playListId) as PlaylistDetailed;
+  const indexVideos = await getPlaylist(media.playListId) as PlaylistDetailed;
 
   indexVideos.videos.forEach(i => {
     items.push(item("/news/" + i.id, "never"))

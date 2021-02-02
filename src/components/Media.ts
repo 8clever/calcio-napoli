@@ -6,6 +6,7 @@ interface Media {
 }
 
 export const media = {
+  playListId: "PL2HP8OJyZJpNe-5yJdL9o5n-utvD_H2pP",
   domain: "https://www.calcio-napoli.com",
   menu: [
     {
