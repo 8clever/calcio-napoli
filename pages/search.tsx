@@ -1,7 +1,7 @@
 import { GetServerSideProps } from "next";
 import { ParsedUrlQuery } from "querystring";
 import { Container } from "../src/components/Grid";
-import { GlobalStyle, LayoutHead } from "../src/components/Layout";
+import Layout, { GlobalStyle, LayoutHead } from "../src/components/Layout";
 import { StaticContent } from "../src/components/StaticContent";
 
 interface IProps {
@@ -18,20 +18,24 @@ export const getServerSideProps: GetServerSideProps<IProps> = async (props) => {
 
 export const Search = (props: IProps) => {
   const { q = "Ricerca" } = props.query;
+  const title = `Calcio Napoli - ${q}`;
   return (
-    <>
-      <LayoutHead 
-        description={`Calcio Napoli - ${q}`}
-        title={`Calcio Napoli - ${q}`}
-      />
-      <Container>
+    <Layout
+      description={title}
+      title={title}>
+      <Container page>
         <StaticContent>
           <script async src="https://cse.google.com/cse.js?cx=2f88dc326f65152c5" />
-          <div className="gcse-search" suppressHydrationWarning={true} />
+          <div style={{
+            margin: "15px 0"
+          }}>
+            <div 
+              className="gcse-search" suppressHydrationWarning={true} 
+            />
+          </div>
         </StaticContent>
       </Container>
-      <GlobalStyle />
-    </>
+    </Layout>
   )
 }
 
