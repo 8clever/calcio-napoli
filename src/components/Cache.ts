@@ -1,12 +1,17 @@
 import fs from "fs";
 
+const cachePath = process.cwd() + "/cache/";
+
 export const cache = {
   keys: {
-    ytchannel: process.cwd() + "/cache/ytchannel.json"
+    ytchannel: cachePath + "ytchannel.json"
   }
 }
 
 export const writeCache = (key:string, data: object) => {
+  if (!fs.existsSync(cachePath)) {
+    fs.mkdirSync(cachePath);
+  }
   fs.writeFileSync(key, JSON.stringify(data))
 }
 
