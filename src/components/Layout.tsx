@@ -51,6 +51,7 @@ export const GlobalStyle = () => {
         color: ${theme.color.white};
         max-width: 100vw;
         overflow-x: hidden;
+        margin: 0;
       }
       .gsc-cursor * {
         color: ${theme.color.white};

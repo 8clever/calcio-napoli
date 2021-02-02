@@ -15,7 +15,7 @@ export const getServerSideProps: GetServerSideProps<ChannelProps> = async () => 
 }
 
 export const config = {
-  amp: true
+  amp: "hybrid"
 }
 
 export default Channel

@@ -1,10 +1,14 @@
-import { AmpImg, AmpLightbox, AmpSidebar, Button } from "react-amphtml";
 import { Container } from "./Grid";
+import { Button, Image, Lightbox, Sidebar } from "./Hybrid";
 import { Search } from "./Icon";
 import { media } from "./Media";
 import { theme } from "./Theme";
+import React from "react";
 
 export const Header = () => {
+  const [ sidebar, setSidebar ] = React.useState(false);
+  const [ lightbox, setLightbox ] = React.useState(false);
+
   return (
     <header className="header">
       <Container>
@@ -16,15 +20,13 @@ export const Header = () => {
               alignItems: 'center' 
             }}
             href="/">
-            <AmpImg
+            <Image
               alt="Clacio Napoli"
               style={{
                 minWidth: 40
               }}
               width="40"
               height="40"
-              layout="fixed"
-              specName="default"
               src="/images/favicon.png"
             />
             <span className="brand-text">
@@ -37,15 +39,19 @@ export const Header = () => {
           }}>
             <Button 
               title="Search"
-              specName="default"
               on="tap:search-sidebar"
+              onClick={() => {
+                setLightbox(true)
+              }}
               className="search-icon">
               <Search />
             </Button>
             <Button 
               title="Menu"
               className="hamburger"
-              specName="default" 
+              onClick={() => {
+                setSidebar(true);
+              }}
               on="tap:header-sidebar.toggle">
               <div />
               <div />
@@ -54,14 +60,11 @@ export const Header = () => {
           </div>
         </div>
       </Container>
-      <AmpLightbox
-        role="main"
-        tabindex="1"
+      <Lightbox
+        open={lightbox}
         style={{
           background: "rgba(0,0,0,0.9)",
         }}
-        specName="default"
-        layout="nodisplay"
         id="search-sidebar">
         <Container>
           <div style={{
@@ -76,8 +79,8 @@ export const Header = () => {
                 border: "none",
                 color: theme.color.white
               }}
-              on="tap:search-sidebar.close"
-              specName="default">X
+              onClick={() => setLightbox(false)}
+              on="tap:search-sidebar.close">X
             </Button>
           </div>
           <div 
@@ -96,13 +99,12 @@ export const Header = () => {
             </form>
           </div>
         </Container>
-      </AmpLightbox>
-      <AmpSidebar 
-        specName="default"
-        class="sidebar"
-        id="header-sidebar" 
-        layout="nodisplay" 
-        side="right">
+      </Lightbox>
+      <Sidebar
+        open={sidebar}
+        className="sidebar"
+        toggle={() => setSidebar(false)}
+        id="header-sidebar"> 
         {[ media.menu, media.media ].map((i,idx) => {
           return (
             <ul 
@@ -124,7 +126,7 @@ export const Header = () => {
             </ul>
           )
         })}
-      </AmpSidebar>
+      </Sidebar>
       <style jsx>{`
         :global(*) {
           outline: none;

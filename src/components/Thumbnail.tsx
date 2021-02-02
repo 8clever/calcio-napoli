@@ -1,4 +1,5 @@
-import { AmpImg } from "react-amphtml"
+import { useAmp } from "next/amp"
+import { Image } from "./Hybrid"
 import { theme } from "./Theme"
 
 interface IProps {
@@ -8,14 +9,13 @@ interface IProps {
 }
 
 export const Thumbanil = (props: IProps) => {
+  const isAmp = useAmp();
   return (
     <a href={props.href}>
       <div className="img-responsive">
-        <AmpImg 
+        <Image
           alt={props.title}
-          specName="default"
           src={props.imageSrc}
-          layout="fill"
         />
         <h3>{props.title}</h3>
       </div>
@@ -27,7 +27,11 @@ export const Thumbanil = (props: IProps) => {
         .img-responsive {
           transition: all 0.3s;
           position: relative;
-          padding-top: 56%;
+          ${
+            isAmp ?
+            "padding-top: 56%;" :
+            ""
+          }
           overflow: hidden;
         }
         .img-responsive :global(amp-img) {
