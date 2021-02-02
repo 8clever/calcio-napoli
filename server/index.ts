@@ -9,7 +9,6 @@ const port = process.env.PORT || 3000;
 
 app.prepare().then(() => {
   const server = express()
-
   
   server.all('*', (req, res) => {
 
