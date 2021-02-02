@@ -24,7 +24,7 @@ export const Image = (props: ImageProps) => {
     )
   }  
   return (
-    <LazyLoad height={200} offset={100} once>
+    <LazyLoad height={props.height || 200} offset={100} once>
       <img
         style={{
           width: "100%",
