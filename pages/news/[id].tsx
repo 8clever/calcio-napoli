@@ -1,6 +1,5 @@
 import { GetServerSideProps } from "next";
 import { ParsedUrlQuery } from "querystring";
-import { AmpYoutube } from "react-amphtml";
 import ytdl from "ytdl-core";
 import Layout from "../../src/components/Layout";
 import _ from 'lodash';
@@ -11,6 +10,7 @@ import { StructuredData } from "../../src/components/StructuredData";
 import { AdResponsive } from "../../src/components/AdSlot";
 import { Thumbanil } from "../../src/components/Thumbnail";
 import nextConfig from "../../next.config";
+import { Youtube } from "../../src/components/Hybrid"
 
 interface IProps {
   info: ytdl.videoInfo["videoDetails"],
@@ -73,6 +73,7 @@ export const News = (props: IProps) => {
   }
   return (
     <Layout 
+      hybrid
       og={{
         image: `https://img.youtube.com/vi/${props.info.videoId}/hqdefault.jpg`
       }}
@@ -84,13 +85,10 @@ export const News = (props: IProps) => {
       <div style={{ minHeight: "100vh" }}>
         <Container>
           <h1>{props.info.title}</h1>
-          <AmpYoutube 
-            {...{
-              layout: "responsive",
-              width: "480",
-              height: "270"
-            } as any}
-            data-videoid={props.info.videoId}
+          <Youtube
+            width="480"
+            height="270"
+            videoId={props.info.videoId}
           />
           <p 
             style={{
@@ -131,7 +129,7 @@ export const News = (props: IProps) => {
 }
 
 export const config = {
-  amp: true
+  amp: "hybrid"
 }
 
 export default News;

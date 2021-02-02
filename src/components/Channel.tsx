@@ -18,6 +18,7 @@ export const Channel = (props: IProps) => {
   const videoList = props.list;
   return (
     <Layout 
+      hybrid
       description={props.title}
       title={props.title}>
       <StructuredData 

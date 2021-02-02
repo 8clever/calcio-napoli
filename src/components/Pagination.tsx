@@ -2,7 +2,7 @@ import { useRouter } from "next/router"
 import { stringify } from "querystring";
 import { theme } from "./Theme"
 
-const makeUrl = (route: string, query: any) => {
+export const makeUrl = (route: string, query: any) => {
   let url = route;
   const q: any = {};
   Object.keys(query).forEach(key => {

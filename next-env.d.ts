@@ -20,3 +20,5 @@ declare module "livesoccertv-parser" {
 
   export default parse;
 };
+
+declare module "react-adsense";

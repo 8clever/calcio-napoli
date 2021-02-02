@@ -6,6 +6,9 @@ interface Media {
 }
 
 export const media = {
+  google: {
+    caPub: "ca-pub-7579927697787840"
+  },
   playListId: "PL2HP8OJyZJpNe-5yJdL9o5n-utvD_H2pP",
   domain: "https://www.calcio-napoli.com",
   menu: [

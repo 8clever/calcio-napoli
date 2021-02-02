@@ -27,7 +27,7 @@ export const getServerSideProps: GetServerSideProps<ChannelProps, IParams> = asy
 }
 
 export const config = {
-  amp: true
+  amp: "hybrid"
 }
 
 export default Channel

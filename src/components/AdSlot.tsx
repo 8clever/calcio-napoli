@@ -1,6 +1,9 @@
+import { useAmp } from "next/amp"
 import { AmpAd, AmpAutoAds } from "react-amphtml"
+import React from "react";
+import { media } from "./Media";
 
-const caPub = "ca-pub-7579927697787840"
+const caPub = media.google.caPub
 
 export const AdSlot = (props: {
   slot: string;
@@ -40,19 +43,41 @@ export const AdAuto = () => {
 }
 
 export const AdResponsive = () => {
+  const isAmp = useAmp();
+  const idSlot = "8061989518";
+
+  React.useEffect(() => {
+    if(typeof window !== 'undefined'){
+      const w = window as any;
+      (w.adsbygoogle = w.adsbygoogle || []).push({});
+    }
+  }, []);
+
+  if (isAmp) {
+    return (
+      <AmpAd
+        specName="amp-ad with data-enable-refresh attribute"
+        data-enable-refresh
+        width="100vw" 
+        height="320"
+        type="adsense"
+        data-ad-client={caPub}
+        data-ad-slot={idSlot}
+        data-auto-format="rspv"
+        data-full-width="">
+        <div {...{overflow:""} as any}></div>
+        <div {...{fallback:""}}>AD NONE</div>
+      </AmpAd>
+    )
+  }
+
   return (
-    <AmpAd
-      specName="amp-ad with data-enable-refresh attribute"
-      data-enable-refresh
-      width="100vw" 
-      height="320"
-      type="adsense"
-      data-ad-client={caPub}
-      data-ad-slot="8061989518"
-      data-auto-format="rspv"
-      data-full-width="">
-      <div {...{overflow:""} as any}></div>
-      <div {...{fallback:""}}>AD NONE</div>
-    </AmpAd>
+    <ins className="adsbygoogle"
+      style={{ display: "block" }}
+      data-ad-client={media.google.caPub}
+      data-ad-slot={idSlot}
+      data-ad-format="auto"
+      data-full-width-responsive="true">
+    </ins>
   )
 }

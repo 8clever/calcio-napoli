@@ -1,5 +1,5 @@
 import { useAmp } from "next/amp";
-import { AmpImg, AmpLightbox, AmpSidebar, Button as AmpButton } from "react-amphtml";
+import { AmpImg, AmpLightbox, AmpSidebar, AmpYoutube, Button as AmpButton } from "react-amphtml";
 import React from "react";
 
 interface ImageProps {
@@ -174,6 +174,56 @@ export const Lightbox = ({ children, ...props }: LightboxProps) => {
           transition: opacity 0.3s;
           opacity: 1;
           z-index: 1;
+        }
+      `}</style>
+    </div>
+  )
+}
+
+interface YoutubeProps {
+  videoId: string;
+  width?: string;
+  height?: string;
+}
+
+export const Youtube = ({ videoId, ...props }: YoutubeProps) => {
+  const isAmp = useAmp();
+
+  if (isAmp) {
+    return (
+      <AmpYoutube 
+        {...{
+          layout: "responsive",
+          ...props
+        } as any}
+        data-videoid={videoId}
+      />
+    )
+  }
+
+  return (
+    <div>
+      <iframe 
+        allowFullScreen
+        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+        src={`https://www.youtube.com/embed/${videoId}`}
+        frameBorder="0"
+      />
+      <style jsx>{`
+        div {
+          position: relative;
+          overflow: hidden;
+          width: 100%;
+          padding-top: 56.25%;
+        }
+        iframe {
+          position: absolute;
+          top: 0;
+          left: 0;
+          bottom: 0;
+          right: 0;
+          width: 100%;
+          height: 100%;
         }
       `}</style>
     </div>
