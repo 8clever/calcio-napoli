@@ -17,6 +17,7 @@ export const Header = () => {
             }}
             href="/">
             <AmpImg
+              alt="Clacio Napoli"
               style={{
                 minWidth: 40
               }}
@@ -35,12 +36,14 @@ export const Header = () => {
             alignItems: "center"
           }}>
             <Button 
+              title="Search"
               specName="default"
               on="tap:search-sidebar"
               className="search-icon">
               <Search />
             </Button>
             <Button 
+              title="Menu"
               className="hamburger"
               specName="default" 
               on="tap:header-sidebar.toggle">

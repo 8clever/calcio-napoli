@@ -12,6 +12,7 @@ export const Thumbanil = (props: IProps) => {
     <a href={props.href}>
       <div className="img-responsive">
         <AmpImg 
+          alt={props.title}
           specName="default"
           src={props.imageSrc}
           layout="fill"
