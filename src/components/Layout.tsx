@@ -8,7 +8,6 @@ import { media } from './Media'
 import { useRouter } from "next/router";
 import { makeUrl } from './Pagination'
 import { useAmp } from 'next/amp'
-import { StaticContent } from './StaticContent'
 
 type Props = {
   hybrid?: boolean;
