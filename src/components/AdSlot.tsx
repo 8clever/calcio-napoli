@@ -46,13 +46,6 @@ export const AdResponsive = () => {
   const isAmp = useAmp();
   const idSlot = "8061989518";
 
-  // React.useEffect(() => {
-  //   if(typeof window !== 'undefined'){
-  //     const w = window as any;
-  //     (w.adsbygoogle = w.adsbygoogle || []).push({});
-  //   }
-  // }, []);
-
   if (isAmp) {
     return (
       <AmpAd
@@ -72,14 +65,4 @@ export const AdResponsive = () => {
   }
 
   return null;
-
-  return (
-    <ins className="adsbygoogle"
-      style={{ display: "block" }}
-      data-ad-client={media.google.caPub}
-      data-ad-slot={idSlot}
-      data-ad-format="auto"
-      data-full-width-responsive="true">
-    </ins>
-  )
 }
