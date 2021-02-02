@@ -1,8 +1,9 @@
 import next from "next";
 import express from "express";
+import { media } from "../src/components/Media";
 
-const dev = process.env.NODE_ENV !== 'production'
-const app = next({ dev });
+const production = process.env.NODE_ENV === 'production'
+const app = next({ dev: !production });
 const handle = app.getRequestHandler();
 const port = process.env.PORT || 3000;
 
@@ -10,6 +11,12 @@ app.prepare().then(() => {
   const server = express()
 
   server.all('*', (req, res) => {
+
+    if (production && !req.secure) {
+      res.redirect(media.domain + req.originalUrl, 301);
+      return;
+    }
+
     return handle(req, res)
   });
 
