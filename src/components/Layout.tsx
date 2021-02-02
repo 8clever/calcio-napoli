@@ -30,40 +30,38 @@ export const LayoutHead = (props: Pick<Props, "title" | "description" | "og" | "
   const amphtml = media.domain + makeUrl(router.route, q);
   const isAmp = useAmp();
   return (
-    <StaticContent>
-      <Head>
-        <title>{title}</title>
-        <meta charSet="utf-8" />
-        <meta name="description" content={description} />
-        <link rel="shortcut icon" type="image/png" href="/images/favicon.png" />
-        <link rel="canonical" href={canonical} />
-        {
-          props.hybrid ?
-          <link rel="amphtml" href={amphtml} /> :
-          null
-        }
-        <meta name="twitter:card" content="summary" />
-        <meta name="twitter:site" content="@GoalsNapoli" />
-        <meta name="twitter:creator" content="@godofluck89" />
-        <meta property="og:title" content={title} />
-        <meta property="og:description" content={description} />
-        <meta property="og:image" content={
-          props.og?.image ?? 
-          media.domain + "/images/matches_bg.jpg"
-        } /> :
-        <meta property="og:url" content={media.domain + router.asPath} />
-        <meta property="og:type" content="website" />
-        {
-          isAmp ? null :
-          <script
-            key="adsense"
-            async
-            data-ad-client={media.google.caPub}
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-          />
-        }
-      </Head>
-    </StaticContent>
+    <Head>
+      <title>{title}</title>
+      <meta charSet="utf-8" />
+      <meta name="description" content={description} />
+      <link rel="shortcut icon" type="image/png" href="/images/favicon.png" />
+      <link rel="canonical" href={canonical} />
+      {
+        props.hybrid ?
+        <link rel="amphtml" href={amphtml} /> :
+        null
+      }
+      <meta name="twitter:card" content="summary" />
+      <meta name="twitter:site" content="@GoalsNapoli" />
+      <meta name="twitter:creator" content="@godofluck89" />
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
+      <meta property="og:image" content={
+        props.og?.image ?? 
+        media.domain + "/images/matches_bg.jpg"
+      } /> :
+      <meta property="og:url" content={media.domain + router.asPath} />
+      <meta property="og:type" content="website" />
+      {
+        isAmp ? null :
+        <script
+          key="adsense"
+          async
+          data-ad-client={media.google.caPub}
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+        />
+      }
+    </Head>
   )
 }
 
