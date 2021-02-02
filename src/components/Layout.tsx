@@ -28,6 +28,14 @@ export const LayoutHead = (props: Pick<Props, "title" | "description" | "og" | "
   q.amp = "1";
   const amphtml = media.domain + makeUrl(router.route, q);
   const isAmp = useAmp();
+  const [ loaded, setLoaded ] = React.useState(false);
+
+  React.useEffect(() => {
+    setTimeout(() => {
+      setLoaded(true);
+    }, 5000);
+  }, []);
+
   return (
     <Head>
       <title>{title}</title>
@@ -55,7 +63,9 @@ export const LayoutHead = (props: Pick<Props, "title" | "description" | "og" | "
         isAmp ? 
         <>
           
-        </> : <>
+        </> : 
+        
+        loaded ? <>
           <script
             key="adsense"
             async
@@ -71,7 +81,9 @@ export const LayoutHead = (props: Pick<Props, "title" | "description" | "og" | "
               gtag('config', 'UA-55674089-5');
             `
           }} />
-        </>
+        </> :
+
+        null
       }
     </Head>
   )
