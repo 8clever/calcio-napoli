@@ -1,7 +1,7 @@
 import { GetServerSideProps } from "next";
 import { ParsedUrlQuery } from "querystring";
 import { Container } from "../src/components/Grid";
-import Layout, { GlobalStyle, LayoutHead } from "../src/components/Layout";
+import Layout from "../src/components/Layout";
 import { StaticContent } from "../src/components/StaticContent";
 
 interface IProps {
