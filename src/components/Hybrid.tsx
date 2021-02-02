@@ -1,6 +1,7 @@
 import { useAmp } from "next/amp";
 import { AmpImg, AmpLightbox, AmpSidebar, AmpYoutube, Button as AmpButton } from "react-amphtml";
 import React from "react";
+import LazyLoad from "react-lazyload";
 
 interface ImageProps {
   alt?: string;
@@ -23,13 +24,15 @@ export const Image = (props: ImageProps) => {
     )
   }  
   return (
-    <img
-      style={{
-        width: "100%",
-        height: "auto"
-      }}
-      {...props}
-    />
+    <LazyLoad height={200} offset={100} once>
+      <img
+        style={{
+          width: "100%",
+          height: "auto"
+        }}
+        {...props}
+      />
+    </LazyLoad>
   )
 }
 
