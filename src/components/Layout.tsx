@@ -54,12 +54,7 @@ export const LayoutHead = (props: Pick<Props, "title" | "description" | "og" | "
       {
         isAmp ? 
         <>
-          <AmpAnalytics
-            type="gtag" 
-            id={"gtag"}
-            config={"/analytics.json"}
-            data-credentials="include">
-          </AmpAnalytics>
+          
         </> : <>
           <script
             key="adsense"
@@ -106,10 +101,20 @@ export const GlobalStyle = () => {
 
 const Layout = (props: Props) => {
   const { children } = props;
+  const isAmp = useAmp();
   return (
     <>
       <LayoutHead {...props} />
       <Header />
+      { isAmp ? 
+        <AmpAnalytics
+          type="gtag" 
+          id={"gtag"}
+          config={"/analytics.json"}
+          data-credentials="include">
+        </AmpAnalytics> : 
+        null
+      }
       {children}
       <Footer />
       <GlobalStyle />
