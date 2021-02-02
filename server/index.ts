@@ -12,8 +12,7 @@ app.prepare().then(() => {
   
   server.all('*', (req, res) => {
 
-    console.log(req.headers)
-    if (req.headers["X-Forwarded-Proto"] === "http") {
+    if (req.headers["x-forwarded-proto"] === "http") {
       res.redirect(media.domain + req.originalUrl, 301);
       return;
     }
