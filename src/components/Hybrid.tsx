@@ -4,6 +4,7 @@ import React from "react";
 import LazyLoad from "react-lazyload";
 import Link from "next/link";
 import { theme } from "./Theme";
+import { Play } from "./Icon";
 
 interface ImageProps {
   alt?: string;
@@ -26,7 +27,9 @@ export const Image = (props: ImageProps) => {
     )
   }  
 
-  const style: React.CSSProperties = {}
+  const style: React.CSSProperties = {
+    position: "relative"
+  }
   
   if (props.width) style.width = props.width + "px";
   if (props.height) style.height = props.height + "px";
@@ -203,12 +206,19 @@ export const Lightbox = ({ children, ...props }: LightboxProps) => {
 
 interface YoutubeProps {
   videoId: string;
+  thumbnail?: string;
   width?: string;
   height?: string;
 }
 
 export const Youtube = ({ videoId, ...props }: YoutubeProps) => {
   const isAmp = useAmp();
+
+  const [ play, setPlay ] = React.useState(false);
+
+  React.useEffect(() => {
+    setPlay(false);
+  }, [ videoId ]);
 
   if (isAmp) {
     return (
@@ -223,22 +233,75 @@ export const Youtube = ({ videoId, ...props }: YoutubeProps) => {
   }
 
   return (
-    <div>
-      <iframe 
-        title="Calcio Napoli Podcasts"
-        allowFullScreen
-        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-        src={`https://www.youtube.com/embed/${videoId}`}
-        frameBorder="0"
-      />
+    <>
+      {
+        play ?
+        <div className='iframe-container'>
+          <iframe 
+            title="Calcio Napoli Podcasts"
+            allowFullScreen
+            allow="accelerometer; autoplay; playsinline; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            src={`https://www.youtube.com/embed/${videoId}?autoplay=1&playsinline=1`}
+            frameBorder="0"
+          />
+        </div> :
+
+        props.thumbnail ?
+        <div className="preview-container">
+          <Image
+            alt="Youtube Video"
+            src={props.thumbnail}
+          />
+          <div className="button-container">
+            <button onClick={() => setPlay(true)}>
+              <Play /> Giocare
+            </button>
+          </div>
+        </div>
+        :
+
+        null
+      }
       <style jsx>{`
-        div {
+        .preview-container {
+          position: relative;
+        }
+        .preview-container .button-container {
+          position: absolute;
+          left: 0;
+          top: 0;
+          right: 0;
+          bottom: 0;
+          display: flex;
+        }
+        .preview-container button {
+          display: flex;
+          border: none;
+          padding: 20px;
+          background: ${theme.color.primary};
+          color: white;
+          transition: 0.3s all;
+          font-weight: bold;
+          font-size: 20px;
+          border-radius: 25px;
+          margin: auto;
+          cursor: pointer;
+        }
+        .preview-container button:hover {
+          color: ${theme.color.primary};
+          background: white;
+        }
+        .preview-container :global(svg) {
+          height: 22px;
+          margin-right: 5px;
+        }
+        .iframe-container {
           position: relative;
           overflow: hidden;
           width: 100%;
           padding-top: 56.25%;
         }
-        iframe {
+        .iframe-container > iframe {
           position: absolute;
           top: 0;
           left: 0;
@@ -248,7 +311,7 @@ export const Youtube = ({ videoId, ...props }: YoutubeProps) => {
           height: 100%;
         }
       `}</style>
-    </div>
+    </>
   )
 }
 

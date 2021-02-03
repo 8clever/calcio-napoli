@@ -11,6 +11,7 @@ import { AdResponsive } from "../../src/components/AdSlot";
 import { Thumbanil } from "../../src/components/Thumbnail";
 import nextConfig from "../../next.config";
 import { Youtube } from "../../src/components/Hybrid"
+import Head from "next/head";
 
 interface IProps {
   info: ytdl.videoInfo["videoDetails"],
@@ -45,6 +46,8 @@ export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (pro
 }
 
 export const News = (props: IProps) => {
+  const thumb = props.info.thumbnails[props.info.thumbnails.length - 1];
+
   const thing: WithContext<Thing> = {
     "@context": "https://schema.org",
     "@type": "NewsArticle",
@@ -53,9 +56,7 @@ export const News = (props: IProps) => {
       "@type": "WebPage",
       "@id": media.domain + "/news/" + props.info.videoId
     },
-    "image": [
-      `https://img.youtube.com/vi/${props.info.videoId}/hqdefault.jpg`
-    ],
+    "image": props.info.thumbnails.map(t => t.url),
     "datePublished": props.info.publishDate,
     "dateModified": props.info.publishDate,
     "publisher": {
@@ -75,10 +76,13 @@ export const News = (props: IProps) => {
     <Layout 
       hybrid
       og={{
-        image: `https://img.youtube.com/vi/${props.info.videoId}/hqdefault.jpg`
+        image: thumb.url
       }}
       description={props.info.description || ""}
       title={props.info.title}>
+      <Head>
+        <link rel="preload" href={thumb.url} />
+      </Head>
       <StructuredData
         data={thing}
       />
@@ -86,6 +90,7 @@ export const News = (props: IProps) => {
         <Container>
           <h1>{props.info.title}</h1>
           <Youtube
+            thumbnail={thumb.url}
             width="480"
             height="270"
             videoId={props.info.videoId}
