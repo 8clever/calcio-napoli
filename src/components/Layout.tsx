@@ -43,6 +43,7 @@ export const LayoutHead = (props: Pick<Props, "title" | "description" | "og" | "
       <meta name="description" content={description} />
       <link rel="shortcut icon" type="image/png" href="/images/favicon.png" />
       <link rel="canonical" href={canonical} />
+      <link rel="preconnect" href="https://i.ytimg.com" />
       {
         props.hybrid ?
         <link rel="amphtml" href={amphtml} /> :
