@@ -23,17 +23,32 @@ export const Image = (props: ImageProps) => {
       />
     )
   }  
+
+  const style: React.CSSProperties = {}
+  
+  if (props.width) style.width = props.width + "px";
+  if (props.height) style.height = props.height + "px";
+  if (!props.width && !props.height) style.paddingTop = "56.2%";
+
   return (
-    <LazyLoad height={props.height || 200} offset={100} once>
-      <img
-        style={{
-          minHeight: props.height || 120,
-          width: "100%",
-          height: "auto"
-        }}
-        {...props}
-      />
-    </LazyLoad>
+    <div>
+      <LazyLoad 
+        style={style}
+        offset={100} 
+        once>
+        <img
+          style={{
+            position: "absolute",
+            width: "100%",
+            left: 0,
+            right: 0,
+            top: 0,
+            bottom: 0,
+          }}
+          {...props}
+        />
+      </LazyLoad>
+    </div>
   )
 }
 
