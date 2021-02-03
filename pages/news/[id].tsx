@@ -12,6 +12,7 @@ import { Thumbanil } from "../../src/components/Thumbnail";
 import nextConfig from "../../next.config";
 import { Youtube } from "../../src/components/Hybrid"
 import Head from "next/head";
+import { theme } from "../../src/components/Theme";
 
 interface IProps {
   info: ytdl.videoInfo["videoDetails"],
@@ -96,14 +97,15 @@ export const News = (props: IProps) => {
             videoId={props.info.videoId}
           />
           <p 
+            className="description-container"
             style={{
               fontSize: 20,
               overflow: "hidden"
             }}
             dangerouslySetInnerHTML={{
             __html: props.info.description?.trim()
-              .replace(/(https:\/\/([^\/\s]+)[^\s]*)/gmi, "<a target='_blank' href='$1'>$2</a>")
-              .replace(/#([^\s]+)/gmi, "<a target='_blank' href='https://youtube.com/hashtag/$1'>#$1</a>")
+              .replace(/(https:\/\/([^\/\s]+)[^\s]*)/gmi, "<a rel='noreferrer' target='_blank' href='$1'>$2</a>")
+              .replace(/#([^\s]+)/gmi, "<a rel='noreferrer' target='_blank' href='https://youtube.com/hashtag/$1'>#$1</a>")
               .replace(/\n/gmi, "<br/>")
               || ""
           }}></p>
@@ -125,10 +127,15 @@ export const News = (props: IProps) => {
             }
           </Row>
           <p>
-            <small>{props.info.keywords?.join(", ")}</small>
+            {props.info.keywords?.join(", ")}
           </p>
         </Container>
       </div>
+      <style jsx>{`
+        .description-container :global(a) {
+          color: ${theme.color.white};
+        }
+      `}</style>
     </Layout>
   )
 }
