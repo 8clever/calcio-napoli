@@ -9,7 +9,7 @@ export const getServerSideProps: GetServerSideProps<ChannelProps> = async () => 
   return {
     props: {
       title,
-      list: playlist.videos
+      list: playlist.videos.slice(0, 50)
     }
   }
 }
