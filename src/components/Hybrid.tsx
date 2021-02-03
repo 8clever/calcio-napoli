@@ -260,27 +260,25 @@ interface AnchorProps {
   ampOnly?: boolean;
 }
 
-export const Anchor = ({ href, style, ampOnly, ...props }: AnchorProps) => {
+export const Anchor = ({ href, ampOnly, ...props }: AnchorProps) => {
   const isAmp = useAmp();
-  if (isAmp || ampOnly) {
-    return (
-      <a {...props} href={href} style={{
-        color: theme.color.white,
-        textDecoration: "none",
-        ...style
-      }} />
-    )
-  }
   return (
-    <Link href={href}>
-      <a 
-        style={{
-          textDecoration: "none",
-          color: theme.color.white,
-          ...style
-        }}
-        {...props} 
-      />
-    </Link>
+    <>
+      {
+        isAmp || ampOnly ?
+        <a {...props} href={href}/> :
+        <Link href={href}>
+          <a 
+            {...props} 
+          />
+        </Link>
+      }
+      <style jsx>{`
+        a {
+          text-decoration: none;
+          color: ${theme.color.white};
+        }
+      `}</style>
+    </>
   )
 }
