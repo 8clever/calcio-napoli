@@ -81,7 +81,7 @@ export const News = (props: IProps) => {
       description={props.info.description || ""}
       title={props.info.title}>
       <Head>
-        <link rel="preload" href={thumb.url} />
+        <link rel="preload" as="image" href={thumb.url} />
       </Head>
       <StructuredData
         data={thing}
