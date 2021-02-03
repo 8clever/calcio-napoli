@@ -7,6 +7,7 @@ import { Pagination, PaginationProps } from './Pagination';
 import React from "react";
 import { AdResponsive } from './AdSlot';
 import { Thumbanil } from './Thumbnail';
+import Head from "next/head";
 
 export interface IProps {
   list: Video[];
@@ -16,11 +17,19 @@ export interface IProps {
 
 export const Channel = (props: IProps) => { 
   const videoList = props.list;
+  const preload = props.list.slice(0, 2);
   return (
     <Layout 
       hybrid
       description={props.title}
       title={props.title}>
+      <Head>
+        {preload.map(i => {
+          return (
+            <link key={i.id} rel="preload" as="image" href={i.thumbnail} />
+          )
+        })}
+      </Head>
       <StructuredData 
         data={{
           "@context":"https://schema.org",
