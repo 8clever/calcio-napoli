@@ -2,7 +2,8 @@
 interface Media {
   href: string;
   label: string;
-  changefreq?: "hourly" | "weekly" | "daily" | "never"
+  changefreq?: "hourly" | "weekly" | "daily" | "never",
+  ampOnly: boolean;
 }
 
 export const media = {
@@ -35,13 +36,14 @@ export const media = {
     {
       href: "/seriea",
       label: "Classifica Serie A",
-      changefreq: "daily"
+      changefreq: "daily",
     },
     {
       href: "/sscnapoli",
       label: "#SSCNapoli",
-      changefreq: "hourly"
-    }
+      changefreq: "hourly",
+      ampOnly: true
+    },
   ] as Media[],
   media: [
     {
@@ -58,7 +60,8 @@ export const media = {
     },
     {
       href: "/story",
-      label: "Stories"
+      label: "Stories",
+      ampOnly: true
     }
   ] as Media[],
   partners: [

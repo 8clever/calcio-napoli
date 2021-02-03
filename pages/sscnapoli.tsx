@@ -5,6 +5,7 @@ import Layout from "../src/components/Layout"
 export const News = () => {
   return (
     <Layout 
+      hybrid
       description="Calcio Napoli | SSC Napoli"
       title="Calcio Napoli | SSC Napoli">
       <Container page>

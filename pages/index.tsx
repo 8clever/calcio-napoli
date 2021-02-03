@@ -2,14 +2,27 @@ import { GetServerSideProps } from "next"
 import { PlaylistDetailed } from "scrape-yt";
 import { Channel, IProps as ChannelProps } from "../src/components/Channel"
 import { cache, getCache } from "../src/components/Cache";
+import { ParsedUrlQuery } from "querystring";
 
-export const getServerSideProps: GetServerSideProps<ChannelProps> = async () => {
+interface IProps extends ParsedUrlQuery {
+  page: string;
+}
+
+export const getServerSideProps: GetServerSideProps<ChannelProps, IProps> = async (props) => {
   const title = "Calcio Napoli Podcasts";
   const playlist = getCache(cache.keys.ytchannel) as PlaylistDetailed;
+  const limit = 10;
+  const page = Number(props.query.page) || 1;
+  const skip = limit * (page - 1);
   return {
     props: {
       title,
-      list: playlist.videos.slice(0, 50)
+      list: playlist.videos.slice(skip, skip + limit),
+      pagination: {
+        limit,
+        page,
+        totalCount: 100,
+      }
     }
   }
 }

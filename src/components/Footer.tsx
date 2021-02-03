@@ -1,4 +1,5 @@
 import { Col, Container, Row } from "./Grid";
+import { Anchor } from "./Hybrid";
 import { media } from "./Media";
 import { theme } from "./Theme";
 
@@ -15,10 +16,11 @@ export const Footer = () => {
                     {list.map(i => {
                       return (
                         <li key={i.href}>
-                          <a 
+                          <Anchor
+                            ampOnly={i.ampOnly}
                             href={i.href}>
                             {i.label}
-                          </a>
+                          </Anchor>
                         </li>
                       )
                     })}
@@ -41,10 +43,6 @@ export const Footer = () => {
         }
         footer ul li {
           padding: 8px 0;
-        }
-        footer ul a {
-          text-decoration: none;
-          color: ${theme.color.white};
         }
       `}</style>
     </>

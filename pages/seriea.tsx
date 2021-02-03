@@ -28,6 +28,7 @@ export const getServerSideProps: GetServerSideProps<IProps> = async () => {
 export const Games = (props: IProps) => {
   return (
     <Layout 
+      hybrid
       description="Classifica Serie A tim"
       title="Calcio Napoli | Classifica Serie A tim">
       <Container page>
@@ -259,7 +260,7 @@ export const Games = (props: IProps) => {
 }
 
 export const config = {
-  amp: true
+  amp: "hybrid"
 }
 
 export default Games;

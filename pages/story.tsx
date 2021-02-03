@@ -7,12 +7,17 @@ import { IProps as ChannelProps } from "../src/components/Channel";
 import { 
   getServerSideProps as indexProps,
 } from "./index";
+import { ParsedUrlQuery } from "querystring";
 
 export const config = {
   amp: true
 }
 
-export const getServerSideProps: GetServerSideProps<ChannelProps> = indexProps;
+interface IProps extends ParsedUrlQuery {
+  page: string;
+}
+
+export const getServerSideProps: GetServerSideProps<ChannelProps, IProps> = indexProps;
 
 const title = "Calcio Napoli | Stories"
 

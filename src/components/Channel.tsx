@@ -3,7 +3,7 @@ import Layout from '../components/Layout'
 import { StructuredData } from '../components/StructuredData';
 import { media } from '../components/Media';
 import { Video } from "scrape-yt";
-import { Pagination } from './Pagination';
+import { Pagination, PaginationProps } from './Pagination';
 import React from "react";
 import { AdResponsive } from './AdSlot';
 import { Thumbanil } from './Thumbnail';
@@ -11,7 +11,7 @@ import { Thumbanil } from './Thumbnail';
 export interface IProps {
   list: Video[];
   title: string
-  pagination?: boolean;
+  pagination?: PaginationProps
 }
 
 export const Channel = (props: IProps) => { 
@@ -77,7 +77,7 @@ export const Channel = (props: IProps) => {
         </Row>
         {
           props.pagination ?
-          <Pagination /> :
+          <Pagination {...props.pagination} /> :
           null
         }
       </Container>

@@ -1,6 +1,5 @@
 import { useAmp } from "next/amp"
-import { Image } from "./Hybrid"
-import { theme } from "./Theme"
+import { Anchor, Image } from "./Hybrid"
 
 interface IProps {
   title: string;
@@ -11,7 +10,7 @@ interface IProps {
 export const Thumbanil = (props: IProps) => {
   const isAmp = useAmp();
   return (
-    <a href={props.href}>
+    <Anchor href={props.href}>
       <div className="img-responsive">
         <Image
           alt={props.title}
@@ -20,10 +19,6 @@ export const Thumbanil = (props: IProps) => {
         <h3>{props.title}</h3>
       </div>
       <style jsx>{`
-        a {
-          color: ${theme.color.white};
-          text-decoration: none;
-        }
         .img-responsive {
           transition: all 0.3s;
           position: relative;
@@ -48,6 +43,6 @@ export const Thumbanil = (props: IProps) => {
           bottom: 0;
         }  
       `}</style>
-    </a>
+    </Anchor>
   )
 }

@@ -14,7 +14,11 @@ export const getServerSideProps: GetServerSideProps<ChannelProps, IParams> = asy
   const limit = 10;
   return {
     props: {
-      pagination: true,
+      pagination: {
+        limit,
+        page,
+        totalCount: 20
+      },
       title,
       list: await search(title, {
         useWorkerThread: true,

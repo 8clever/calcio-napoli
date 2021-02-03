@@ -1,5 +1,5 @@
 import { Container } from "./Grid";
-import { Button, Image, Lightbox, Sidebar } from "./Hybrid";
+import { Anchor, Button, Image, Lightbox, Sidebar } from "./Hybrid";
 import { Search } from "./Icon";
 import { media } from "./Media";
 import { theme } from "./Theme";
@@ -13,9 +13,8 @@ export const Header = () => {
     <header className="header">
       <Container>
         <div className="head">
-          <a 
+          <Anchor
             style={{ 
-              textDecoration: "none",
               display: 'flex', 
               alignItems: 'center' 
             }}
@@ -32,7 +31,7 @@ export const Header = () => {
             <span className="brand-text">
               Calcio Napoli
             </span>
-          </a>
+          </Anchor>
           <div style={{
             display: "flex",
             alignItems: "center"
@@ -115,10 +114,11 @@ export const Header = () => {
                   return (
                     <li
                       key={i.href}>
-                      <a
+                      <Anchor
+                        ampOnly={i.ampOnly}
                         href={i.href}>
                         {i.label}
-                      </a>
+                      </Anchor>
                     </li>
                   )
                 })
@@ -187,10 +187,6 @@ export const Header = () => {
         }
         .header .sidebar-list li {
           padding: 8px;
-        }
-        .header .sidebar-list a {
-          color: ${theme.color.white};
-          text-decoration: none;
         }
         .header .brand-text {
           color: ${theme.color.white};

@@ -26,7 +26,7 @@ export const getServerSideProps: GetServerSideProps<IProps> = async () => {
 
 export const Matches = (props: IProps) => {
   return (
-    <Layout title={title} description={title}>
+    <Layout hybrid title={title} description={title}>
       <Container page>
         <h1>Ultima partite Napoli. Prossima partite Napoli</h1>
         <Row>
@@ -82,7 +82,7 @@ export const Matches = (props: IProps) => {
 }
 
 export const config = {
-  amp: true
+  amp: "hybrid"
 }
 
 export default Matches;

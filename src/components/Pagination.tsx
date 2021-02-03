@@ -1,5 +1,6 @@
 import { useRouter } from "next/router"
 import { stringify } from "querystring";
+import { Anchor } from "./Hybrid";
 import { theme } from "./Theme"
 
 export const makeUrl = (route: string, query: any) => {
@@ -16,37 +17,47 @@ export const makeUrl = (route: string, query: any) => {
   return `${url}?${stringify(q)}`;
 }
 
-export const Pagination = () => {
+export interface PaginationProps {
+  limit: number;
+  page: number;
+  totalCount: number;
+}
+
+export const Pagination = (props: PaginationProps) => {
   const router = useRouter();
+  const currentCount = props.page * props.limit;
   return (
     <>
       <div className="pagination">
         {
           Number(router.query.page) > 1 ?
-          <a 
+          <Anchor 
             href={makeUrl(router.route, {
               ...router.query,
               page: (Number(router.query.page) || 1) - 1
             })}
             className="prev button">
             Pagina precedente
-          </a> : null
+          </Anchor> : null
         }
-        <a 
-          href={makeUrl(router.route, {
-            ...router.query,
-            page: (Number(router.query.page) || 1) + 1
-          })}
-          className="next button">
-          Pagina successiva
-        </a>
+        { 
+          props.totalCount > currentCount ?
+          <Anchor
+            href={makeUrl(router.route, {
+              ...router.query,
+              page: (Number(router.query.page) || 1) + 1
+            })}
+            className="next button">
+            Pagina successiva
+          </Anchor> : null
+        }
       </div>
       <style jsx>{`
         .pagination {
           display: flex;
           margin-bottom: 15px;
         }
-        .pagination .button {
+        .pagination :global(.button) {
           border-radius: 4px;
           border: 1px solid ${theme.color.white};
           margin-right: 15px;
@@ -55,7 +66,7 @@ export const Pagination = () => {
           transition: all 0.3s;
           color: ${theme.color.white};
         }
-        .pagination .button:hover {
+        .pagination :global(.button:hover) {
           background-color: ${theme.color.white};
           color: ${theme.color.black};
         }

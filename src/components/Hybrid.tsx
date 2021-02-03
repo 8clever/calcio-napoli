@@ -2,6 +2,8 @@ import { useAmp } from "next/amp";
 import { AmpImg, AmpLightbox, AmpSidebar, AmpYoutube, Button as AmpButton } from "react-amphtml";
 import React from "react";
 import LazyLoad from "react-lazyload";
+import Link from "next/link";
+import { theme } from "./Theme";
 
 interface ImageProps {
   alt?: string;
@@ -247,5 +249,38 @@ export const Youtube = ({ videoId, ...props }: YoutubeProps) => {
         }
       `}</style>
     </div>
+  )
+}
+
+interface AnchorProps {
+  href: string;
+  children?: React.ReactNode;
+  className?: string;
+  style?: React.CSSProperties;
+  ampOnly?: boolean;
+}
+
+export const Anchor = ({ href, style, ampOnly, ...props }: AnchorProps) => {
+  const isAmp = useAmp();
+  if (isAmp || ampOnly) {
+    return (
+      <a {...props} href={href} style={{
+        color: theme.color.white,
+        textDecoration: "none",
+        ...style
+      }} />
+    )
+  }
+  return (
+    <Link href={href}>
+      <a 
+        style={{
+          textDecoration: "none",
+          color: theme.color.white,
+          ...style
+        }}
+        {...props} 
+      />
+    </Link>
   )
 }
