@@ -82,12 +82,15 @@ export const Header = () => {
               on="tap:search-sidebar.close">X
             </Button>
           </div>
-          <div 
-            className="search-input">
-            <form method="GET" action="/search" target="_top">
-              <input 
+          <form className="search-form" method="GET" action="/search" target="_top">
+            <label htmlFor="search">
+              Ricerca nel sito
+            </label>
+            <div className="search-input">
+              <input
+                id="search" 
                 type="search"
-                placeholder="Ricerca..."
+                placeholder="Testo..."
                 name="q" 
                 required 
               />
@@ -95,8 +98,8 @@ export const Header = () => {
                 type="submit">
                 Go
               </button>
-            </form>
-          </div>
+            </div>
+          </form>
         </Container>
       </Lightbox>
       <Sidebar
@@ -142,20 +145,21 @@ export const Header = () => {
           color: ${theme.color.white};
           cursor: pointer;
         }
-        .search-input {
+        .search-form {
           margin-top: 60px;
         }
         .search-input *[type='search'] {
             width: 80%;
-          }  
         }
         .search-input :global(button) {
           width: 20%;
           justify-content: center;
           cursor: pointer;
         }
-        .search-input * {
+        .search-input {
           display: flex;
+        }
+        .search-input * {
           border-radius: 0;
           font-size: 14px;
         }

@@ -16,7 +16,7 @@ export const Thumbanil = (props: IProps) => {
           alt={props.title}
           src={props.imageSrc}
         />
-        <h3>{props.title}</h3>
+        <strong>{props.title}</strong>
       </div>
       <style jsx>{`
         .img-responsive {
@@ -34,13 +34,14 @@ export const Thumbanil = (props: IProps) => {
         .img-responsive:hover {
           transform: scale(1.03);
         }
-        .img-responsive h3 {
+        .img-responsive strong {
           margin: 0;
           padding: 5px;
           background: rgba(0,0,0,0.5);
           position: absolute;
           left: 0;
           bottom: 0;
+          font-size: 20px;
         }  
       `}</style>
     </Anchor>
