@@ -69,27 +69,5 @@ export const media = {
       href: "https://vip-software.herokuapp.com",
       label: "VIP Software"
     }
-  ] as Media[],
-  search: [
-    {
-      href: `/search?q=Tutto+Napoli`,
-      label: "Tutto Napoli",
-      changefreq: "daily"
-    },
-    {
-      href: `/search?q=Calcio+Napoli`,
-      label: "Calcio Napoli",
-      changefreq: "daily"
-    },
-    {
-      href: `/search?q=Calcio+Napoli+24`,
-      label: "Calcio Napoli 24",
-      changefreq: "daily"
-    },
-    {
-      href: `/search?q=Calcio+Mercato+Napoli`,
-      label: "Calcio Mercato Napoli",
-      changefreq: "daily"
-    },
   ] as Media[]
 }

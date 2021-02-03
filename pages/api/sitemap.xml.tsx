@@ -28,7 +28,7 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
 
   const items: string[] = [];
 
-  [ media.menu, media.search ].forEach(m => {
+  [ media.menu ].forEach(m => {
     m.forEach(i => {
       items.push(item(i.href, i.changefreq || "never"))
     })
