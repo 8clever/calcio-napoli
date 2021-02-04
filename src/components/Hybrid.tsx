@@ -211,7 +211,7 @@ interface YoutubeProps {
   height?: string;
 }
 
-export const Youtube = ({ videoId, ...props }: YoutubeProps) => {
+export const Youtube = ({ videoId, thumbnail, ...props }: YoutubeProps) => {
   const isAmp = useAmp();
 
   const [ play, setPlay ] = React.useState(false);
@@ -246,11 +246,11 @@ export const Youtube = ({ videoId, ...props }: YoutubeProps) => {
           />
         </div> :
 
-        props.thumbnail ?
+        thumbnail ?
         <div className="preview-container">
           <Image
             alt="Youtube Video"
-            src={props.thumbnail}
+            src={thumbnail}
           />
           <div className="button-container">
             <button onClick={() => setPlay(true)}>
