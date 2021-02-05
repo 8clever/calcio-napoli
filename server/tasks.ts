@@ -15,7 +15,5 @@ export default () => {
   // initial
   writePlayList();
 
-  new CronJob('00 */10 * * * *', async function() {
-    await writePlayList();
-  }).start();
+  new CronJob('00 */10 * * * *', writePlayList).start();
 }

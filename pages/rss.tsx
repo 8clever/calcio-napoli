@@ -5,8 +5,6 @@ import { Container } from "../src/components/Grid";
 import moment from "moment";
 import { theme } from "../src/components/Theme";
 import React from "react";
-import { AdResponsive } from "../src/components/AdSlot";
-
 interface IProps {
   items: Feed[]
 }
@@ -51,11 +49,6 @@ export const RSS = (props: IProps) => {
                       {moment.utc(i.isoDate).local().format("DD.MM.YYYY HH:mm")}
                     </a>
                   </div>
-                  {
-                    idx % 10 === 9 ?
-                    <AdResponsive /> : 
-                    null
-                  }
                 </React.Fragment>
               )
             })

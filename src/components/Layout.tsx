@@ -3,11 +3,10 @@ import Head from 'next/head'
 import { Header } from './Header'
 import { Footer } from './Footer'
 import { theme } from './Theme'
-import { AmpAnalytics } from 'react-amphtml'
 import { media } from './Media'
 import { useRouter } from "next/router";
 import { makeUrl } from './Pagination'
-import { useAmp } from 'next/amp'
+import { AdAuto, Analytics } from './AdSlot'
 
 type Props = {
   hybrid?: boolean;
@@ -27,14 +26,6 @@ export const LayoutHead = (props: Pick<Props, "title" | "description" | "og" | "
   const canonical = media.domain + makeUrl(router.route, q);
   q.amp = "1";
   const amphtml = media.domain + makeUrl(router.route, q);
-  const isAmp = useAmp();
-  const [ loaded, setLoaded ] = React.useState(false);
-
-  React.useEffect(() => {
-    setTimeout(() => {
-      setLoaded(true);
-    }, 5000);
-  }, []);
 
   return (
     <Head>
@@ -60,32 +51,6 @@ export const LayoutHead = (props: Pick<Props, "title" | "description" | "og" | "
       } /> :
       <meta property="og:url" content={media.domain + router.asPath} />
       <meta property="og:type" content="website" />
-      {
-        isAmp ? 
-        <>
-          
-        </> : 
-        
-        loaded ? <>
-          <script
-            key="adsense"
-            async
-            data-ad-client={media.google.caPub}
-            src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-          />
-          <script async src="https://www.googletagmanager.com/gtag/js?id=UA-55674089-5"></script>
-          <script dangerouslySetInnerHTML={{
-            __html: `
-              window.dataLayer = window.dataLayer || [];
-              function gtag(){dataLayer.push(arguments);}
-              gtag('js', new Date());
-              gtag('config', 'UA-55674089-5');
-            `
-          }} />
-        </> :
-
-        null
-      }
     </Head>
   )
 }
@@ -114,20 +79,12 @@ export const GlobalStyle = () => {
 
 const Layout = (props: Props) => {
   const { children } = props;
-  const isAmp = useAmp();
   return (
     <>
       <LayoutHead {...props} />
       <Header />
-      { isAmp ? 
-        <AmpAnalytics
-          type="gtag" 
-          id={"gtag"}
-          config={"/analytics.json"}
-          data-credentials="include">
-        </AmpAnalytics> : 
-        null
-      }
+      <AdAuto />
+      <Analytics />
       {children}
       <Footer />
       <GlobalStyle />

@@ -17,7 +17,7 @@ export const Footer = () => {
                       return (
                         <li key={i.href}>
                           <Anchor
-                            ampOnly={i.ampOnly}
+                            ampOnly={i.standalone}
                             href={i.href}>
                             {i.label}
                           </Anchor>

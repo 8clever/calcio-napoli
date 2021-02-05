@@ -3,7 +3,6 @@ import { Col, Container, Row } from "../src/components/Grid"
 import Layout from "../src/components/Layout"
 import React from "react";
 import matchesParser, { Match } from "livesoccertv-parser";
-import { AdResponsive } from "../src/components/AdSlot";
 
 const title = "Calcio Napoli - Ultima partite Napoli. Prossima partite Napoli"
 
@@ -64,13 +63,6 @@ export const Matches = (props: IProps) => {
                       TV: {m.tvs.join(", ")}
                     </small>
                   </Col>
-                  {
-                    idx % 6 === 5 ?
-                    <Col>
-                      <AdResponsive />
-                    </Col> :
-                    null
-                  }
                 </React.Fragment>
               )
             })

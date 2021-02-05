@@ -3,7 +3,7 @@ interface Media {
   href: string;
   label: string;
   changefreq?: "hourly" | "weekly" | "daily" | "never",
-  ampOnly: boolean;
+  standalone?: boolean;
 }
 
 export const media = {
@@ -42,7 +42,7 @@ export const media = {
       href: "/sscnapoli",
       label: "#SSCNapoli",
       changefreq: "hourly",
-      ampOnly: true
+      standalone: true
     },
   ] as Media[],
   media: [
@@ -68,6 +68,15 @@ export const media = {
     {
       href: "https://vip-software.herokuapp.com",
       label: "VIP Software"
+    },
+    {
+      href: "https://puzzle.simple-games.fun/dirtyclean",
+      label: "Dirty Clean"
+    },
+    {
+      href: "/privacypolicy.html",
+      label: "Privacy Policy",
+      standalone: true
     }
   ] as Media[]
 }

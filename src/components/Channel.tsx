@@ -5,7 +5,6 @@ import { media } from '../components/Media';
 import { Video } from "scrape-yt";
 import { Pagination, PaginationProps } from './Pagination';
 import React from "react";
-import { AdResponsive } from './AdSlot';
 import { Thumbanil } from './Thumbnail';
 import Head from "next/head";
 
@@ -61,7 +60,7 @@ export const Channel = (props: IProps) => {
         </h1>
         <Row>
           {
-            videoList.map((i,idx) => {
+            videoList.map((i) => {
               return (
                 <React.Fragment key={i.id}>
                   <Col 
@@ -72,13 +71,6 @@ export const Channel = (props: IProps) => {
                       title={i.title}
                     />
                   </Col>
-                  {
-                    idx % 6 === 5 ?
-                    <Col>
-                      <AdResponsive />
-                    </Col> : 
-                    null
-                  }
                 </React.Fragment>
               )
             })

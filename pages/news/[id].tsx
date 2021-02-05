@@ -7,7 +7,6 @@ import { Container, Row, Col } from "../../src/components/Grid";
 import { WithContext, Thing } from "schema-dts";
 import { media } from "../../src/components/Media"
 import { StructuredData } from "../../src/components/StructuredData";
-import { AdResponsive } from "../../src/components/AdSlot";
 import { Thumbanil } from "../../src/components/Thumbnail";
 import nextConfig from "../../next.config";
 import { Youtube } from "../../src/components/Hybrid"
@@ -109,7 +108,6 @@ export const News = (props: IProps) => {
               .replace(/\n/gmi, "<br/>")
               || ""
           }}></p>
-          <AdResponsive />
           <h2>Notizie correlate</h2>
           <Row>
             {
