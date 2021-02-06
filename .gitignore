@@ -16,6 +16,9 @@
 /build
 /dist
 /cache
+/public/sw.js*
+/public/service-worker.js*
+/public/workbox*
 
 # misc
 .DS_Store

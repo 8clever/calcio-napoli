@@ -7,6 +7,7 @@ import { media } from './Media'
 import { useRouter } from "next/router";
 import { makeUrl } from './Pagination'
 import { AdAuto, Analytics } from './AdSlot'
+import { useAmp } from 'next/amp'
 
 type Props = {
   hybrid?: boolean;
@@ -26,6 +27,7 @@ export const LayoutHead = (props: Pick<Props, "title" | "description" | "og" | "
   const canonical = media.domain + makeUrl(router.route, q);
   q.amp = "1";
   const amphtml = media.domain + makeUrl(router.route, q);
+  const isAmp = useAmp();
 
   return (
     <Head>
@@ -34,7 +36,10 @@ export const LayoutHead = (props: Pick<Props, "title" | "description" | "og" | "
       <meta name="description" content={description} />
       <link rel="shortcut icon" type="image/png" href="/images/favicon.png" />
       <link rel="canonical" href={canonical} />
+      <link rel="manifest" href="/manifest.json" />
+      <meta name="theme-color" content="#222627" />
       <link rel="preconnect" href="https://i.ytimg.com" />
+      <link rel='apple-touch-icon' sizes='180x180' href='/static/icons/icon-180x180.png' />
       {
         props.hybrid ?
         <link rel="amphtml" href={amphtml} /> :
@@ -51,6 +56,13 @@ export const LayoutHead = (props: Pick<Props, "title" | "description" | "og" | "
       } /> :
       <meta property="og:url" content={media.domain + router.asPath} />
       <meta property="og:type" content="website" />
+      {
+        isAmp ? null :
+        <meta
+          name="viewport"
+          content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no"
+        /> 
+      }
     </Head>
   )
 }
