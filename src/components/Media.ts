@@ -46,7 +46,7 @@ export const media = {
     },
     {
       href: "/sportitalia",
-      label: "Sport Italia",
+      label: "Statistiche dettagliate della partita",
       changefreq: "never"
     }
   ] as Media[],

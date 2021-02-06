@@ -1,7 +1,7 @@
 import { Container } from "../src/components/Grid";
 import Layout from "../src/components/Layout"
 
-const title = "Calcio Napoli - Sport Italia";
+const title = "Calcio Napoli - Statistiche dettagliate della partita";
 
 export const SportItalia = () => {
   return (
