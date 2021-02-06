@@ -19,14 +19,9 @@ export const media = {
       changefreq: "hourly"
     },
     {
-      href: "/rss",
-      label: "Calcio Napoli 24 News",
-      changefreq: "hourly"
-    },
-    {
-      href: "/channels/CN24_Live",
-      label: "Calcio Napoli 24 Live",
-      changefreq: "daily"
+      href: "/sportitalia",
+      label: "Statistiche dettagliate della partita",
+      changefreq: "never"
     },
     {
       href: "/matches",
@@ -39,16 +34,22 @@ export const media = {
       changefreq: "daily",
     },
     {
+      href: "/channels/CN24_Live",
+      label: "Calcio Napoli 24 Live",
+      changefreq: "daily"
+    },
+    {
+      href: "/rss",
+      label: "Calcio Napoli 24 News",
+      changefreq: "hourly"
+    },
+    {
       href: "/sscnapoli",
       label: "#SSCNapoli",
       changefreq: "hourly",
       standalone: true
     },
-    {
-      href: "/sportitalia",
-      label: "Statistiche dettagliate della partita",
-      changefreq: "never"
-    }
+    
   ] as Media[],
   media: [
     {
