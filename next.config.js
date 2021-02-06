@@ -6,6 +6,9 @@ const LANGS = {
 }
 
 module.exports = withPWA({
+  pwa: {
+    dest: 'public'
+  },
   i18n: {
     locales: Object.values(LANGS),
     defaultLocale: LANGS.IT
