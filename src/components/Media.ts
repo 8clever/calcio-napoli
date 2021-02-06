@@ -44,6 +44,11 @@ export const media = {
       changefreq: "hourly",
       standalone: true
     },
+    {
+      href: "/sportitalia",
+      label: "Sport Italia",
+      changefreq: "never"
+    }
   ] as Media[],
   media: [
     {

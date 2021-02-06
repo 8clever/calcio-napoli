@@ -21,6 +21,7 @@ export const Row = (props: IProps) => {
 
 interface IContainer extends IProps {
   page?: boolean;
+  fluid?: boolean;
 }
 
 export const Container = (props: IContainer) => {
@@ -29,10 +30,13 @@ export const Container = (props: IContainer) => {
       {props.children}
       <style jsx>{`
         div {
-          margin: 0 10px;
+          ${
+            props.fluid ? "" :
+            "margin: 0 10px;"
+          }
           ${
             props.page ?
-            "min-height: 100vh;" :
+            "min-height: calc(100vh - 50px);" :
             ""
           }
         }

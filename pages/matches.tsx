@@ -3,6 +3,7 @@ import { Col, Container, Row } from "../src/components/Grid"
 import Layout from "../src/components/Layout"
 import React from "react";
 import matchesParser, { Match } from "livesoccertv-parser";
+import { Anchor } from "../src/components/Hybrid";
 
 const title = "Calcio Napoli - Ultima partite Napoli. Prossima partite Napoli"
 
@@ -60,7 +61,7 @@ export const Matches = (props: IProps) => {
                         }}>Non giocato</span>
                       }: {m.date} {m.time}
                       <br />
-                      TV: {m.tvs.join(", ")}
+                      TV: <Anchor href="/sportitalia">Sport Italia</Anchor>
                     </small>
                   </Col>
                 </React.Fragment>
