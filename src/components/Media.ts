@@ -25,7 +25,7 @@ export const media = {
     },
     {
       href: "/matches",
-      label: "Ultimissime partite Napoli",
+      label: "Partite del Napoli",
       changefreq: "daily"
     },
     {

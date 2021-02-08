@@ -5,8 +5,7 @@ import React from "react";
 import matchesParser, { Match } from "livesoccertv-parser";
 import { Anchor } from "../src/components/Hybrid";
 
-const title = "Calcio Napoli - Ultima partite Napoli. Prossima partite Napoli"
-
+const title = "Calcio Napoli - Partite recenti e imminenti del"
 interface IProps {
   matches: Match[]
 }
@@ -28,7 +27,7 @@ export const Matches = (props: IProps) => {
   return (
     <Layout hybrid title={title} description={title}>
       <Container page>
-        <h1>Ultima partite Napoli. Prossima partite Napoli</h1>
+        <h1>Partite recenti e imminenti del</h1>
         <Row>
           {
             props.matches.reverse().map((m,idx) => {

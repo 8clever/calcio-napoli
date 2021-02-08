@@ -5,7 +5,7 @@ const LANGS = {
   IT: "it"
 }
 
-module.exports = withPWA({
+let config = {
   pwa: {
     dest: 'public'
   },
@@ -13,4 +13,10 @@ module.exports = withPWA({
     locales: Object.values(LANGS),
     defaultLocale: LANGS.IT
   }
-})
+};
+
+if (process.env.NODE_ENV === "production") {
+  config = withPWA(config);
+}
+
+module.exports = config;
