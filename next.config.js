@@ -20,7 +20,7 @@ let config = {
 };
 
 if (process.env.NODE_ENV === "production") {
-  // config = withPWA(config);
+  config = withPWA(config);
 }
 
 module.exports = config;
