@@ -7,11 +7,7 @@ const LANGS = {
 
 let config = {
   pwa: {
-    dest: 'public',
-    exclude: [
-      /pagead2.googlesyndication.com/gmi,
-      /www.googletagmanager.com/gmi
-    ]
+    dest: 'public'
   },
   i18n: {
     locales: Object.values(LANGS),
