@@ -8,5 +8,5 @@ export default () => {
   telegramBot();
 
   new CronJob('00 */10 * * * *', writePlayList).start();
-  new CronJob('00 */10 * * * *', telegramBot).start();
+  new CronJob('00 */20 * * * *', telegramBot).start();
 }
