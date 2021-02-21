@@ -7,9 +7,10 @@ const token = '1693769340:AAEvrCwcmpK6YwOxgRHz8Gf0LbMXN5S4Jyc';
 
 const chatId = "napolicalcionotizie"
 
-const bot = new TelegramBot(token, { polling: true });
-
 export const telegramBot = async () => {
+  if (process.env.NODE_ENV === "development") return;
+
+  const bot = new TelegramBot(token, { polling: true });
   const chat = await bot.getChat("@" + chatId);
   const data = getCache(cache.keys.ytchannel) as PlaylistDetailed;
 
