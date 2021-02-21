@@ -34,21 +34,23 @@ export const AdSmallBanner = () => {
   )
 }
 
-// const useTimeout = (ms: number) => {
-//   const [ loaded, setLoaded ] = React.useState(false); 
+const  defaultTimeout = 3000;
 
-//   React.useEffect(() => {
-//     setTimeout(() => {
-//       setLoaded(true);
-//     }, ms);
-//   }, []);
+const useTimeout = (ms: number) => {
+  const [ loaded, setLoaded ] = React.useState(false); 
 
-//   return loaded;
-// }
+  React.useEffect(() => {
+    setTimeout(() => {
+      setLoaded(true);
+    }, ms);
+  }, []);
+
+  return loaded;
+}
 
 export const AdAuto = () => {
   const isAmp = useAmp();
-  const loaded = true;
+  const loaded = useTimeout(defaultTimeout);
 
   if (isAmp) {
     return (
@@ -85,7 +87,7 @@ export const AdAuto = () => {
 
 export const Analytics = () => {
   const isAmp = useAmp();
-  const loaded = true;
+  const loaded = useTimeout(defaultTimeout);
 
   if (isAmp) {
     return (
