@@ -29,6 +29,5 @@ export const telegramBot = async () => {
       await new Promise(resolve => setTimeout(resolve, 3000));
     }
   }
-  await bot.close()
   console.log("task:telegramBot");
 }
