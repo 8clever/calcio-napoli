@@ -7,10 +7,13 @@ const token = '1693769340:AAEvrCwcmpK6YwOxgRHz8Gf0LbMXN5S4Jyc';
 
 const chatId = "napolicalcionotizie"
 
+let bot: TelegramBot | null = null;
+
 export const telegramBot = async () => {
   if (process.env.NODE_ENV === "development") return;
-
-  const bot = new TelegramBot(token, { polling: true });
+  if (!bot) {
+    bot = new TelegramBot(token, { polling: true });
+  }
   const chat = await bot.getChat("@" + chatId);
   const data = getCache(cache.keys.ytchannel) as PlaylistDetailed;
 
@@ -25,6 +28,7 @@ export const telegramBot = async () => {
       // we can send only 20 messages per minute
       await new Promise(resolve => setTimeout(resolve, 3000));
     }
-  } 
+  }
+  await bot.close()
   console.log("task:telegramBot");
 }
