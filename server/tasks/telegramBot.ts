@@ -3,17 +3,14 @@ import { PlaylistDetailed } from "scrape-yt";
 import { getCache, cache } from "../../src/components/Cache";
 import { media } from "../../src/components/Media";
 
-const token = '1693769340:AAEvrCwcmpK6YwOxgRHz8Gf0LbMXN5S4Jyc';
+const token = '1693769340:AAElnFDlmx54JBDxNN-mLhUuAr7-th_5nqY';
 
 const chatId = "napolicalcionotizie"
 
-let bot: TelegramBot | null = null;
+const bot = new TelegramBot(token);
 
 export const telegramBot = async () => {
   if (process.env.NODE_ENV === "development") return;
-  if (!bot) {
-    bot = new TelegramBot(token, { polling: true });
-  }
   const chat = await bot.getChat("@" + chatId);
   const data = getCache(cache.keys.ytchannel) as PlaylistDetailed;
 
