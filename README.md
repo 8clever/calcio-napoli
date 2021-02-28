@@ -2,7 +2,7 @@
 
 Napoli News
 
-Site allowed by [link](https://calcio-napoli.com)
+Site allowed by link https://www.calcio-napoli.com
 
 ### development
 
