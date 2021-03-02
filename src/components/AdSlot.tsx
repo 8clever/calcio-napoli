@@ -36,11 +36,14 @@ export const AdSmallBanner = () => {
 
 const  defaultTimeout = 3000;
 
+let pageLoaded = false;
+
 const useTimeout = (ms: number) => {
-  const [ loaded, setLoaded ] = React.useState(false); 
+  const [ loaded, setLoaded ] = React.useState(pageLoaded); 
 
   React.useEffect(() => {
     setTimeout(() => {
+      pageLoaded = true;
       setLoaded(true);
     }, ms);
   }, []);
@@ -70,7 +73,9 @@ export const AdAuto = () => {
           data-ad-client={media.google.caPub}
           src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
         />
-        <script dangerouslySetInnerHTML={{
+        <script 
+          key="adsense-tag"
+          dangerouslySetInnerHTML={{
           __html: `
             window.dataLayer = window.dataLayer || [];
             function gtag(){dataLayer.push(arguments);}
@@ -114,6 +119,7 @@ export const Analytics = () => {
 export const AdResponsive = () => {
   const isAmp = useAmp();
   const idSlot = "8061989518";
+  const isLoaded = useTimeout(defaultTimeout);
 
   if (isAmp) {
     return (
@@ -130,6 +136,28 @@ export const AdResponsive = () => {
         <div {...{overflow:""} as any}></div>
         <div {...{fallback:""}}>AD NONE</div>
       </AmpAd>
+    )
+  }
+
+  if (isLoaded) {
+    return (
+      <>
+        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <ins className="adsbygoogle"
+          style={{
+            display: "block",
+            width: "100%",
+            height: "100%"
+          }}
+          data-ad-client={caPub}
+          data-ad-slot={idSlot}
+          data-ad-format="auto"
+          data-full-width-responsive="true" 
+        />
+        <script dangerouslySetInnerHTML={{
+          __html: "(adsbygoogle = window.adsbygoogle || []).push({});"
+        }} />
+      </>
     )
   }
 

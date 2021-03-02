@@ -12,6 +12,7 @@ import nextConfig from "../../next.config";
 import { Youtube } from "../../src/components/Hybrid"
 import Head from "next/head";
 import { theme } from "../../src/components/Theme";
+import { AdResponsive } from "../../src/components/AdSlot";
 
 interface IProps {
   info: ytdl.videoInfo["videoDetails"],
@@ -95,6 +96,7 @@ export const News = (props: IProps) => {
             height="270"
             videoId={props.info.videoId}
           />
+          <AdResponsive />
           <p 
             className="description-container"
             style={{

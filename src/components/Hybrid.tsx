@@ -324,7 +324,8 @@ interface AnchorProps {
 }
 
 export const Anchor = ({ href, ampOnly, ...props }: AnchorProps) => {
-  const isAmp = true;
+  const isAmp = useAmp();
+  
   return (
     <>
       {

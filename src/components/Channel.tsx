@@ -7,6 +7,7 @@ import { Pagination, PaginationProps } from './Pagination';
 import React from "react";
 import { Thumbanil } from './Thumbnail';
 import Head from "next/head";
+import { AdResponsive } from './AdSlot';
 
 export interface IProps {
   list: Video[];
@@ -60,7 +61,7 @@ export const Channel = (props: IProps) => {
         </h1>
         <Row>
           {
-            videoList.map((i) => {
+            videoList.map((i,idx) => {
               return (
                 <React.Fragment key={i.id}>
                   <Col 
@@ -71,6 +72,12 @@ export const Channel = (props: IProps) => {
                       title={i.title}
                     />
                   </Col>
+                  {
+                    idx % 5 === 4 ?
+                    <Col md={6}>
+                      <AdResponsive />
+                    </Col> : null
+                  }
                 </React.Fragment>
               )
             })
