@@ -13,3 +13,7 @@ Site allowed by link https://www.calcio-napoli.com
 ### production
 
 ```git push heroku master```
+
+### android / ios
+
+PWA Builder https://github.com/pwa-builder/PWABuilder-CLI
