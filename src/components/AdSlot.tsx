@@ -51,6 +51,20 @@ const useTimeout = (ms: number) => {
   return loaded;
 }
 
+const PageAd = () => {
+  return (
+    <Head>
+      <link key="adsense-link" rel="preconnect" href="https://pagead2.googlesyndication.com" />
+      <script
+        key="adsense"
+        async
+        data-ad-client={media.google.caPub}
+        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+      />
+    </Head>
+  )
+}
+
 export const AdAuto = () => {
   const isAmp = useAmp();
   const loaded = useTimeout(defaultTimeout);
@@ -67,12 +81,7 @@ export const AdAuto = () => {
   if (loaded) {
     return (
       <Head>
-        <script
-          key="adsense"
-          async
-          data-ad-client={media.google.caPub}
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-        />
+        <PageAd />
         <script 
           key="adsense-tag"
           dangerouslySetInnerHTML={{
@@ -119,7 +128,7 @@ export const Analytics = () => {
 export const AdResponsive = () => {
   const isAmp = useAmp();
   const idSlot = "8061989518";
-  const isLoaded = useTimeout(defaultTimeout);
+  const isLoaded = true;
 
   if (isAmp) {
     return (
@@ -142,12 +151,12 @@ export const AdResponsive = () => {
   if (isLoaded) {
     return (
       <>
-        <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"></script>
+        <PageAd />
         <ins className="adsbygoogle"
           style={{
             display: "block",
-            width: "100%",
-            height: "100%"
+            position: "relative",
+            paddingTop: "56.2%"
           }}
           data-ad-client={caPub}
           data-ad-slot={idSlot}
