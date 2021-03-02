@@ -54,9 +54,7 @@ const useTimeout = (ms: number) => {
 const PageAd = () => {
   return (
     <Head>
-      <link key="adsense-link" rel="preconnect" href="https://pagead2.googlesyndication.com" />
       <script
-        key="adsense"
         async
         data-ad-client={media.google.caPub}
         src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
@@ -81,9 +79,12 @@ export const AdAuto = () => {
   if (loaded) {
     return (
       <Head>
-        <PageAd />
+        <script
+          async
+          data-ad-client={media.google.caPub}
+          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+        />
         <script 
-          key="adsense-tag"
           dangerouslySetInnerHTML={{
           __html: `
             window.dataLayer = window.dataLayer || [];
@@ -128,7 +129,7 @@ export const Analytics = () => {
 export const AdResponsive = () => {
   const isAmp = useAmp();
   const idSlot = "8061989518";
-  const isLoaded = true;
+  const isLoaded = useAmp();
 
   if (isAmp) {
     return (
@@ -155,8 +156,8 @@ export const AdResponsive = () => {
         <ins className="adsbygoogle"
           style={{
             display: "block",
-            position: "relative",
-            paddingTop: "56.2%"
+            width: "100%",
+            height: "100%"
           }}
           data-ad-client={caPub}
           data-ad-slot={idSlot}

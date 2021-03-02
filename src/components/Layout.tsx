@@ -6,7 +6,7 @@ import { theme } from './Theme'
 import { media } from './Media'
 import { useRouter } from "next/router";
 import { makeUrl } from './Pagination'
-import { Analytics } from './AdSlot'
+import { AdAuto, Analytics } from './AdSlot'
 import { useAmp } from 'next/amp'
 
 type Props = {
@@ -95,6 +95,7 @@ const Layout = (props: Props) => {
     <>
       <LayoutHead {...props} />
       <Header />
+      <AdAuto />
       <Analytics />
       {children}
       <Footer />
