@@ -32,12 +32,10 @@ export const LayoutHead = (props: Pick<Props, "title" | "description" | "og" | "
   return (
     <Head>
       <title>{title}</title>
-      <meta charSet="utf-8" />
-      <meta name="description" content={description} />
+      
       <link rel="shortcut icon" type="image/png" href="/images/favicon.png" />
       <link rel="canonical" href={canonical} />
       <link rel="manifest" href="/manifest.json" />
-      <meta name="theme-color" content="#222627" />
       <link rel="preconnect" href="https://i.ytimg.com" />
       <link rel='apple-touch-icon' sizes='180x180' href='/static/icons/icon-180x180.png' />
       {
@@ -45,6 +43,10 @@ export const LayoutHead = (props: Pick<Props, "title" | "description" | "og" | "
         <link rel="amphtml" href={amphtml} /> :
         null
       }
+      <meta name="yandex-verification" content="f844698faf7e8642" />
+      <meta charSet="utf-8" />
+      <meta name="description" content={description} />
+      <meta name="theme-color" content="#222627" />
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:site" content="@GoalsNapoli" />
       <meta name="twitter:creator" content="@godofluck89" />
