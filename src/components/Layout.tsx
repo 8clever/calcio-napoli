@@ -32,7 +32,6 @@ export const LayoutHead = (props: Pick<Props, "title" | "description" | "og" | "
   return (
     <Head>
       <title>{title}</title>
-      
       <link rel="shortcut icon" type="image/png" href="/images/favicon.png" />
       <link rel="canonical" href={canonical} />
       <link rel="manifest" href="/manifest.json" />
