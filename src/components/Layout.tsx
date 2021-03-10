@@ -96,12 +96,12 @@ const Layout = (props: Props) => {
     <>
       <LayoutHead {...props} />
       <Header />
-      <Analytics />
       <AdResponsive />
       {children}
       <Footer />
       <GlobalStyle />
       <AdAuto />
+      <Analytics />
     </>
   )
 }

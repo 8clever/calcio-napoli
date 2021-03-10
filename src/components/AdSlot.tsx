@@ -54,6 +54,20 @@ const useTimeout = (ms: number) => {
 
 export const AdAuto = () => {
   const isAmp = useAmp();
+  const loaded = useTimeout(defaultTimeout);
+
+  React.useEffect(() => {
+    if (!loaded) return;
+
+    const id = "pagead";
+    const el = document.querySelector("#" + id);
+    el?.remove();
+    const script = document.createElement("script");
+    script.id = id;
+    script.async = true;
+    script.src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+    document.body.appendChild(script);
+  }, [ loaded ]);
 
   if (isAmp) {
     return (
@@ -64,12 +78,7 @@ export const AdAuto = () => {
     )
   }
 
-  return (
-    <script
-      async
-      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-    />
-  )
+  return null;
 }
 
 export const Analytics = () => {
@@ -124,6 +133,7 @@ export const AdResponsive = () => {
     <Adsense.Google 
       client={caPub}
       slot={idSlot}
+      responsive='true'
     />
   )
 }
