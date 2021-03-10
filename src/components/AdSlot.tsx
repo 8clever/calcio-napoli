@@ -3,6 +3,7 @@ import { AmpAd, AmpAnalytics, AmpAutoAds } from "react-amphtml"
 import React from "react";
 import { media } from "./Media";
 import Head from "next/head";
+import Adsense from "react-adsense";
 
 const caPub = media.google.caPub
 
@@ -53,7 +54,6 @@ const useTimeout = (ms: number) => {
 
 export const AdAuto = () => {
   const isAmp = useAmp();
-  const loaded = useTimeout(defaultTimeout);
 
   if (isAmp) {
     return (
@@ -64,28 +64,12 @@ export const AdAuto = () => {
     )
   }
 
-  if (loaded) {
-    return (
-      <Head>
-        <script
-          async
-          data-ad-client={media.google.caPub}
-          src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-        />
-        <script 
-          dangerouslySetInnerHTML={{
-          __html: `
-            window.dataLayer = window.dataLayer || [];
-            function gtag(){dataLayer.push(arguments);}
-            gtag('js', new Date());
-            gtag('config', 'UA-55674089-5');
-          `
-        }} />
-      </Head>
-    )
-  }
-
-  return null;
+  return (
+    <script
+      async
+      src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
+    />
+  )
 }
 
 export const Analytics = () => {
@@ -137,17 +121,9 @@ export const AdResponsive = () => {
   }
 
   return (
-    <>
-      <ins className="adsbygoogle"
-        style={{
-          display: "block",
-          height: 150
-        }}
-        data-ad-client={caPub}
-        data-ad-slot={idSlot}
-        data-ad-format="auto"
-        data-full-width-responsive="true" 
-      />
-    </>
+    <Adsense.Google 
+      client={caPub}
+      slot={idSlot}
+    />
   )
 }
