@@ -7,10 +7,9 @@ const token = '1693769340:AAElnFDlmx54JBDxNN-mLhUuAr7-th_5nqY';
 
 const chatId = "napolicalcionotizie"
 
-const bot = new TelegramBot(token);
-
 export const telegramBot = async () => {
   if (process.env.NODE_ENV === "development") return;
+  const bot = new TelegramBot(token);
   const chat = await bot.getChat("@" + chatId);
   const data = getCache(cache.keys.ytchannel) as PlaylistDetailed;
 
@@ -26,5 +25,7 @@ export const telegramBot = async () => {
       await new Promise(resolve => setTimeout(resolve, 3000));
     }
   }
+
+  bot.close();
   console.log("task:telegramBot");
 }

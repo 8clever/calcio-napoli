@@ -51,18 +51,6 @@ const useTimeout = (ms: number) => {
   return loaded;
 }
 
-const PageAd = () => {
-  return (
-    <Head>
-      <script
-        async
-        data-ad-client={media.google.caPub}
-        src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-      />
-    </Head>
-  )
-}
-
 export const AdAuto = () => {
   const isAmp = useAmp();
   const loaded = useTimeout(defaultTimeout);
@@ -129,7 +117,6 @@ export const Analytics = () => {
 export const AdResponsive = () => {
   const isAmp = useAmp();
   const idSlot = "8061989518";
-  const isLoaded = useAmp();
 
   if (isAmp) {
     return (
@@ -149,27 +136,17 @@ export const AdResponsive = () => {
     )
   }
 
-  if (isLoaded) {
-    return (
-      <>
-        <PageAd />
-        <ins className="adsbygoogle"
-          style={{
-            display: "block",
-            width: "100%",
-            height: "100%"
-          }}
-          data-ad-client={caPub}
-          data-ad-slot={idSlot}
-          data-ad-format="auto"
-          data-full-width-responsive="true" 
-        />
-        <script dangerouslySetInnerHTML={{
-          __html: "(adsbygoogle = window.adsbygoogle || []).push({});"
-        }} />
-      </>
-    )
-  }
-
-  return null;
+  return (
+    <>
+      <ins className="adsbygoogle"
+        style={{
+          display: "block"
+        }}
+        data-ad-client={caPub}
+        data-ad-slot={idSlot}
+        data-ad-format="auto"
+        data-full-width-responsive="true" 
+      />
+    </>
+  )
 }
