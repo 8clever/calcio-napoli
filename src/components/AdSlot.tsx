@@ -140,7 +140,8 @@ export const AdResponsive = () => {
     <>
       <ins className="adsbygoogle"
         style={{
-          display: "block"
+          display: "block",
+          height: 150
         }}
         data-ad-client={caPub}
         data-ad-slot={idSlot}
