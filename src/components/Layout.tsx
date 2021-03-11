@@ -8,6 +8,7 @@ import { useRouter } from "next/router";
 import { makeUrl } from './Pagination'
 import { AdAuto, AdResponsive, Analytics } from './AdSlot'
 import { useAmp } from 'next/amp'
+import { Container } from './Grid'
 
 type Props = {
   hybrid?: boolean;
@@ -96,7 +97,9 @@ const Layout = (props: Props) => {
     <>
       <LayoutHead {...props} />
       <Header />
-      <AdResponsive />
+      <Container>
+        <AdResponsive />
+      </Container>
       {children}
       <Footer />
       <GlobalStyle />
