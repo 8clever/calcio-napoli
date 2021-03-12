@@ -2,7 +2,6 @@ import { useAmp } from "next/amp"
 import { AmpAd, AmpAnalytics, AmpAutoAds } from "react-amphtml"
 import React from "react";
 import { media } from "./Media";
-import Head from "next/head";
 import Adsense from "react-adsense";
 
 const caPub = media.google.caPub
@@ -85,6 +84,19 @@ export const Analytics = () => {
   const isAmp = useAmp();
   const loaded = useTimeout(defaultTimeout);
 
+  React.useEffect(() => {
+    if (!loaded) return;
+
+    const id = "analytics";
+    const el = document.querySelector("#" + id);
+    el?.remove();
+    const script = document.createElement("script");
+    script.id = id;
+    script.async = true;
+    script.src="https://www.googletagmanager.com/gtag/js?id=UA-55674089-5"
+    document.body.appendChild(script);
+  }, [ loaded ]);
+
   if (isAmp) {
     return (
       <AmpAnalytics
@@ -93,14 +105,6 @@ export const Analytics = () => {
         config={"/analytics.json"}
         data-credentials="include">
       </AmpAnalytics>
-    )
-  }
-
-  if (loaded) {
-    return (
-      <Head>
-        <script async src="https://www.googletagmanager.com/gtag/js?id=UA-55674089-5" />
-      </Head>
     )
   }
   
