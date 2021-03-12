@@ -51,22 +51,31 @@ const useTimeout = (ms: number) => {
   return loaded;
 }
 
-export const AdAuto = () => {
-  const isAmp = useAmp();
-  const loaded = useTimeout(defaultTimeout);
+const makeScript = (id: string, src: string) => {
+  const el = document.querySelector("#" + id);
+  el?.remove();
+  const script = document.createElement("script");
+  script.id = id;
+  script.async = true;
+  script.src = src;
+  document.body.appendChild(script);
+}
+
+const useScript = (id: string, src: string) => {
+  const isLoaded = useTimeout(defaultTimeout);
 
   React.useEffect(() => {
-    if (!loaded) return;
+    if (!isLoaded) return;
+    makeScript(id, src);
+  }, [ isLoaded ]);
 
-    const id = "pagead";
-    const el = document.querySelector("#" + id);
-    el?.remove();
-    const script = document.createElement("script");
-    script.id = id;
-    script.async = true;
-    script.src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js"
-    document.body.appendChild(script);
-  }, [ loaded ]);
+  return [];
+}
+
+export const AdAuto = () => {
+  const isAmp = useAmp();
+
+  useScript("pagead", "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js");
 
   if (isAmp) {
     return (
@@ -82,20 +91,8 @@ export const AdAuto = () => {
 
 export const Analytics = () => {
   const isAmp = useAmp();
-  const loaded = useTimeout(defaultTimeout);
 
-  React.useEffect(() => {
-    if (!loaded) return;
-
-    const id = "analytics";
-    const el = document.querySelector("#" + id);
-    el?.remove();
-    const script = document.createElement("script");
-    script.id = id;
-    script.async = true;
-    script.src="https://www.googletagmanager.com/gtag/js?id=UA-55674089-5"
-    document.body.appendChild(script);
-  }, [ loaded ]);
+  useScript("analytics", "https://www.googletagmanager.com/gtag/js?id=UA-55674089-5");
 
   if (isAmp) {
     return (
