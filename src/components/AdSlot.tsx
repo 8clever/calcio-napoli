@@ -89,10 +89,28 @@ export const AdAuto = () => {
   return null;
 }
 
-export const Analytics = () => {
+interface IAnalytics {
+  title?: string;
+}
+
+export const Analytics = (props: IAnalytics) => {
   const isAmp = useAmp();
 
-  useScript("analytics", "https://www.googletagmanager.com/gtag/js?id=UA-55674089-5");
+  useScript("gtag", "https://www.googletagmanager.com/gtag/js?id=UA-55674089-5");
+
+  React.useEffect(() => {
+    ((w: any) => {
+      w.dataLayer = w.dataLayer || [];
+      const gtag: any = function () {  
+        w.dataLayer.push(arguments); 
+      }
+      gtag('js', new Date());
+      gtag('config', 'UA-55674089-5', {
+        'page_title' : props.title,
+        'page_path': window.location.pathname
+      });
+    })(window);
+  }, [ props.title ]);
 
   if (isAmp) {
     return (
