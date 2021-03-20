@@ -2,6 +2,7 @@ import IFrame from "iframe-resizer-react"
 
 interface IProps {
   src: string;
+  taggedElement?: string;
 }
 
 // do not forget add src to proxy for avoid problems with CORS
@@ -14,6 +15,11 @@ export const ResponsiveIframe = (props: IProps) => {
         width: "100%"
       }}
       frameBorder="no"
+      heightCalculationMethod={
+        props.taggedElement ?
+        "taggedElement" :
+        "bodyOffset"
+      }
       id="sportradar"
       scrolling={false}
       onLoad={async () => {
@@ -23,6 +29,10 @@ export const ResponsiveIframe = (props: IProps) => {
         const response = await fetch(url);
         const raw = await response.text();
         const script = document.createElement("script");
+        if (props.taggedElement) {
+          const tag = cw.document.querySelector(props.taggedElement);
+          tag?.setAttribute("data-iframe-height", "true");
+        }
         script.append(raw);
         cw.document.head.appendChild(script);
       }}

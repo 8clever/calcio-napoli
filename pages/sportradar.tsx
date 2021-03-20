@@ -9,7 +9,10 @@ export const SportItalia = () => {
   return (
     <Layout title={title} description={title}>
       <Container page fluid>
-        <ResponsiveIframe src="/sportitalia" />
+        <ResponsiveIframe 
+          src="/sportitalia" 
+          taggedElement=".sr-sc-content"
+        />
       </Container>
     </Layout>
   )
