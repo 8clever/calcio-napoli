@@ -3,7 +3,6 @@ import { Col, Container, Row } from "../src/components/Grid"
 import Layout from "../src/components/Layout"
 import React from "react";
 import matchesParser, { Match } from "livesoccertv-parser";
-import { Anchor } from "../src/components/Hybrid";
 import { ResponsiveIframe } from "../src/components/ResponsiveIframe";
 
 const title = "Calcio Napoli - Partite recenti e imminenti del"
@@ -34,40 +33,35 @@ export const Matches = (props: IProps) => {
         <ResponsiveIframe 
           src={nextMatchUrl}
         />
+        <div style={{ marginBottom: 15 }} />
         <Row>
           {
             props.matches.reverse().map((m,idx) => {
               return (
                 <React.Fragment key={idx}>
-                  <Col md={6}>
-                    <h2 style={{
-                      marginBottom: 5
-                    }}>{m.game}</h2>
-                    <h4 style={{
-                      marginTop: 0,
-                      marginBottom: 5
-                    }}>{m.competition}</h4>
-                    <small style={{
-                      marginBottom: 15
-                    }}>
-                      {
-                        m.live ?
-                        <span style={{
-                          color: "#d81920"
-                        }}>Vivere</span> :
+                  <Col md={12}>
+                    <div className="m-container">
+                      <div className="m-name">
+                        {m.game}
+                      </div>
+                      <div className="m-status">
+                        {
+                          m.live ?
+                          <span style={{
+                            color: "#d81920"
+                          }}>Vivere</span> :
 
-                        m.played ?
-                        <span style={{
-                          color: "#13cf00"
-                        }}>Giocato</span> :
+                          m.played ?
+                          <span style={{
+                            color: "#13cf00"
+                          }}>Giocato</span> :
 
-                        <span style={{
-                          color: "gray"
-                        }}>Non giocato</span>
-                      }: {m.date} {m.time}
-                      <br />
-                      TV: <Anchor href="/sportitalia">Sport Italia</Anchor>
-                    </small>
+                          <span style={{
+                            color: "gray"
+                          }}>Non giocato</span>
+                        }: {m.date} {m.time}
+                      </div>
+                    </div>
                   </Col>
                 </React.Fragment>
               )
@@ -75,6 +69,21 @@ export const Matches = (props: IProps) => {
           }
         </Row>
       </Container>
+      <style jsx>{`
+          .m-container {
+            padding: 20px;
+            border: 1px solid white;
+            border-radius: 4px;
+          }
+          .m-name {
+            text-align: center;
+            font-size: 24px;
+            margin-bottom: 5px;
+          }
+          .m-status {
+            text-align: center;
+          }
+      `}</style>
     </Layout>
   ) 
 }
