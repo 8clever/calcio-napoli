@@ -16,6 +16,10 @@ let config = {
   async rewrites() {
     return [
       {
+        source: "/:path*",
+        destination: "/:path*"
+      },
+      {
         source: "/teams/ssc-napoli-194680/:path*",
         destination: "https://www.fctables.com/teams/ssc-napoli-194680/:path*"
       },
