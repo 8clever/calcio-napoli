@@ -32,6 +32,10 @@ let config = {
         destination: "https://sharing.iamcalcio.it/classifiche/:path*"
       },
       {
+        source: '/assets/:path*',
+        destination: "https://sportcenter.sir.sportradar.com/assets/:path*"
+      },
+      {
         source: '/sportitalia/:path*',
         destination: 'https://sportcenter.sir.sportradar.com/sportitalia/:path*',
       },
