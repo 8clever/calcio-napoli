@@ -28,7 +28,7 @@ export const Matches = (props: IProps) => {
   const nextMatchUrl = "/teams/ssc-napoli-194680/iframe/?type=team-next-match&lang_id=5&country=108&template=17&team=194680&timezone=Europe/Rome&time=24&width=520&height=200&font=Verdana&fs=12&lh=22&bg=FFFFFF&fc=333333&logo=1&tlink=1&scfs=22&scfc=333333&scb=1&sclg=1&teamls=80&sh=1&hfb=1&hbc=3bafda&hfc=FFFFFF"
 
   return (
-    <Layout hybrid title={title} description={title}>
+    <Layout title={title} description={title}>
       <Container page>
         <h1>Partite recenti e imminenti del</h1>
         <ResponsiveIframe 
@@ -77,10 +77,6 @@ export const Matches = (props: IProps) => {
       </Container>
     </Layout>
   ) 
-}
-
-export const config = {
-  amp: "hybrid"
 }
 
 export default Matches;

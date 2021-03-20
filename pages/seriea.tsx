@@ -7,7 +7,6 @@ export const Games = () => {
 
   return (
     <Layout 
-      hybrid
       description="Classifica Serie A tim"
       title="Calcio Napoli | Classifica Serie A tim">
       <Container page fluid>
@@ -16,10 +15,6 @@ export const Games = () => {
       </Container>
     </Layout>
   )
-}
-
-export const config = {
-  amp: "hybrid"
 }
 
 export default Games;
