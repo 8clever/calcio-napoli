@@ -19,7 +19,7 @@ export const media = {
       changefreq: "hourly"
     },
     {
-      href: "/sportitalia",
+      href: "/sportradar",
       label: "Statistiche dettagliate della partita",
       changefreq: "never"
     },

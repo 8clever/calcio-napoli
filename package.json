@@ -11,6 +11,7 @@
     "@types/node-telegram-bot-api": "^0.51.1",
     "cron": "^1.8.2",
     "express": "^4.17.1",
+    "iframe-resizer-react": "^1.1.0",
     "livesoccertv-parser": "^5.3.1",
     "lodash": "^4.17.20",
     "moment": "^2.29.1",
