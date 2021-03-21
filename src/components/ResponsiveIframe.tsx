@@ -1,8 +1,23 @@
-import IFrame from "iframe-resizer-react"
+import IFrame, { IframeResizerProps } from "iframe-resizer-react"
 import React from "react";
-interface IProps {
+
+const awaitTag = async (els: string[], cw: Window): Promise<void> => {
+  for (const el of els) {
+    const tag = cw.document.body.querySelector(el as string) as HTMLDivElement;
+    if (tag) {
+      const rect = tag.getBoundingClientRect();
+      if (rect.height) {
+        tag.setAttribute("data-iframe-height", "true");
+        return;
+      }
+    };
+  }
+  await new Promise(r => setTimeout(r, 100));
+  return awaitTag(els, cw);
+}
+interface IProps extends Partial<IframeResizerProps> {
   src: string;
-  taggedElement?: string;
+  taggedElement?: string | string[];
 }
 
 // do not forget add src to proxy for avoid problems with CORS
@@ -16,7 +31,6 @@ export const ResponsiveIframe = (props: IProps) => {
         Caricamento in corso...
       </div>
       <IFrame 
-        log
         style={{
           width: "100%",
           height: 0,
@@ -38,22 +52,14 @@ export const ResponsiveIframe = (props: IProps) => {
           const raw = await response.text();
           const script = document.createElement("script");
           if (props.taggedElement) {
-            const awaitTag = async (): Promise<void> => {
-              const tag = cw.document.body.querySelector(props.taggedElement as string);
-              if (tag) {
-                tag?.setAttribute("data-iframe-height", "true");
-                return;
-              };
-              await new Promise(r => setTimeout(r, 100));
-              return awaitTag();
-            }
-            await awaitTag();
+            const els = Array.isArray(props.taggedElement) ? props.taggedElement : [props.taggedElement];
+            await awaitTag(els, cw);
           }
           document.getElementById("loading-" + id)?.remove();
           script.append(raw);
           cw.document.head.appendChild(script);
         }}
-        src={props.src} 
+        {...props}
       />
       <style jsx>{`
         #loading-${id} {

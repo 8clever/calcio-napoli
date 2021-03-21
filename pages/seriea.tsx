@@ -12,7 +12,10 @@ export const Games = () => {
         <h1>Classifica Serie A tim</h1>
         <ResponsiveIframe 
           src={google} 
-          taggedElement="#main"
+          taggedElement={[
+            "#sports-app",
+            "#main"
+          ]}
         />
       </Container>
     </Layout>

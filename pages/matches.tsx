@@ -13,7 +13,10 @@ export const Matches = () => {
         <h1>Partite recenti e imminenti del</h1>
         <ResponsiveIframe 
           src={url}
-          taggedElement="#main"
+          taggedElement={[
+            "#sports-app",
+            "#main"
+          ]}
         />
       </Container>
     </Layout>
