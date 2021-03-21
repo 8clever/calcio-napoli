@@ -17,6 +17,10 @@ export const GoogleIframe = (props: GoogleIframeProps) => {
         "#main",
         "#sports-app",
       ]}
+      onComplete={(cw) => {
+       const lb = cw.document.body.querySelector("#lb g-raised-button:last-child") as HTMLElement;
+       lb?.click();
+      }}
     />
   )
 }
