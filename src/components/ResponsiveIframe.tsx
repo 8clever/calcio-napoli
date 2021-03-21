@@ -51,6 +51,9 @@ export const ResponsiveIframe = (props: IProps) => {
           const response = await fetch(url);
           const raw = await response.text();
           const script = document.createElement("script");
+          const style = document.createElement("style");
+          style.innerHTML = "* { overflow: hidden !important }";
+          cw.document.body.appendChild(style);
           if (props.taggedElement) {
             const els = Array.isArray(props.taggedElement) ? props.taggedElement : [props.taggedElement];
             await awaitTag(els, cw);
