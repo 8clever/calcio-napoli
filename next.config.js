@@ -65,6 +65,14 @@ let config = {
         destination: "https://www.google.com/gen_204/:path*"
       },
       {
+        source: "/client_204/:path*",
+        destination: "https://www.google.com/client_204/:path*"
+      },
+      {
+        source: '/complete/search/:path*',
+        destination: "https://www.google.com/complete/search/:path*"
+      },
+      {
         source: '/googlesearch/:path*',
         destination: "https://www.google.com/search/:path*"
       }

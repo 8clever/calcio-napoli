@@ -14,8 +14,8 @@ export const GoogleIframe = (props: GoogleIframeProps) => {
     <ResponsiveIframe 
       src={props.src}
       taggedElement={[
+        "#main",
         "#sports-app",
-        "#main"
       ]}
       onComplete={(cw) => {
         const lb = cw.document.body.querySelector("#lb");

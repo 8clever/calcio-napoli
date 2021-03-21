@@ -26,6 +26,8 @@ interface IProps extends Partial<IframeResizerProps> {
 export const ResponsiveIframe = (props: IProps) => {
   const id = "iframe";
 
+  const { taggedElement, onComplete, ...iframeProps } = props;
+
   return (
     <>
       <div id={"loading-" + id}>
@@ -39,7 +41,7 @@ export const ResponsiveIframe = (props: IProps) => {
         }}
         frameBorder="no"
         heightCalculationMethod={
-          props.taggedElement ?
+          taggedElement ?
           "taggedElement" :
           "bodyOffset"
         }
@@ -55,16 +57,16 @@ export const ResponsiveIframe = (props: IProps) => {
           const style = document.createElement("style");
           style.innerHTML = "* { overflow: hidden !important }";
           cw.document.body.appendChild(style);
-          if (props.taggedElement) {
-            const els = Array.isArray(props.taggedElement) ? props.taggedElement : [props.taggedElement];
+          if (taggedElement) {
+            const els = Array.isArray(taggedElement) ? taggedElement : [taggedElement];
             await awaitTag(els, cw);
           }
           document.getElementById("loading-" + id)?.remove();
           script.append(raw);
-          props.onComplete && props.onComplete(cw);
+          onComplete && onComplete(cw);
           cw.document.head.appendChild(script);
         }}
-        {...props}
+        {...iframeProps}
       />
       <style jsx>{`
         #loading-${id} {
