@@ -18,6 +18,7 @@ const awaitTag = async (els: string[], cw: Window): Promise<void> => {
 interface IProps extends Partial<IframeResizerProps> {
   src: string;
   taggedElement?: string | string[];
+  onComplete?: (cw: Window) => void;
 }
 
 // do not forget add src to proxy for avoid problems with CORS
@@ -60,6 +61,7 @@ export const ResponsiveIframe = (props: IProps) => {
           }
           document.getElementById("loading-" + id)?.remove();
           script.append(raw);
+          props.onComplete && props.onComplete(cw);
           cw.document.head.appendChild(script);
         }}
         {...props}
