@@ -17,10 +17,6 @@ export const GoogleIframe = (props: GoogleIframeProps) => {
         "#main",
         "#sports-app",
       ]}
-      onComplete={(cw) => {
-        const lb = cw.document.body.querySelector("#lb");
-        lb?.remove();
-      }}
     />
   )
 }
