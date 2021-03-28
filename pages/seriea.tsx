@@ -70,6 +70,7 @@ export const Games = (props: IProps) => {
           border: 1px solid #424242;
         }
         table {
+          border-collapse: collapse;
           width: 100%;
           margin-bottom: 15px;
         }
