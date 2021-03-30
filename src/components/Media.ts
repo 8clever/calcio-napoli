@@ -67,7 +67,7 @@ export const media = {
     {
       href: "/story",
       label: "Stories",
-      ampOnly: true
+      standalone: true
     }
   ] as Media[],
   partners: [

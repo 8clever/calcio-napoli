@@ -14,10 +14,16 @@ export const getServerSideProps: GetServerSideProps<ChannelProps, IProps> = asyn
   const limit = 10;
   const page = Number(props.query.page) || 1;
   const skip = limit * (page - 1);
+  const videos = playlist.videos.slice(skip, skip + limit).map(v => {
+    return {
+      ...v,
+      thumbnail: `https://i.ytimg.com/vi/${v.id}/maxresdefault.jpg`
+    }
+  });
   return {
     props: {
       title,
-      list: playlist.videos.slice(skip, skip + limit),
+      list: videos,
       pagination: {
         limit,
         page,

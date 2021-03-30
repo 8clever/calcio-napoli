@@ -4,10 +4,12 @@ import { Search } from "./Icon";
 import { media } from "./Media";
 import { theme } from "./Theme";
 import React from "react";
+import { useAmp } from "next/amp";
 
 export const Header = () => {
   const [ sidebar, setSidebar ] = React.useState(false);
   const [ lightbox, setLightbox ] = React.useState(false);
+  const isAmp = useAmp();
 
   return (
     <header className="header">
@@ -19,15 +21,18 @@ export const Header = () => {
               alignItems: 'center' 
             }}
             href="/">
-            <Image
-              alt="Clacio Napoli"
-              style={{
-                minWidth: 40
-              }}
-              width="40"
-              height="40"
-              src="/images/favicon.png"
-            />
+            {
+              isAmp ? null :
+              <Image
+                alt="Clacio Napoli"
+                style={{
+                  minWidth: 40
+                }}
+                width="40"
+                height="40"
+                src="/images/favicon.png"
+              />
+            }
             <span className="brand-text">
               Calcio Napoli
             </span>
@@ -178,6 +183,7 @@ export const Header = () => {
           background: ${theme.color.primary};
         }
         .header .head {
+          min-height: 40px;
           padding: 5px 0;
           display: flex;
           justify-content: space-between;

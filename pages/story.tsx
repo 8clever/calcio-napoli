@@ -69,12 +69,6 @@ const Story = (props: ChannelProps) => {
                     animate-in-delay="0.3s"
                     animate-in-duration="2s"
                     animate-in="fade-in">
-                    <AmpImg 
-                      src={img}
-                      specName="default" 
-                      height={30}
-                      width={30}
-                    />
                     <div className="brand">
                       Calcio Napoli
                     </div>
