@@ -12,6 +12,7 @@ import nextConfig from "../../next.config";
 import { Youtube } from "../../src/components/Hybrid"
 import Head from "next/head";
 import { theme } from "../../src/components/Theme";
+import { useAmp } from "next/amp";
 
 interface IProps {
   info: ytdl.videoInfo["videoDetails"],
@@ -47,6 +48,7 @@ export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (pro
 
 export const News = (props: IProps) => {
   const thumb = props.info.thumbnails[props.info.thumbnails.length - 1];
+  const isAmp = useAmp();
 
   const thing: WithContext<Thing> = {
     "@context": "https://schema.org",
@@ -87,7 +89,7 @@ export const News = (props: IProps) => {
         data={thing}
       />
       <div style={{ minHeight: "100vh" }}>
-        <Container>
+        <Container page>
           <h1>{props.info.title}</h1>
           <Youtube
             thumbnail={thumb.url}
@@ -108,22 +110,28 @@ export const News = (props: IProps) => {
               .replace(/\n/gmi, "<br/>")
               || ""
           }}></p>
-          <h2>Notizie correlate</h2>
-          <Row>
-            {
-              props.related.map(v => {
-                return (
-                  <Col md={6} key={v.id}>
-                    <Thumbanil
-                      imageSrc={v.thumbnails[v.thumbnails.length - 1].url}
-                      href={`/news/${v.id}`}
-                      title={v.title || ""}
-                    />
-                  </Col>
-                )
-              })
-            }
-          </Row>
+          {
+            isAmp ?
+            null :
+            <>
+              <h2>Notizie correlate</h2>
+              <Row>
+                {
+                  props.related.map(v => {
+                    return (
+                      <Col md={6} key={v.id}>
+                        <Thumbanil
+                          imageSrc={v.thumbnails[v.thumbnails.length - 1].url}
+                          href={`/news/${v.id}`}
+                          title={v.title || ""}
+                        />
+                      </Col>
+                    )
+                  })
+                }
+              </Row>
+            </>
+          }
           <p>
             {props.info.keywords?.join(", ")}
           </p>

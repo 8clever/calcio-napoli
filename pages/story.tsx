@@ -55,8 +55,8 @@ const Story = (props: ChannelProps) => {
                   animate-in="fade-in"
                   specName="default"
                   src={i.thumbnail}
-                  width={853}
-                  height={640}
+                  width={720}
+                  height={1280}
                   layout={"fill"}
                 >
                 </AmpImg>
