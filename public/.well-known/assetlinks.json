@@ -1,0 +1,5 @@
+[{
+      "relation": ["delegate_permission/common.handle_all_urls"],
+      "target" : { "namespace": "android_app", "package_name": "com.VIPSoftware.CalcioNapoli",
+                   "sha256_cert_fingerprints": ["6F:F9:40:42:EC:E7:18:0C:3A:72:C7:DD:1D:68:64:76:55:EC:31:A8:BD:61:01:1A:7E:83:BA:D7:B6:81:E0:7F"] }
+    }]
