@@ -47,7 +47,7 @@ export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (pro
 }
 
 export const News = (props: IProps) => {
-  const thumb = props.info.thumbnails[props.info.thumbnails.length - 1];
+  const thumb: { url: string } = props.info.thumbnails[props.info.thumbnails.length - 1];
   const isAmp = useAmp();
 
   const thing: WithContext<Thing> = {
@@ -58,7 +58,9 @@ export const News = (props: IProps) => {
       "@type": "WebPage",
       "@id": media.domain + "/news/" + props.info.videoId
     },
-    "image": props.info.thumbnails.map(t => t.url),
+    "image": [
+      thumb.url
+    ],
     "datePublished": props.info.publishDate,
     "dateModified": props.info.publishDate,
     "publisher": {
