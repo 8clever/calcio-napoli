@@ -50,6 +50,7 @@ export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (pro
 export const News = (props: IProps) => {
   const image = Ytb.MaxResDefault(props.info.videoId);
   const isAmp = useAmp();
+  const logo = media.domain + "/images/logo_600x60.png";
 
   const thing: WithContext<Thing> = {
     "@context": "https://schema.org",
@@ -69,7 +70,7 @@ export const News = (props: IProps) => {
       "name": "Calcio Napoli",
       "logo": {
         "@type": "ImageObject",
-        "url": media.domain + "/images/favicon.png"
+        "url": logo
       }
     },
     "author": {

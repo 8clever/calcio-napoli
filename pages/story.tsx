@@ -21,7 +21,9 @@ export const getServerSideProps: GetServerSideProps<ChannelProps, IProps> = inde
 
 const title = "Calcio Napoli | Stories"
 
-const img = media.domain + "/images/favicon.png";
+const posterPortrait = media.domain + "/images/logo_portrait.png";
+const posterSquare = media.domain + "/images/logo_square.png";
+const publisherLogo = media.domain + "/images/logo_96x96.png";
 
 const Story = (props: ChannelProps) => {
   return (
@@ -34,10 +36,9 @@ const Story = (props: ChannelProps) => {
         standalone
         title={title}
         publisher="Calcio Napoli"
-        publisher-logo-src={img}
-        poster-portrait-src={img}
-        poster-landscape-src={img}
-        entity-logo-src={img}
+        publisher-logo-src={publisherLogo}
+        poster-portrait-src={posterPortrait}
+        poster-square-src={posterSquare}
         specName="default">
         <AmpAnalytics
           type="gtag" 
@@ -97,7 +98,6 @@ const Story = (props: ChannelProps) => {
         }
         .ico .brand {
           align-self: flex-end;
-          margin-left: 15px;
           font-size: 18px;
         }
         .container {
