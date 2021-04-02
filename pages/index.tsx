@@ -3,6 +3,7 @@ import { PlaylistDetailed } from "scrape-yt";
 import { Channel, IProps as ChannelProps } from "../src/components/Channel"
 import { cache, getCache } from "../src/components/Cache";
 import { ParsedUrlQuery } from "querystring";
+import { Youtube } from "../src/modules/Youtube";
 
 interface IProps extends ParsedUrlQuery {
   page: string;
@@ -17,7 +18,7 @@ export const getServerSideProps: GetServerSideProps<ChannelProps, IProps> = asyn
   const videos = playlist.videos.slice(skip, skip + limit).map(v => {
     return {
       ...v,
-      thumbnail: `https://i.ytimg.com/vi/${v.id}/maxresdefault.jpg`
+      thumbnail: Youtube.MaxResDefault(v.id)
     }
   });
   return {

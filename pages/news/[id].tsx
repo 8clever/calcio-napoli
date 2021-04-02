@@ -10,6 +10,7 @@ import { StructuredData } from "../../src/components/StructuredData";
 import { Thumbanil } from "../../src/components/Thumbnail";
 import nextConfig from "../../next.config";
 import { Youtube } from "../../src/components/Hybrid"
+import { Youtube as Ytb } from "../../src/modules/Youtube"
 import Head from "next/head";
 import { theme } from "../../src/components/Theme";
 import { useAmp } from "next/amp";
@@ -47,7 +48,7 @@ export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (pro
 }
 
 export const News = (props: IProps) => {
-  const thumb: { url: string } = props.info.thumbnails[props.info.thumbnails.length - 1];
+  const image = Ytb.MaxResDefault(props.info.videoId);
   const isAmp = useAmp();
 
   const thing: WithContext<Thing> = {
@@ -59,7 +60,7 @@ export const News = (props: IProps) => {
       "@id": media.domain + "/news/" + props.info.videoId
     },
     "image": [
-      thumb.url
+      image
     ],
     "datePublished": props.info.publishDate,
     "dateModified": props.info.publishDate,
@@ -80,12 +81,12 @@ export const News = (props: IProps) => {
     <Layout 
       hybrid
       og={{
-        image: thumb.url
+        image
       }}
       description={props.info.description || ""}
       title={props.info.title}>
       <Head>
-        <link rel="preload" as="image" href={thumb.url} />
+        <link rel="preload" as="image" href={image} />
       </Head>
       <StructuredData
         data={thing}
@@ -94,7 +95,7 @@ export const News = (props: IProps) => {
         <Container page>
           <h1>{props.info.title}</h1>
           <Youtube
-            thumbnail={thumb.url}
+            thumbnail={image}
             width="480"
             height="270"
             videoId={props.info.videoId}
