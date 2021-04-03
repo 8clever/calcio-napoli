@@ -8,6 +8,9 @@ import {
   getServerSideProps as indexProps,
 } from "./index";
 import { ParsedUrlQuery } from "querystring";
+import { Thing, WithContext } from "schema-dts";
+import moment from "moment";
+import { StructuredData } from "../src/components/StructuredData";
 
 export const config = {
   amp: true
@@ -24,13 +27,43 @@ const title = "Calcio Napoli | Stories"
 const posterPortrait = media.domain + "/images/logo_portrait.png";
 const posterSquare = media.domain + "/images/logo_square.png";
 const publisherLogo = media.domain + "/images/logo_96x96.png";
+const logo = media.domain + "/images/logo_600x60.png";
 
 const Story = (props: ChannelProps) => {
+
+  const thing: WithContext<Thing> = {
+    "@context": "https://schema.org",
+    "@type": "NewsArticle",
+    "headline": title,
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": media.domain + "/story"
+    },
+    "image": props.list.map(i => i.thumbnail),
+    "datePublished": moment().format("YYYY-MM-DD"),
+    "dateModified": moment().format("YYYY-MM-DD HH:mm:ss"),
+    "publisher": {
+      "@type": "Organization",
+      "name": "Calcio Napoli",
+      "logo": {
+        "@type": "ImageObject",
+        "url": logo
+      }
+    },
+    "author": {
+      "@type": "Person",
+      "name": "Calcio Napoli Podcasts"
+    }
+  }
+
   return (
     <>
       <LayoutHead 
         title={title}
         description={title}
+      />
+      <StructuredData 
+        data={thing}
       />
       <AmpStory 
         standalone
