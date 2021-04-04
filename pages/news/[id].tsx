@@ -110,7 +110,7 @@ export const News = (props: IProps) => {
             dangerouslySetInnerHTML={{
             __html: props.info.description?.trim()
               .replace(/(https:\/\/([^\/\s]+)[^\s]*)/gmi, "<a rel='noreferrer' target='_blank' href='$1'>$2</a>")
-              .replace(/\s#([^\s'"]+)/gmi, " <a rel='noreferrer' target='_blank' href='https://youtube.com/hashtag/$1'>#$1</a>")
+              //.replace(/\s#([^\s'"]+)/gmi, " <a rel='noreferrer' target='_blank' href='https://youtube.com/hashtag/$1'>#$1</a>")
               .replace(/\n/gmi, "<br/>")
               || ""
           }}></p>
