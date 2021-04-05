@@ -109,7 +109,8 @@ export const News = (props: IProps) => {
             }}
             dangerouslySetInnerHTML={{
             __html: props.info.description?.trim()
-              .replace(/(https:\/\/([^\/\s,()]+)[^\s,()]+)/gmi, "<a rel='noreferrer' target='_blank' href='$1'>$2</a>")
+              .replace(/\"/gmi, "'")
+              .replace(/(https:\/\/([^\/\s,()]+)[^\s,()]+)/gmi, `<a rel="noreferrer" target="_blank" href="$1">$2</a>`)
               .replace(/\n/gmi, "<br/>")
               || ""
           }}></p>
