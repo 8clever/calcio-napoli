@@ -9,6 +9,7 @@ import { makeUrl } from './Pagination'
 import { AdAuto, AdResponsive, Analytics } from './AdSlot'
 import { useAmp } from 'next/amp'
 import { Container } from './Grid'
+import { CookiesNotif } from "./CookiesNotif";
 
 type Props = {
   hybrid?: boolean;
@@ -105,6 +106,7 @@ const Layout = (props: Props) => {
       <Footer />
       <GlobalStyle />
       <AdAuto />
+      <CookiesNotif />
     </>
   )
 }
