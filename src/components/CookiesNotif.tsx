@@ -20,12 +20,12 @@ export const CookiesNotif = () => {
       <Container>
         <Row>
           <Col md={10}>
-            Use this web site you aggree with that this site uses cookies for Google Adsense and Google Analytics.
+            This web site uses cookies for Google Adsense and Google Analytics.
           </Col>
           <Col md={2}>
             <div 
               onClick={() => {
-                document.cookie = key;
+                document.cookie = `${key}; path=/; max-age=31536000`;
                 setVisible(false);
               }}
               className="button">
@@ -36,19 +36,26 @@ export const CookiesNotif = () => {
       </Container>
       <style jsx>{`
         .cookies {
+          border-top: 2px solid ${theme.color.black};
           position: fixed;
-          background: ${theme.color.black};
+          background: ${theme.color.primary};
           left: 0;
           right: 0;
           bottom: 0;
-          padding: 20px 20px 5px 20px;
+          padding: 15px;
+          padding-bottom: 0;
+        }
+        .cookies :global(.col-10) {
+          display: flex;
+          align-items: center;
+          font-size: 18px;
         }
         .cookies .button {
           text-align: center;
           cursor: pointer;
           border-radius: 4px;
           padding: 10px;
-          background: ${theme.color.primary};
+          background: ${theme.color.black};
         }
       `}</style>
     </div>
