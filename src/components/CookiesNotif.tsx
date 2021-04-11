@@ -37,7 +37,7 @@ export const CookiesNotif = () => {
       <style jsx>{`
         .cookies {
           position: fixed;
-          background: #18a1c3;
+          background: ${theme.color.black};
           left: 0;
           right: 0;
           bottom: 0;
