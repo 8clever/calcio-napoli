@@ -3,7 +3,6 @@ import { PlaylistDetailed } from "scrape-yt";
 import { Channel, IProps as ChannelProps } from "../src/components/Channel"
 import { cache, getCache } from "../src/components/Cache";
 import { ParsedUrlQuery } from "querystring";
-import { Youtube } from "../src/modules/Youtube";
 
 interface IProps extends ParsedUrlQuery {
   page: string;
@@ -15,12 +14,7 @@ export const getServerSideProps: GetServerSideProps<ChannelProps, IProps> = asyn
   const limit = 10;
   const page = Number(props.query.page) || 1;
   const skip = limit * (page - 1);
-  const videos = playlist.videos.slice(skip, skip + limit).map(v => {
-    return {
-      ...v,
-      thumbnail: Youtube.MaxResDefault(v.id)
-    }
-  });
+  const videos = playlist.videos.slice(skip, skip + limit).map(v => v);
   return {
     props: {
       title,

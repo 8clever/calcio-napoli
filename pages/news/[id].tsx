@@ -10,7 +10,6 @@ import { StructuredData } from "../../src/components/StructuredData";
 import { Thumbanil } from "../../src/components/Thumbnail";
 import nextConfig from "../../next.config";
 import { Youtube } from "../../src/components/Hybrid"
-import { Youtube as Ytb } from "../../src/modules/Youtube"
 import Head from "next/head";
 import { theme } from "../../src/components/Theme";
 import { useAmp } from "next/amp";
@@ -48,7 +47,7 @@ export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (pro
 }
 
 export const News = (props: IProps) => {
-  const image = Ytb.MaxResDefault(props.info.videoId);
+  const image = props.info.thumbnails[props.info.thumbnails.length - 1]?.url || "";
   const isAmp = useAmp();
   const logo = media.domain + "/images/logo_600x60.png";
 

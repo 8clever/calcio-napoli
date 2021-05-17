@@ -29,7 +29,7 @@
     "scrape-yt": "^1.4.7",
     "sharp": "^0.26.3",
     "youtube-playlist-scraper": "^2.1.1",
-    "ytdl-core": "^4.5.0"
+    "ytdl-core": "^4.8.0"
   },
   "devDependencies": {
     "@types/cron": "^1.7.2",
