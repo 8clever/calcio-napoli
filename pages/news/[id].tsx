@@ -1,22 +1,36 @@
 import { GetServerSideProps } from "next";
 import { ParsedUrlQuery } from "querystring";
-import ytdl from "ytdl-core";
-import Layout from "../../src/components/Layout";
+import { Client } from "youtubei";
 import _ from 'lodash';
+
+import Layout from "../../src/components/Layout";
 import { Container, Row, Col } from "../../src/components/Grid";
 import { WithContext, Thing } from "schema-dts";
 import { media } from "../../src/components/Media"
 import { StructuredData } from "../../src/components/StructuredData";
 import { Thumbanil } from "../../src/components/Thumbnail";
-import nextConfig from "../../next.config";
 import { Youtube } from "../../src/components/Hybrid"
 import Head from "next/head";
 import { theme } from "../../src/components/Theme";
 import { useAmp } from "next/amp";
 
+interface News {
+  id: string;
+  image: string;
+  description?: string;
+  title: string;
+  publishDate: string;
+  authorName: string;
+  keywords: string[];
+  relatedVideos: {
+    id: string;
+    image: string;
+    title: string;
+  }[]
+}
+
 interface IProps {
-  info: ytdl.videoInfo["videoDetails"],
-  related: ytdl.videoInfo["related_videos"]
+  news: News;
 }
 
 interface IQuery extends ParsedUrlQuery {
@@ -25,14 +39,28 @@ interface IQuery extends ParsedUrlQuery {
 
 export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (props) => {
   try {
-    const info = await ytdl.getBasicInfo(props.params!.id, {
-      lang: nextConfig.i18n.defaultLocale
-    });
-    delete info.videoDetails.author.subscriber_count
+    const yt = new Client();
+    const video = await yt.getVideo(props.params?.id || "");
+    if (!video) throw new Error("Video not found");
+
     return {
       props: {
-        info: info.videoDetails,
-        related: info.related_videos.slice(0, 6)
+        news: {
+          id: video.id,
+          publishDate: video.uploadDate,
+          title: video.title,
+          image: video.thumbnails[video.thumbnails.length - 1].url,
+          description: video.description,
+          authorName: "Calcio Napoli Podcasts",
+          keywords: video.tags,
+          relatedVideos: video.related.map(v => {
+            return {
+              id: v.id,
+              image: v.thumbnails[v.thumbnails.length - 1].url,
+              title: v.title
+            }
+          })
+        }
       }
     }
   } catch (e) {
@@ -47,23 +75,32 @@ export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (pro
 }
 
 export const News = (props: IProps) => {
-  const image = props.info.thumbnails[props.info.thumbnails.length - 1]?.url || "";
+  const { 
+    image, 
+    description, 
+    title, 
+    id, 
+    publishDate, 
+    authorName, 
+    relatedVideos,
+    keywords
+  } = props.news;
   const isAmp = useAmp();
   const logo = media.domain + "/images/logo_600x60.png";
 
   const thing: WithContext<Thing> = {
     "@context": "https://schema.org",
     "@type": "NewsArticle",
-    "headline": props.info.title,
+    "headline": title,
     "mainEntityOfPage": {
       "@type": "WebPage",
-      "@id": media.domain + "/news/" + props.info.videoId
+      "@id": media.domain + "/news/" + id
     },
     "image": [
       image
     ],
-    "datePublished": props.info.publishDate,
-    "dateModified": props.info.publishDate,
+    "datePublished": publishDate,
+    "dateModified": publishDate,
     "publisher": {
       "@type": "Organization",
       "name": "Calcio Napoli",
@@ -74,7 +111,7 @@ export const News = (props: IProps) => {
     },
     "author": {
       "@type": "Person",
-      "name": props.info.author.name
+      "name": authorName
     }
   }
   return (
@@ -83,8 +120,8 @@ export const News = (props: IProps) => {
       og={{
         image
       }}
-      description={props.info.description || ""}
-      title={props.info.title}>
+      description={description || ""}
+      title={title}>
       <Head>
         <link rel="preload" as="image" href={image} />
       </Head>
@@ -93,12 +130,12 @@ export const News = (props: IProps) => {
       />
       <div style={{ minHeight: "100vh" }}>
         <Container page>
-          <h1>{props.info.title}</h1>
+          <h1>{title}</h1>
           <Youtube
             thumbnail={image}
             width="480"
             height="270"
-            videoId={props.info.videoId}
+            videoId={id}
           />
           <p 
             className="description-container"
@@ -107,7 +144,7 @@ export const News = (props: IProps) => {
               overflow: "hidden"
             }}
             dangerouslySetInnerHTML={{
-            __html: props.info.description?.trim()
+            __html: description?.trim()
               //.replace(/\"/gmi, "'")
               //.replace(/(https:\/\/([^\/\s,()]+)[^\s,()]+)/gmi, `<a rel="noreferrer" target="_blank" href="$1">$2</a>`)
               .replace(/\n/gmi, "<br/>")
@@ -120,11 +157,11 @@ export const News = (props: IProps) => {
               <h2>Notizie correlate</h2>
               <Row>
                 {
-                  props.related.map(v => {
+                  relatedVideos.map(v => {
                     return (
                       <Col md={6} key={v.id}>
                         <Thumbanil
-                          imageSrc={v.thumbnails[v.thumbnails.length - 1].url}
+                          imageSrc={v.image}
                           href={`/news/${v.id}`}
                           title={v.title || ""}
                         />
@@ -136,7 +173,7 @@ export const News = (props: IProps) => {
             </>
           }
           <p>
-            {props.info.keywords?.join(", ")}
+            {keywords.join(", ")}
           </p>
         </Container>
       </div>
