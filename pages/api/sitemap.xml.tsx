@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import { getPlaylist, PlaylistDetailed } from "scrape-yt";
 import { media } from "../../src/components/Media";
+import { Client } from "youtubei";
 
 export default async function handler (req: NextApiRequest, res: NextApiResponse) {
   req
@@ -34,10 +34,12 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
     })
   })
 
-  const indexVideos = await getPlaylist(media.playListId) as PlaylistDetailed;
+  const yt = new Client();
+  const ch = await yt.findOne(media.channelName, { type: "channel" });
+  await ch?.nextVideos(0);
 
-  indexVideos.videos.forEach(i => {
-    items.push(item("/news/" + i.id, "never"))
+  ch?.videos.forEach(i => {
+    items.push(item("/news/" + i.id, "weekly"));
   });
   
   res.setHeader("Content-type", "application/xml; charset=utf-8");

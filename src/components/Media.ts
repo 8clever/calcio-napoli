@@ -11,6 +11,7 @@ export const media = {
     caPub: "ca-pub-7579927697787840"
   },
   domain: "https://www.calcio-napoli.com",
+  channelName: "Calcio Napoli Podcasts",
   menu: [
     {
       href: "/",

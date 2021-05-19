@@ -1,6 +1,7 @@
 import { GetServerSideProps } from "next"
 import { Channel, IProps as ChannelProps } from "../src/components/Channel"
 import { Client } from "youtubei";
+import { media } from "../src/components/Media";
 
 interface IQuery {
   page: string;
@@ -10,7 +11,7 @@ interface IQuery {
 
 export const getServerSideProps: GetServerSideProps<ChannelProps> = async (props) => {
   const query = props.query as IQuery;
-  const title = query.slug?.replace(/_/gmi, " ") || "Calcio Napoli Podcasts";
+  const title = query.slug?.replace(/_/gmi, " ") || media.channelName;
   const limit = 10;
   const page = Number(query.page) || 1;
   const totalCount = limit * page;
