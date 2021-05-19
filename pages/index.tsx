@@ -1,20 +1,38 @@
 import { GetServerSideProps } from "next"
-import { PlaylistDetailed } from "scrape-yt";
 import { Channel, IProps as ChannelProps } from "../src/components/Channel"
-import { cache, getCache } from "../src/components/Cache";
-import { ParsedUrlQuery } from "querystring";
+import { Client } from "youtubei";
 
-interface IProps extends ParsedUrlQuery {
+interface IQuery {
   page: string;
+  slug: string;
+  [key: string]: string;
 }
 
-export const getServerSideProps: GetServerSideProps<ChannelProps, IProps> = async (props) => {
-  const title = "Calcio Napoli Podcasts";
-  const playlist = getCache(cache.keys.ytchannel) as PlaylistDetailed;
+export const getServerSideProps: GetServerSideProps<ChannelProps> = async (props) => {
+  const query = props.query as IQuery;
+  const title = query.slug?.replace(/_/gmi, " ") || "Calcio Napoli Podcasts";
   const limit = 10;
-  const page = Number(props.query.page) || 1;
-  const skip = limit * (page - 1);
-  const videos = playlist.videos.slice(skip, skip + limit).map(v => v);
+  const page = Number(query.page) || 1;
+  const totalCount = limit * page;
+  const loadTimes = Math.ceil(totalCount / 30);
+  const yt = new Client();
+
+  const ch = await yt.findOne(title, { 
+    type: "channel",
+  });
+
+  await ch?.nextVideos(loadTimes);
+
+  const videos = (ch?.videos || [])
+    .slice(totalCount - limit, totalCount)
+    .map(v => {
+      return {
+        id: v.id,
+        title: v.title,
+        thumbnail: v.thumbnails[v.thumbnails.length - 1].url
+      }
+    });
+
   return {
     props: {
       title,

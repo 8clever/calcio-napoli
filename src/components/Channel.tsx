@@ -2,12 +2,16 @@ import { Col, Container, Row } from '../components/Grid'
 import Layout from '../components/Layout'
 import { StructuredData } from '../components/StructuredData';
 import { media } from '../components/Media';
-import { Video } from "scrape-yt";
 import { Pagination, PaginationProps } from './Pagination';
 import React from "react";
 import { Thumbanil } from './Thumbnail';
 import Head from "next/head";
 
+interface Video {
+  id: string;
+  thumbnail: string;
+  title: string;
+}
 export interface IProps {
   list: Video[];
   title: string

@@ -1,7 +1,7 @@
 import { GetServerSideProps } from "next";
 import { Channel, IProps as ChannelProps } from "../../src/components/Channel";
 import { ParsedUrlQuery } from "querystring";
-import { search } from "scrape-yt";
+import { getServerSideProps as IndexServerSideProps } from "../index";
 
 interface IParams extends ParsedUrlQuery {
   slug: string;
@@ -9,25 +9,13 @@ interface IParams extends ParsedUrlQuery {
 }
 
 export const getServerSideProps: GetServerSideProps<ChannelProps, IParams> = async (props) => {
-  const title = (props.params?.slug || "SSC Napoli podcasts").replace(/_/gmi, " ")
-  const page = Number(props.query.page) || 1;
-  const limit = 10;
-  return {
-    props: {
-      pagination: {
-        limit,
-        page,
-        totalCount: 20
-      },
-      title,
-      list: await search(title, {
-        useWorkerThread: true,
-        type: "video",
-        page,
-        limit
-      })
+  return IndexServerSideProps({
+    ...props,
+    query: {
+      ...props.query,
+      slug: props.params?.slug || ""
     }
-  }
+  });
 }
 
 export const config = {

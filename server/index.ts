@@ -1,14 +1,11 @@
 import next from "next";
 import express from "express";
 import { media } from "../src/components/Media";
-import tasksRun from "./tasks";
 
 const production = process.env.NODE_ENV === 'production'
 const app = next({ dev: !production });
 const handle = app.getRequestHandler();
 const port = process.env.PORT || 3000;
-
-tasksRun();
 
 app.prepare().then(() => {
   const server = express()
