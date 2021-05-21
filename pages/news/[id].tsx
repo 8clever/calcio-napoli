@@ -39,8 +39,9 @@ interface IQuery extends ParsedUrlQuery {
 
 export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (props) => {
   try {
-    const video = await yt.getBasicInfo(props.params?.id || "", {
-      lang: props.locale
+    const url = `https://www.youtube.com/watch?v=${props.params?.id}&html5=1`;
+    const video = await yt.getBasicInfo(url, {
+      lang: props.locale,
     });
     if (!video) throw new Error("Video not found");
 
