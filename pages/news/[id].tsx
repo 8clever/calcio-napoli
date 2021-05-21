@@ -1,6 +1,6 @@
 import { GetServerSideProps } from "next";
 import { ParsedUrlQuery } from "querystring";
-import { Client } from "youtubei";
+import { Client } from "../../src/modules/YoutubeI";
 import _ from 'lodash';
 
 import Layout from "../../src/components/Layout";

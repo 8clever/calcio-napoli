@@ -1,7 +1,7 @@
 import { GetServerSideProps } from "next"
 import { Channel, IProps as ChannelProps } from "../src/components/Channel"
-import { Client } from "youtubei";
 import { media } from "../src/components/Media";
+import { Client } from "../src/modules/YoutubeI"
 
 interface IQuery {
   page: string;

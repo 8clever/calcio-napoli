@@ -1,6 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import { media } from "../../src/components/Media";
-import { Client } from "youtubei";
+import { Client } from "../../src/modules/YoutubeI";
 
 export default async function handler (req: NextApiRequest, res: NextApiResponse) {
   req
