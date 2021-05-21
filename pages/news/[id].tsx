@@ -1,6 +1,5 @@
 import { GetServerSideProps } from "next";
 import { ParsedUrlQuery } from "querystring";
-import { Client } from "../../src/modules/YoutubeI";
 import _ from 'lodash';
 
 import Layout from "../../src/components/Layout";
@@ -13,6 +12,7 @@ import { Youtube } from "../../src/components/Hybrid"
 import Head from "next/head";
 import { theme } from "../../src/components/Theme";
 import { useAmp } from "next/amp";
+import yt from "ytdl-core";
 
 interface News {
   id: string;
@@ -39,25 +39,26 @@ interface IQuery extends ParsedUrlQuery {
 
 export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (props) => {
   try {
-    const yt = new Client();
-    const video = await yt.getVideo(props.params?.id || "");
+    const video = await yt.getBasicInfo(props.params?.id || "", {
+      lang: props.locale
+    });
     if (!video) throw new Error("Video not found");
 
     return {
       props: {
         news: {
-          id: video.id,
-          publishDate: video.uploadDate,
-          title: video.title,
-          image: video.thumbnails[video.thumbnails.length - 1].url,
-          description: video.description,
-          authorName: "Calcio Napoli Podcasts",
-          keywords: video.tags,
-          relatedVideos: video.related.map(v => {
+          id: video.videoDetails.videoId,
+          publishDate: video.videoDetails.publishDate,
+          title: video.videoDetails.title,
+          image: video.videoDetails.thumbnails[video.videoDetails.thumbnails.length - 1].url,
+          description: video.videoDetails.description || "",
+          authorName: video.videoDetails.author?.name || "",
+          keywords: video.videoDetails.keywords || [],
+          relatedVideos: video.related_videos.slice(0, 10).map(v => {
             return {
-              id: v.id,
+              id: v.id || "",
               image: v.thumbnails[v.thumbnails.length - 1].url,
-              title: v.title
+              title: v.title || ""
             }
           })
         }
