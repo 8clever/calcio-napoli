@@ -12,7 +12,9 @@ import { Youtube } from "../../src/components/Hybrid"
 import Head from "next/head";
 import { theme } from "../../src/components/Theme";
 import { useAmp } from "next/amp";
-import yt from "ytdl-core";
+import ytdl from "ytdl-core";
+import fetch from "node-fetch";
+import qs from "querystring";
 
 interface News {
   id: string;
@@ -37,11 +39,72 @@ interface IQuery extends ParsedUrlQuery {
   id: string;
 }
 
+const INFO_HOST = 'www.youtube.com';
+const INFO_PATH = '/get_video_info';
+const VIDEO_EURL = 'https://youtube.googleapis.com/v/';
+
+const jsonClosingChars = /^[)\]}'\s]+/;
+const parseJSON = (json: string) => {
+  if (!json || typeof json === 'object') {
+    return json;
+  } 
+  try {
+    json = json.replace(jsonClosingChars, '');
+    return JSON.parse(json);
+  } catch (err) {
+    throw Error(`Error parsing: ${err.message}`);
+  }
+};
+
+const getVideoInfoPage = async (id: string, options: ytdl.getInfoOptions): Promise<ytdl.videoInfo> => {
+  const url = new URL(`https://${INFO_HOST}${INFO_PATH}`);
+  url.searchParams.set('video_id', id);
+  url.searchParams.set('eurl', VIDEO_EURL + id);
+  url.searchParams.set('ps', 'default');
+  url.searchParams.set('gl', 'US');
+  url.searchParams.set('hl', options.lang || 'en');
+  url.searchParams.set("html5", '1');
+  // fetch info
+  const res = await fetch(url.toString());
+  const text = await res.text();
+  let info = qs.parse(text) as any;
+  // parse info
+  const videoInfo = parseJSON(info.player_response);
+  const rvs = qs.parse(info.rvs);
+  // add related videos
+  videoInfo.related_videos = [];
+  for (let i = 0;i<rvs.title.length;i++) {
+    const title = rvs.title[i];
+    const thumbnail = rvs.iurlhq[i] || rvs.iurlmq[i];
+    const match = thumbnail.match(/\/vi\/([^\/]+)\//);
+    const id = match && match[1] || "";
+    videoInfo.related_videos.push({
+      id,
+      title,
+      thumbnails: [
+        {
+          url: thumbnail
+        }
+      ]
+    });
+  }
+  // change author
+  videoInfo.videoDetails.author = {
+    name: videoInfo.videoDetails.author
+  }
+  // set thumbs
+  videoInfo.videoDetails.thumbnails = videoInfo.videoDetails.thumbnail.thumbnails;
+  // set publishDate
+  videoInfo.videoDetails.publishDate = videoInfo.microformat.playerMicroformatRenderer.publishDate;
+  // set description
+  videoInfo.videoDetails.description = videoInfo.videoDetails.shortDescription;
+  return videoInfo;
+};
+
 export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (props) => {
   try {
-    const url = `https://www.youtube.com/watch?v=${props.params?.id}&html5=1`;
-    const video = await yt.getBasicInfo(url, {
-      lang: props.locale,
+    const video = await getVideoInfoPage(props.params?.id || "", {
+      lang: props.locale 
     });
     if (!video) throw new Error("Video not found");
 
@@ -55,7 +118,7 @@ export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (pro
           description: video.videoDetails.description || "",
           authorName: video.videoDetails.author?.name || "",
           keywords: video.videoDetails.keywords || [],
-          relatedVideos: video.related_videos.slice(0, 10).map(v => {
+          relatedVideos: video.related_videos.slice(0, 10).map((v: any) => {
             return {
               id: v.id || "",
               image: v.thumbnails[v.thumbnails.length - 1].url,
