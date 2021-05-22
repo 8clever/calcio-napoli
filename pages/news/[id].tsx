@@ -39,10 +39,6 @@ interface IQuery extends ParsedUrlQuery {
   id: string;
 }
 
-const INFO_HOST = 'www.youtube.com';
-const INFO_PATH = '/get_video_info';
-const VIDEO_EURL = 'https://youtube.googleapis.com/v/';
-
 const jsonClosingChars = /^[)\]}'\s]+/;
 const parseJSON = (json: string) => {
   if (!json || typeof json === 'object') {
@@ -55,6 +51,10 @@ const parseJSON = (json: string) => {
     throw Error(`Error parsing: ${err.message}`);
   }
 };
+
+const INFO_HOST = 'www.youtube.com';
+const INFO_PATH = '/get_video_info';
+const VIDEO_EURL = 'https://youtube.googleapis.com/v/';
 
 const getVideoInfoPage = async (id: string, options: ytdl.getInfoOptions): Promise<ytdl.videoInfo> => {
   const url = new URL(`https://${INFO_HOST}${INFO_PATH}`);
