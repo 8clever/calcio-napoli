@@ -75,6 +75,13 @@ const useScript = (id: string, src: string) => {
 export const AdAuto = () => {
   const isAmp = useAmp();
 
+  React.useEffect(() => {
+    ((window: any) => {
+      if (!window.adsbygoogle) return;
+      window.adsbygoogle = [];
+    })(window);
+  }, []);
+
   useScript("pagead", "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js");
 
   if (isAmp) {
