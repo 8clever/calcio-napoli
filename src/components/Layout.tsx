@@ -99,7 +99,7 @@ const Layout = (props: Props) => {
       <LayoutHead {...props} />
       <Header />
       <Analytics {...props} />
-      <Container>
+      <Container fluid>
         <AdResponsive />
       </Container>
       {children}

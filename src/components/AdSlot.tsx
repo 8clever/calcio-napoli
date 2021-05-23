@@ -2,7 +2,7 @@ import { useAmp } from "next/amp"
 import { AmpAd, AmpAnalytics, AmpAutoAds } from "react-amphtml"
 import React from "react";
 import { media } from "./Media";
-import Adsense from "react-adsense";
+import { theme } from "./Theme";
 
 const caPub = media.google.caPub
 
@@ -126,6 +126,33 @@ export const Analytics = (props: IAnalytics) => {
   return null;
 }
 
+const AdFallback = () => {
+  return (
+    <div className="ad-fallback">
+      <div className="text">
+        AD slot <br/>
+        <small>
+          advertising helps us grow
+        </small>
+      </div>
+      <style jsx>{`
+        .ad-fallback {
+          min-height: 320px;
+          display: flex;
+          flex-direction: column;
+          border-top: none;
+        }
+        .text {
+          font-size: 20px;
+          text-align: center;
+          margin: auto;
+          color: ${theme.color.white};
+        }
+      `}</style>
+    </div>
+  )
+}
+
 export const AdResponsive = () => {
   const isAmp = useAmp();
   const idSlot = "8061989518";
@@ -135,24 +162,29 @@ export const AdResponsive = () => {
       <AmpAd
         specName="amp-ad with data-enable-refresh attribute"
         data-enable-refresh
-        width="100vw" 
         height="320"
         type="adsense"
         data-ad-client={caPub}
         data-ad-slot={idSlot}
         data-auto-format="rspv"
         data-full-width="">
-        <div {...{overflow:""} as any}></div>
-        <div {...{fallback:""}}>AD NONE</div>
+        <AdFallback />
       </AmpAd>
     )
   }
 
   return (
-    <Adsense.Google 
-      client={caPub}
-      slot={idSlot}
-      responsive='true'
-    />
+    <ins className="adsbygoogle"
+      style={{ 
+        display: "block", 
+        height: 320,
+        textDecorationLine: "none"
+      }}
+      data-ad-client={caPub}
+      data-ad-slot={idSlot}
+      data-ad-format="auto"
+      data-full-width-responsive="true">
+      <AdFallback />
+    </ins>
   )
 }
