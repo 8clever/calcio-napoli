@@ -197,11 +197,12 @@ export const AdResponsive = () => {
           specName="amp-ad with data-enable-refresh attribute"
           data-enable-refresh
           height="320"
+          width="100vw"
           type="adsense"
           data-ad-client={caPub}
           data-ad-slot={idSlot}
           data-auto-format="rspv"
-          data-full-width="100vw">
+          data-full-width="">
         </AmpAd>
       </AdContainer>
     )
