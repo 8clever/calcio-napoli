@@ -77,7 +77,6 @@ export const AdAuto = () => {
 
   React.useEffect(() => {
     ((window: any) => {
-      if (!window.adsbygoogle) return;
       window.adsbygoogle = [];
     })(window);
   }, []);
@@ -186,7 +185,7 @@ export const AdResponsive = () => {
   React.useEffect(() => {
     ((window: any) => {
       if (window.adsbygoogle?.loaded === true) return; 
-      (window.adsbygoogle = window.adsbygoogle || []).push({});
+      window.adsbygoogle.push({});
     })(window);
   }, []);
 

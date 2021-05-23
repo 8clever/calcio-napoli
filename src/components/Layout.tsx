@@ -99,13 +99,13 @@ const Layout = (props: Props) => {
       <LayoutHead {...props} />
       <Header />
       <Analytics {...props} />
+      <AdAuto />
       <Container fluid>
         <AdResponsive />
       </Container>
       {children}
       <Footer />
       <GlobalStyle />
-      <AdAuto />
       <CookiesNotif />
     </>
   )
