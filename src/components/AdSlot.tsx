@@ -126,6 +126,21 @@ export const Analytics = (props: IAnalytics) => {
   return null;
 }
 
+const AdContainer = (props: { children?: React.ReactNode }) => {
+  return (
+    <div className="ad-container">
+      {props.children}
+      <style jsx>{`
+        .ad-container {
+          position: relative;
+          overflow: hidden;
+          min-height: 320px;
+        }  
+      `}</style>
+    </div>
+  )
+}
+
 const AdFallback = () => {
   return (
     <div className="ad-fallback">
@@ -137,7 +152,11 @@ const AdFallback = () => {
       </div>
       <style jsx>{`
         .ad-fallback {
-          min-height: 320px;
+          position: absolute;
+          left: 0;
+          right: 0;
+          top: 0;
+          bottom: 0;
           display: flex;
           flex-direction: column;
           border-top: none;
@@ -157,34 +176,46 @@ export const AdResponsive = () => {
   const isAmp = useAmp();
   const idSlot = "8061989518";
 
+  React.useEffect(() => {
+    ((window: any) => {
+      if (window.adsbygoogle?.loaded === true) return; 
+      (window.adsbygoogle = window.adsbygoogle || []).push({});
+    })(window);
+  }, []);
+
   if (isAmp) {
     return (
-      <AmpAd
-        specName="amp-ad with data-enable-refresh attribute"
-        data-enable-refresh
-        height="320"
-        type="adsense"
-        data-ad-client={caPub}
-        data-ad-slot={idSlot}
-        data-auto-format="rspv"
-        data-full-width="">
+      <AdContainer>
         <AdFallback />
-      </AmpAd>
+        <AmpAd
+          specName="amp-ad with data-enable-refresh attribute"
+          data-enable-refresh
+          height="320"
+          type="adsense"
+          data-ad-client={caPub}
+          data-ad-slot={idSlot}
+          data-auto-format="rspv"
+          data-full-width="100vw">
+        </AmpAd>
+      </AdContainer>
     )
   }
 
   return (
-    <ins className="adsbygoogle"
-      style={{ 
-        display: "block", 
-        height: 320,
-        textDecorationLine: "none"
-      }}
-      data-ad-client={caPub}
-      data-ad-slot={idSlot}
-      data-ad-format="auto"
-      data-full-width-responsive="true">
+    <AdContainer>
       <AdFallback />
-    </ins>
+      <ins 
+        style={{
+          display: "inline-block",
+          width: "100%",
+          height: "320px"
+        }}
+        className="adsbygoogle"
+        data-ad-client={caPub}
+        data-ad-slot={idSlot}
+        data-ad-format="fluid"
+        data-full-width-responsive="true">
+      </ins>
+    </AdContainer>
   )
 }
