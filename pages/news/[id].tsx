@@ -8,11 +8,12 @@ import { WithContext, Thing } from "schema-dts";
 import { media } from "../../src/components/Media"
 import { StructuredData } from "../../src/components/StructuredData";
 import { Thumbanil } from "../../src/components/Thumbnail";
-import { Youtube } from "../../src/components/Hybrid"
+import { Youtube as HybridYoutube } from "../../src/components/Hybrid"
 import Head from "next/head";
 import { theme } from "../../src/components/Theme";
 import { useAmp } from "next/amp";
 import { getVideoInfo } from "../../src/modules/YtdlCore";
+import { Youtube } from "../../src/modules/Youtube";
 
 interface News {
   id: string;
@@ -43,6 +44,9 @@ export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (pro
       lang: props.locale 
     });
     if (!video) throw new Error("Video not found");
+    
+    const thumb = video.videoDetails.thumbnails[video.videoDetails.thumbnails.length - 1].url;
+    const image = thumb.includes("maxres") ? thumb : Youtube.DefaultImage();
 
     return {
       props: {
@@ -50,7 +54,7 @@ export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (pro
           id: video.videoDetails.videoId,
           publishDate: video.videoDetails.publishDate,
           title: video.videoDetails.title,
-          image: video.videoDetails.thumbnails[video.videoDetails.thumbnails.length - 1].url,
+          image,
           description: video.videoDetails.description || "",
           authorName: video.videoDetails.author?.name || "",
           keywords: video.videoDetails.keywords || [],
@@ -133,7 +137,7 @@ export const News = (props: IProps) => {
       <div style={{ minHeight: "100vh" }}>
         <Container page>
           <h1>{title}</h1>
-          <Youtube
+          <HybridYoutube
             thumbnail={image}
             width="480"
             height="270"

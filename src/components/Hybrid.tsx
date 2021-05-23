@@ -28,7 +28,8 @@ export const Image = (props: ImageProps) => {
   }  
 
   const style: React.CSSProperties = {
-    position: "relative"
+    position: "relative",
+    overflow: "hidden"
   }
   
   if (props.width) style.width = props.width + "px";
