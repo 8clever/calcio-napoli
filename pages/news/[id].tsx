@@ -67,7 +67,6 @@ export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (pro
       }
     }
   } catch (e) {
-    console.log("Error in: " + props.params?.id)
     console.error(e);
     return {
       redirect: {
