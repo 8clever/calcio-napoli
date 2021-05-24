@@ -37,7 +37,7 @@ export const getVideoInfo = async (id: string, options: getInfoOptions): Promise
     credentials: "omit"
   });
   const text = await res.text();
-  let info = qs.parse(text) as any;
+  const info = qs.parse(text) as any;
   // parse info
   const videoInfo = parseJSON(info.player_response);
   /**
