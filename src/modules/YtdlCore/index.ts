@@ -61,9 +61,7 @@ export const getVideoInfo = async (id: string, options: getInfoOptions): Promise
       id,
       title,
       thumbnails: [
-        {
-          url: thumbnail
-        }
+        { url: thumbnail }
       ]
     });
   }
@@ -72,7 +70,7 @@ export const getVideoInfo = async (id: string, options: getInfoOptions): Promise
     name: videoInfo.videoDetails.author
   }
   // set thumbs
-  videoInfo.videoDetails.thumbnails = videoInfo.videoDetails.thumbnail.thumbnails;
+  videoInfo.videoDetails.thumbnails = videoInfo.videoDetails.thumbnail.thumbnails || [];
   // set publishDate
   videoInfo.videoDetails.publishDate = videoInfo.microformat.playerMicroformatRenderer.publishDate;
   // set description
