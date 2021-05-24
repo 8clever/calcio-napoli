@@ -46,7 +46,8 @@ export const getVideoInfo = async (id: string, options: getInfoOptions): Promise
    */
   if (!videoInfo) {
     console.log(info);
-    process.kill(process.pid);
+    //process.kill(process.pid);
+    throw new Error("VideoInfo not found: " + id);
   }
   const rvs = qs.parse(info.rvs);
   // add related videos
