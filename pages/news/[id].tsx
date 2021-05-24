@@ -43,8 +43,6 @@ export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (pro
     const video = await getVideoInfo(props.params?.id || "", {
       lang: props.locale 
     });
-    if (!video) throw new Error("Video not found");
-    
     const thumb = video.videoDetails.thumbnails[video.videoDetails.thumbnails.length - 1].url;
     const image = thumb.includes("maxres") ? thumb : Youtube.DefaultImage();
 
