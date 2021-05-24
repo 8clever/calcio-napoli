@@ -33,7 +33,9 @@ export const getVideoInfo = async (id: string, options: getInfoOptions): Promise
   url.searchParams.set('hl', options.lang || 'en');
   url.searchParams.set("html5", '1');
   // fetch info
-  const res = await fetch(url.toString());
+  const res = await fetch(url.toString(), {
+    credentials: "omit"
+  });
   const text = await res.text();
   let info = qs.parse(text) as any;
   // parse info
