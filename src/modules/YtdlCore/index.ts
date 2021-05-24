@@ -44,10 +44,8 @@ export const getVideoInfo = async (id: string, options: getInfoOptions): Promise
    * destroy web process if we are blocked
    * process should be restarted after some seconds
    */
-  if (!videoInfo) {
-    console.log(info);
-    //process.kill(process.pid);
-    throw new Error("VideoInfo not found: " + id);
+  if (!videoInfo?.videoDetails) {
+    throw new Error("Video not found: " + id);
   }
   const rvs = qs.parse(info.rvs);
   // add related videos
