@@ -40,10 +40,13 @@ export const getVideoInfo = async (id: string, options: getInfoOptions): Promise
   let info = qs.parse(text) as any;
   // parse info
   const videoInfo = parseJSON(info.player_response);
+  /**
+   * destroy web process if we are blocked
+   * process should be restarted after some seconds
+   */
   if (!videoInfo) {
     console.log(info);
     process.kill(process.pid);
-    throw new Error("Empty videoInfo. Process killing. Should be restart later");
   }
   const rvs = qs.parse(info.rvs);
   // add related videos
