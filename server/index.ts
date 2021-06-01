@@ -26,6 +26,7 @@ const test = async (count: number) => {
   await test(1000);
   await test(5000);
   await test(10000);
+  await test(100000);
 })();
 
 app.prepare().then(() => {
