@@ -73,6 +73,10 @@ export const LayoutHead = (props: Pick<Props, "title" | "description" | "og" | "
 export const GlobalStyle = () => {
   return (
     <style jsx global>{`
+      h1 {
+        font-size: 3.7em;
+        margin: 35px 0;
+      }
       body {
         font-family: Roboto, sans-serif;
         font-size: 14px;
