@@ -24,26 +24,29 @@ type Props = {
 export const LayoutHead = (props: Pick<Props, "title" | "description" | "og" | "hybrid">) => {
   const { title, description } = props;
   const router = useRouter();
-  const q = Object.assign({}, router.query);
-  delete q.amp;
-  const canonical = media.domain + makeUrl(router.route, q);
-  q.amp = "1";
-  const amphtml = media.domain + makeUrl(router.route, q);
   const isAmp = useAmp();
+
+  const getLinkRel = () => {
+    if (props.hybrid) {
+      if (isAmp) {
+        const canonicalUrl = media.domain + makeUrl(router.route, { ...router.query, amp: null });
+        return <link rel="canonical" href={canonicalUrl} />;
+      } 
+      const amphtmlUrl = media.domain + makeUrl(router.route, { ...router.query, amp: 1 })
+      return <link rel="amphtml" href={amphtmlUrl} />;
+    }
+    const canonicalUrl = media.domain + makeUrl(router.route, router.query);
+    return <link rel="canonical" href={canonicalUrl} />
+  }
 
   return (
     <Head>
       <title>{title}</title>
+      {getLinkRel()}
       <link rel="shortcut icon" type="image/png" href="/images/favicon.png" />
-      <link rel="canonical" href={canonical} />
       <link rel="manifest" href="/manifest.json" />
       <link rel="preconnect" href="https://i.ytimg.com" />
       <link rel='apple-touch-icon' sizes='180x180' href='/static/icons/icon-180x180.png' />
-      {
-        props.hybrid ?
-        <link rel="amphtml" href={amphtml} /> :
-        null
-      }
       <meta name="yandex-verification" content="f844698faf7e8642" />
       <meta charSet="utf-8" />
       <meta name="description" content={description} />

@@ -8,13 +8,17 @@ export const makeUrl = (route: string, query: any) => {
   const q: any = {};
   Object.keys(query).forEach(key => {
     const p = `[${key}]`;
+    if (query[key] === null) return;
     if (url.includes(p)) {
       url = url.replace(p, query[key]);
       return;
     }
     q[key] = query[key];
   });
-  return `${url}?${stringify(q)}`;
+  if (Object.keys(q).length) {
+    return `${url}?${stringify(q)}`;
+  }
+  return url;
 }
 
 export interface PaginationProps {
