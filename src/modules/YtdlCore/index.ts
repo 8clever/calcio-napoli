@@ -42,6 +42,8 @@ export const getVideoInfo = async (id: string, options: getInfoOptions): Promise
   const videoInfo = parseJSON(info.player_response);
   if (!videoInfo?.videoDetails) {
     console.log(text);
+    console.log(res.status);
+    console.log(res.statusText);
     throw new Error("Video not found: " + id);
   }
   const rvs = qs.parse(info.rvs);
