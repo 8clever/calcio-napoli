@@ -71,7 +71,7 @@ export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (pro
       }
     }
   } catch (e) {
-    if (e instanceof ytdl.CustomError && e.code === 404) {
+    if (e instanceof ytdl.CustomError && e.code === 429) {
       console.log(HEROKU_API_KEY)
       const client = new Heroku({ token: HEROKU_API_KEY as string });
       await client.delete(`/apps/calcio-napoli/dynos`);
