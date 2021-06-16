@@ -22,3 +22,18 @@ declare module "livesoccertv-parser" {
 };
 
 declare module "react-adsense";
+
+declare module 'heroku-client' {
+
+  class App {}
+  class Heroku {
+    constructor (options: { token: string })
+
+    get (path: string): Promise<App>
+    post (path: string): Promise<App>
+    put (path: string): Promise<App>
+    delete (path: string): Promise<App>
+  }
+
+  export default Heroku;
+}

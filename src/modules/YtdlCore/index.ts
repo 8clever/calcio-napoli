@@ -44,7 +44,8 @@ export const getVideoInfo = async (id: string, options: getInfoOptions): Promise
     console.log(text);
     console.log(res.status);
     console.log(res.statusText);
-    throw new Error("Video not found: " + id);
+
+    throw new ytdl.CustomError(res.statusText, res.status);
   }
   const rvs = qs.parse(info.rvs);
   // add related videos

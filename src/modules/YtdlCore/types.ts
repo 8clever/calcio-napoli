@@ -1,6 +1,16 @@
 
 export namespace ytdl {
 
+  export class CustomError extends Error {
+    message: string;
+    code: number;
+
+    constructor(message: string, code: number) {
+      super(message)
+      this.message = message;
+      this.code = code;
+    }
+  }
   interface videoFormat {
     itag: number;
     url: string;

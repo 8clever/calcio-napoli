@@ -14,6 +14,10 @@ import { theme } from "../../src/components/Theme";
 import { useAmp } from "next/amp";
 import { getVideoInfo } from "../../src/modules/YtdlCore";
 import { Youtube } from "../../src/modules/Youtube";
+import { ytdl } from "../../src/modules/YtdlCore/types";
+import Heroku from "heroku-client";
+
+const { HEROKU_API_KEY } = process.env;
 
 interface News {
   id: string;
@@ -67,7 +71,11 @@ export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (pro
       }
     }
   } catch (e) {
-    console.error(e);
+    if (e instanceof ytdl.CustomError && e.code === 404) {
+      console.log(HEROKU_API_KEY)
+      const client = new Heroku({ token: HEROKU_API_KEY as string });
+      await client.delete(`/apps/calcio-napoli/dynos`);
+    }
     return {
       redirect: {
         statusCode: 302,
