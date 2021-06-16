@@ -19,6 +19,8 @@ import Heroku from "heroku-client";
 
 const { HEROKU_API_KEY } = process.env;
 
+const rebootCodes = new Set<number>([ 429 ]);
+
 interface News {
   id: string;
   image: string;
@@ -71,7 +73,7 @@ export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (pro
       }
     }
   } catch (e) {
-    if (e instanceof ytdl.CustomError && e.code === 429) {
+    if (e instanceof ytdl.CustomError && rebootCodes.has(e.code)) {
       console.log(HEROKU_API_KEY)
       const client = new Heroku({ token: HEROKU_API_KEY as string });
       await client.delete(`/apps/calcio-napoli/dynos`);
