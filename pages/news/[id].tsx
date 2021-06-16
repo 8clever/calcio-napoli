@@ -19,7 +19,7 @@ import Heroku from "heroku-client";
 
 const { HEROKU_API_KEY } = process.env;
 
-const rebootCodes = new Set<number>([ 429, 404 ]);
+const rebootCodes = new Set<number>([ 429 ]);
 
 interface News {
   id: string;
@@ -43,6 +43,8 @@ interface IProps {
 interface IQuery extends ParsedUrlQuery {
   id: string;
 }
+
+let requestReboot = false;
 
 export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (props) => {
   try {
@@ -76,10 +78,10 @@ export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (pro
     if (
       process.env.NODE_ENV === "production" &&
       e instanceof ytdl.CustomError && 
-      rebootCodes.has(e.code)
+      rebootCodes.has(e.code) &&
+      !requestReboot
     ) {
-      // TODO remove after check
-      console.log(HEROKU_API_KEY)
+      requestReboot = true;
       const client = new Heroku({ token: HEROKU_API_KEY as string });
       await client.delete(`/apps/calcio-napoli/dynos`);
     }
