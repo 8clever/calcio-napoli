@@ -1,5 +1,7 @@
 import qs from "querystring";
 import { ytdl } from "./types";
+import fs from "fs";
+import { tmpdir } from "os";
 
 interface getInfoOptions {
   lang?: string;
@@ -25,6 +27,14 @@ const INFO_PATH = '/get_video_info';
 const VIDEO_EURL = 'https://youtube.googleapis.com/v/';
 
 export const getVideoInfo = async (id: string, options: getInfoOptions): Promise<ytdl.videoInfo> => {
+  const cachePath = `${tmpdir()}/${id}.json`;
+  const cacheExists = fs.existsSync(cachePath);
+
+  if (cacheExists) {
+    const json = fs.readFileSync(cachePath).toString();
+    return JSON.parse(json);
+  };
+  
   const url = new URL(`https://${INFO_HOST}${INFO_PATH}`);
   url.searchParams.set('video_id', id);
   url.searchParams.set('eurl', VIDEO_EURL + id);
@@ -33,9 +43,7 @@ export const getVideoInfo = async (id: string, options: getInfoOptions): Promise
   url.searchParams.set('hl', options.lang || 'en');
   url.searchParams.set("html5", '1');
   // fetch info
-  const res = await fetch(url.toString(), {
-    credentials: "omit"
-  });
+  const res = await fetch(url.toString());
   const text = await res.text();
   const info = qs.parse(text) as any;
   // parse info
@@ -73,5 +81,9 @@ export const getVideoInfo = async (id: string, options: getInfoOptions): Promise
   videoInfo.videoDetails.publishDate = videoInfo.microformat.playerMicroformatRenderer.publishDate;
   // set description
   videoInfo.videoDetails.description = videoInfo.videoDetails.shortDescription;
+  
+  // write cache
+  fs.writeFileSync(cachePath, JSON.stringify(videoInfo));
+  
   return videoInfo;
 };
