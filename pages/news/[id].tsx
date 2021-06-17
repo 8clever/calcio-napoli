@@ -13,13 +13,7 @@ import Head from "next/head";
 import { theme } from "../../src/components/Theme";
 import { useAmp } from "next/amp";
 import { Youtube } from "../../src/modules/Youtube";
-import { ytdl } from "../../src/modules/YtdlCore/types";
-import Heroku from "heroku-client";
-import { Client } from "youtubei"
-
-const { HEROKU_API_KEY } = process.env;
-
-const rebootCodes = new Set<number>([ 429 ]);
+import { Client, Video } from "youtubei"
 
 interface News {
   id: string;
@@ -44,29 +38,14 @@ interface IQuery extends ParsedUrlQuery {
   id: string;
 }
 
-let requestReboot = false;
-let firstError = null as null | number;
-
 export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (props) => {
   try {
     if (!props.params?.id) throw new Error("Invalid params ID");
 
     const yt = new Client();
-
-    const [ search ] = await yt.search(props.params.id, {
-      type: "video",
-    });
-
-    const video = await search.getVideo();
-
+    const video: Video = await yt.getVideo(props.params.id);
     const thumb = video.thumbnails.best
     const image = thumb?.includes("maxres") ? thumb : Youtube.DefaultImage();
-
-    if (firstError) {
-      const diff = (new Date().valueOf() - firstError) / 1000;
-      console.info(`Success after: ${diff} sec`);
-      firstError = null;
-    }
 
     return {
       props: {
@@ -89,19 +68,6 @@ export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (pro
       }
     }
   } catch (e) {
-    if (!firstError) {
-      firstError = new Date().valueOf();
-    }
-    if (
-      process.env.NODE_ENV === "production" &&
-      e instanceof ytdl.CustomError && 
-      rebootCodes.has(e.code) &&
-      !requestReboot
-    ) {
-      requestReboot = true;
-      const client = new Heroku({ token: HEROKU_API_KEY as string });
-      await client.delete(`/apps/calcio-napoli/dynos`);
-    }
     return {
       redirect: {
         statusCode: 302,
