@@ -12,10 +12,10 @@ import { Youtube as HybridYoutube } from "../../src/components/Hybrid"
 import Head from "next/head";
 import { theme } from "../../src/components/Theme";
 import { useAmp } from "next/amp";
-import { getVideoInfo } from "../../src/modules/YtdlCore";
 import { Youtube } from "../../src/modules/Youtube";
 import { ytdl } from "../../src/modules/YtdlCore/types";
 import Heroku from "heroku-client";
+import { Client } from "youtubei"
 
 const { HEROKU_API_KEY } = process.env;
 
@@ -49,33 +49,40 @@ let firstError = null as null | number;
 
 export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (props) => {
   try {
-    const video = await getVideoInfo(props.params?.id || "", {
-      lang: props.locale 
+    if (!props.params?.id) throw new Error("Invalid params ID");
+
+    const yt = new Client();
+
+    const [ search ] = await yt.search(props.params.id, {
+      type: "video",
     });
 
-    const thumb = video.videoDetails.thumbnails[video.videoDetails.thumbnails.length - 1].url;
-    const image = thumb.includes("maxres") ? thumb : Youtube.DefaultImage();
+    const video = await search.getVideo();
+
+    const thumb = video.thumbnails.best
+    const image = thumb?.includes("maxres") ? thumb : Youtube.DefaultImage();
 
     if (firstError) {
       const diff = (new Date().valueOf() - firstError) / 1000;
       console.info(`Success after: ${diff} sec`);
       firstError = null;
     }
+
     return {
       props: {
         news: {
-          id: video.videoDetails.videoId,
-          publishDate: video.videoDetails.publishDate,
-          title: video.videoDetails.title,
+          id: video.id,
+          publishDate: video.uploadDate,
+          title: video.title,
           image,
-          description: video.videoDetails.description || "",
-          authorName: video.videoDetails.author?.name || "",
-          keywords: video.videoDetails.keywords || [],
-          relatedVideos: video.related_videos.slice(0, 10).map((v: any) => {
+          description: video.description || "",
+          authorName: media.channelName,
+          keywords: video.tags,
+          relatedVideos: video.related.slice(0, 10).map((v) => {
             return {
-              id: v.id || "",
-              image: v.thumbnails[v.thumbnails.length - 1].url,
-              title: v.title || ""
+              id: v.id,
+              image: v.thumbnails.best || "",
+              title: v.title
             }
           })
         }
