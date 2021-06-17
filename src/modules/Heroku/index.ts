@@ -1,7 +1,6 @@
 import Client from "heroku-client";
 
 const { HEROKU_API_KEY, NODE_ENV } = process.env;
-
 export class Heroku {
 
   public static isProduction = NODE_ENV === "production";
@@ -15,7 +14,6 @@ export class Heroku {
   }
 
   async reboot () {
-    if (!Heroku.isProduction) return;
     if (this.isReboot) return;
 
     this.isReboot = true;
