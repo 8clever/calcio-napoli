@@ -45,7 +45,7 @@ interface IQuery extends ParsedUrlQuery {
 }
 
 let requestReboot = false;
-
+let firstError = null as null | number;
 export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (props) => {
   try {
     const video = await getVideoInfo(props.params?.id || "", {
@@ -54,6 +54,10 @@ export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (pro
     const thumb = video.videoDetails.thumbnails[video.videoDetails.thumbnails.length - 1].url;
     const image = thumb.includes("maxres") ? thumb : Youtube.DefaultImage();
 
+    if (firstError) {
+      const diff = (new Date().valueOf() - firstError) / 1000;
+      console.log(`Success after: ${diff} sec`);
+    }
     return {
       props: {
         news: {
@@ -75,6 +79,9 @@ export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (pro
       }
     }
   } catch (e) {
+    if (!firstError) {
+      firstError = new Date().valueOf();
+    }
     if (
       process.env.NODE_ENV === "production" &&
       e instanceof ytdl.CustomError && 
