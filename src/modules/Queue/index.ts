@@ -8,7 +8,7 @@ export class Queue<T> {
   resolve = async (fn: () => Promise<T>) => {
     this.count += 1;
     for (let i = this.count; i > 0; i--) {
-      await new Promise(resolve => setTimeout(resolve, 100));
+      await new Promise(resolve => setTimeout(resolve, 500));
     }
     const time = (new Date().valueOf() - this.lastResolve)/1000;
     console.info(`last resolve: ${time} sec`);
