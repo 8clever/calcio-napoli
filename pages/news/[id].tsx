@@ -57,6 +57,7 @@ export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (pro
     if (firstError) {
       const diff = (new Date().valueOf() - firstError) / 1000;
       console.log(`Success after: ${diff} sec`);
+      firstError = null;
     }
     return {
       props: {
