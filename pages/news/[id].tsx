@@ -16,6 +16,7 @@ import { getVideoInfo } from "../../src/modules/YtdlCore";
 import { Youtube } from "../../src/modules/Youtube";
 import { ytdl } from "../../src/modules/YtdlCore/types";
 import Heroku from "heroku-client";
+import { Queue } from "../../src/modules/Queue";
 
 const { HEROKU_API_KEY } = process.env;
 
@@ -46,11 +47,15 @@ interface IQuery extends ParsedUrlQuery {
 
 let requestReboot = false;
 let firstError = null as null | number;
+const queue = new Queue<ytdl.videoInfo>();
 export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (props) => {
   try {
-    const video = await getVideoInfo(props.params?.id || "", {
-      lang: props.locale 
+    const video = await queue.resolve(async () => {
+      return getVideoInfo(props.params?.id || "", {
+        lang: props.locale 
+      });
     });
+
     const thumb = video.videoDetails.thumbnails[video.videoDetails.thumbnails.length - 1].url;
     const image = thumb.includes("maxres") ? thumb : Youtube.DefaultImage();
 
