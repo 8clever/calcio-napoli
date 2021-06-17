@@ -44,6 +44,8 @@ export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (pro
 
     const yt = new Client();
     const video: Video = await yt.getVideo(props.params.id);
+    if (!video) throw new Error("Video not found: " + props.params.id);
+
     const thumb = video.thumbnails.best
     const image = thumb?.includes("maxres") ? thumb : Youtube.DefaultImage();
 
@@ -68,7 +70,6 @@ export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (pro
       }
     }
   } catch (e) {
-    console.error(e);
     return {
       redirect: {
         statusCode: 302,
