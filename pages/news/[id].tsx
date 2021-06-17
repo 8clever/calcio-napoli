@@ -68,6 +68,7 @@ export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (pro
       }
     }
   } catch (e) {
+    console.error(e);
     return {
       redirect: {
         statusCode: 302,
