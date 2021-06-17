@@ -16,7 +16,6 @@ import { getVideoInfo } from "../../src/modules/YtdlCore";
 import { Youtube } from "../../src/modules/Youtube";
 import { ytdl } from "../../src/modules/YtdlCore/types";
 import Heroku from "heroku-client";
-import { Queue } from "../../src/modules/Queue";
 
 const { HEROKU_API_KEY } = process.env;
 
