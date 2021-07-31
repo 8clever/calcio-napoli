@@ -2,7 +2,12 @@ import Sendmail from 'sendmail'
 
 export class Mail {
 
-	private transport = Sendmail({});
+	private transport = Sendmail({
+		dkim: {
+			keySelector: process.env.DKIM_KEY_SELECTOR || "",
+			privateKey: process.env.DKIM_PRIVATE_KEY || ""
+		}
+	});
 
 	private from = "support@calcio-napoli.com";
 
