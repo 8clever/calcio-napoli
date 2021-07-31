@@ -14,6 +14,7 @@ import { theme } from "../../src/components/Theme";
 import { useAmp } from "next/amp";
 import { Youtube } from "../../src/modules/Youtube";
 import { Client, Video } from "youtubei"
+import { Mail } from "../../src/modules/Mail";
 
 interface News {
   id: string;
@@ -37,6 +38,8 @@ interface IProps {
 interface IQuery extends ParsedUrlQuery {
   id: string;
 }
+
+const errSet = new Set<string>();
 
 export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (props) => {
   try {
@@ -70,6 +73,16 @@ export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (pro
       }
     }
   } catch (e) {
+
+    if (!errSet.has(e.message)) {
+      errSet.add(e.message);
+      const mail = new Mail();
+      mail.send({
+        subject: "Attention!",
+        message: `Error in news: ${e.message}`
+      });
+    }
+
     return {
       redirect: {
         statusCode: 307,

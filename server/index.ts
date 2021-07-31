@@ -1,6 +1,7 @@
 import next from "next";
 import express from "express";
 import { media } from "../src/components/Media";
+import { Mail } from "../src/modules/Mail";
 
 const production = process.env.NODE_ENV === 'production'
 const app = next({ dev: !production });
@@ -21,6 +22,12 @@ app.prepare().then(() => {
   });
 
   server.listen(port, () => {
-    console.log(`> Ready on http://localhost:${port}`)
+    console.log(`> Ready on http://localhost:${port}`);
+
+    const mail = new Mail();
+    mail.send({
+      subject: "Info!",
+      message: `Server ready on port: ${port}`
+    });
   });
 })
