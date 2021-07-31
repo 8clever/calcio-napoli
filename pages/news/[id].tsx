@@ -15,6 +15,7 @@ import { useAmp } from "next/amp";
 import { Youtube } from "../../src/modules/Youtube";
 import { Client, Video } from "youtubei"
 import { Mail } from "../../src/modules/Mail";
+import ReactDOM from 'react-dom';
 
 interface News {
   id: string;
@@ -77,10 +78,24 @@ export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (pro
     if (!errSet.has(e.message)) {
       errSet.add(e.message);
       const mail = new Mail();
-      mail.send({
-        subject: "Attention!",
-        message: `Error in news: ${e.message}`
-      });
+      const $el = document.createElement("div");
+      ReactDOM.render(
+        <div>
+          Errors in news <br />
+          <small>
+            {e.message}
+          </small>
+          <br />
+          <a href={media.domain + "/news/" + props.params!.id}>link</a>
+        </div>,
+        $el,
+        () => {
+          mail.send({
+            subject: "Attention!",
+            message: $el.innerHTML
+          });
+        }
+      )
     }
 
     return {

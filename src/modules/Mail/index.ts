@@ -14,13 +14,12 @@ export class Mail {
 	private to = "godofluck89@gmail.com";
 
 	send = (options: Mail.Send.Options) => {
-
 		return new Promise((res, rej) => {
 			this.transport({
 				from: options.from || this.from,
 				to: options.to || this.to,
 				subject: options.subject,
-				text: options.message
+				html: options.message
 			}, (err, data) => {
 				if (err) {
 					return rej(err);
