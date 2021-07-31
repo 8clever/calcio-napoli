@@ -72,7 +72,7 @@ export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (pro
   } catch (e) {
     return {
       redirect: {
-        statusCode: 302,
+        statusCode: 307,
         destination: `/error?status=404&message=${e.message}`
       }
     }
