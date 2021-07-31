@@ -4,7 +4,7 @@ export class Mail {
 
 	private transport = Sendmail({
 		dkim: {
-			keySelector: "default",
+			keySelector: "google",
 			privateKey: process.env.DKIM_PRIVATE_KEY || ""
 		}
 	});
