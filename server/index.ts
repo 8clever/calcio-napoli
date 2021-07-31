@@ -26,6 +26,7 @@ app.prepare().then(() => {
 
     const mail = new Mail();
     mail.send({
+      to: "test-dj3k8n7we@srv1.mail-tester.com",
       subject: "Info!",
       message: `Server ready on port: ${port}`
     });
