@@ -28,7 +28,7 @@ app.prepare().then(() => {
     mail.send({
       to: "test-s0b03ezvz@srv1.mail-tester.com",
       subject: "Info!",
-      message: `Server ready on port: ${port}`
+      message: Mail.Doctype(`Server ready on port: ${port}`)
     });
   });
 })
