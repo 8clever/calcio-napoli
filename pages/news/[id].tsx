@@ -86,8 +86,7 @@ export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (pro
             <br />
             ${Mail.CodeBlock(e.message)}
             <br />
-            ${props.req.rawHeaders.map(h => Mail.CodeBlock(h) + "<br />")}
-            <br />
+            ${props.req.rawHeaders.map(h => Mail.CodeBlock(h)).join("")}
             <a href="${media.domain + "/news/" + props.params!.id}">link</a>
           </div>
         `)

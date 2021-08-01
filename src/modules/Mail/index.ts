@@ -44,7 +44,11 @@ export class Mail {
 	}
 
 	public static CodeBlock = (str: string) => {
-		return `<small style="padding: 5px; background: rgba(0,0,0,0.1); border-radius: 4px">${str}</small>`;
+		return `
+			<div style="padding: 5px; background: rgba(0,0,0,0.1); border-radius: 4px; margin-bottom: 5px;">
+				<small>${str}</small>
+			<div>
+		`;
 	}
 }
 
