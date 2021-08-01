@@ -47,7 +47,7 @@ export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (pro
 
     const yt = new Client();
     const video: Video = await yt.getVideo(props.params.id);
-    if (!video) throw new Error("Video not found: " + props.params.id);
+    if (!video) throw new Error("Video not found");
 
     const thumb = video.thumbnails.best
     const image = thumb?.includes("maxres") ? thumb : Youtube.DefaultImage();
@@ -77,19 +77,20 @@ export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (pro
     if (!errSet.has(e.message)) {
       errSet.add(e.message);
       const mail = new Mail();
+
       mail.send({
         subject: "Attention!",
-        message: `
+        message: Mail.Doctype(`
           <div>
             Error in news: ${props.params!.id} 
             <br />
-            <small>
-              ${e.message}
-            </small>
+            ${Mail.CodeBlock(e.message)}
+            <br />
+            ${props.req.rawHeaders.map(h => Mail.CodeBlock(h) + "<br />")}
             <br />
             <a href="${media.domain + "/news/" + props.params!.id}">link</a>
           </div>
-        `
+        `)
       });
     }
 
