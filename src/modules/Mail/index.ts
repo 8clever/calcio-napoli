@@ -47,7 +47,7 @@ export class Mail {
 		return `
 			<div style="padding: 5px; background: rgba(0,0,0,0.1); border-radius: 4px; margin-bottom: 5px;">
 				<small>${str}</small>
-			<div>
+			</div>
 		`;
 	}
 }
