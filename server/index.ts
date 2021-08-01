@@ -26,7 +26,7 @@ app.prepare().then(() => {
 
     const mail = new Mail();
     mail.send({
-      to: "test-pkk6niky0@srv1.mail-tester.com",
+      to: "godofluck89@gmail.com",
       subject: "Info!",
       message: Mail.Doctype(`Server ready on port: ${port}`)
     });
