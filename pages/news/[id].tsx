@@ -15,6 +15,7 @@ import { useAmp } from "next/amp";
 import { Youtube } from "../../src/modules/Youtube";
 import { Client, Video } from "youtubei"
 import { Mail } from "../../src/modules/Mail";
+import ReactDOMServer from 'react-dom/server';
 
 interface News {
   id: string;
@@ -77,19 +78,26 @@ export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (pro
     if (!errSet.has(e.message)) {
       errSet.add(e.message);
       const mail = new Mail();
-
+      const html = ReactDOMServer.renderToStaticMarkup(
+        <Mail.Doctype>
+          Error in news: ${props.params!.id}
+          <Mail.CodeBlock>{e.message}</Mail.CodeBlock>
+          {Object.keys(props.req.headers).map(k => {
+            return (
+              <Mail.CodeBlock key={k}>
+                {k}: {props.req.headers[k]}
+              </Mail.CodeBlock>
+            )
+          })}
+          <a href={media.domain + "/news/" + props.params!.id}>
+            link
+          </a>
+        </Mail.Doctype>
+      );
       mail.send({
         subject: "Attention!",
-        message: Mail.Doctype(`
-          <div>
-            Error in news: ${props.params!.id} 
-            <br />
-            ${Mail.CodeBlock(e.message)}
-            <br />
-            ${props.req.rawHeaders.map(h => Mail.CodeBlock(h)).join("")}
-            <a href="${media.domain + "/news/" + props.params!.id}">link</a>
-          </div>
-        `)
+        html,
+        text: "Error in news: " + props.params!.id
       });
     }
 

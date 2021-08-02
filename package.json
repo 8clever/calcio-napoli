@@ -2,9 +2,9 @@
   "name": "with-typescript",
   "version": "1.0.0",
   "scripts": {
-    "dev": "ts-node --project tsconfig.server.json server/index.ts",
+    "dev": "ts-node --project tsconfig.server.json server",
     "build": "next build && tsc --project tsconfig.server.json",
-    "start": "NODE_ENV=production node dist/server/index.js",
+    "start": "NODE_ENV=production node dist/server",
     "lint": "tsc"
   },
   "dependencies": {

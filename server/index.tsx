@@ -2,6 +2,8 @@ import next from "next";
 import express from "express";
 import { media } from "../src/components/Media";
 import { Mail } from "../src/modules/Mail";
+import ReactDOMServer from "react-dom/server";
+import React from 'react';
 
 const production = process.env.NODE_ENV === 'production'
 const app = next({ dev: !production });
@@ -25,10 +27,16 @@ app.prepare().then(() => {
     console.log(`> Ready on http://localhost:${port}`);
 
     const mail = new Mail();
+    const html = ReactDOMServer.renderToStaticMarkup(
+      <Mail.Doctype>
+        Server ready on port: {port}
+      </Mail.Doctype>
+    )
     mail.send({
       to: "test-8d4e6b@test.mailgenius.com",
       subject: "Info!",
-      message: Mail.Doctype(`Server ready on port: ${port}`)
+      html,
+      text: "Server ready on port: " + port
     });
   });
 })
