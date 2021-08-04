@@ -29,6 +29,7 @@ export const Footer = () => {
               )
             })}
           </Row>
+          <small>v1.0.0</small>
         </Container>
       </footer>
       <style jsx>{`
