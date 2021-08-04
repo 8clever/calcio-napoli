@@ -58,7 +58,7 @@ jobs:
       id: build-image
       env:
         ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-        ECR_REPOSITORY: public.ecr.aws/p5z8c7y7
+        ECR_REPOSITORY: public.ecr.aws/p5z8c7y7/calcio-napoli
         IMAGE_TAG: ${{ github.sha }}
       run: |
         # Build a docker container and
