@@ -12,7 +12,7 @@ export const SportItalia = () => {
       <Container page fluid>
         <ResponsiveIframe 
           src="/sportitalia" 
-          taggedElement=".sr-sc-content"
+          // taggedElement=".sr-sc-content"
           onComplete={(cw: any) => {
             /**
              * seems sportitalia not working and not maintained
