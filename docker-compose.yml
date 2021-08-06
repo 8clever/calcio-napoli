@@ -2,5 +2,7 @@ version: "3.9"
 services:
   web:
     image: 8clever/calcio-napoli:master
+    pull_policy: always
+    restart: always
     ports:
       - "3000:3000"
