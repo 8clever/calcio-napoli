@@ -13,9 +13,9 @@ import Head from "next/head";
 import { theme } from "../../src/components/Theme";
 import { useAmp } from "next/amp";
 import { Youtube } from "../../src/modules/Youtube";
-import { Client, Video } from "youtubei"
 import { Mail } from "../../src/modules/Mail";
 import ReactDOMServer from 'react-dom/server';
+import { google } from 'googleapis'
 
 interface News {
   id: string;
@@ -46,30 +46,40 @@ export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (pro
   try {
     if (!props.params?.id) throw new Error("Invalid params ID");
 
-    const yt = new Client();
-    const video: Video = await yt.getVideo(props.params.id);
+    if (!process.env.YOUTUBE_API_KEY) {
+      throw new Error("YOUTUBE_API_KEY required for this app");
+    }
+
+    const youtube = google.youtube({
+      version: "v3",
+      auth: 
+        process.env.YOUTUBE_API_KEY
+    });
+
+    const { data } = await youtube.videos.list({
+      id: [
+        props.params.id
+      ],
+      part: [
+        "snippet"
+      ]
+    });
+
+    const video = data?.items && data.items[0];
     if (!video) throw new Error("Video not found");
 
-    const thumb = video.thumbnails.best
-    const image = thumb?.includes("maxres") ? thumb : Youtube.DefaultImage();
-
+    const image = video.snippet?.thumbnails?.maxres?.url || Youtube.DefaultImage();
     return {
       props: {
         news: {
-          id: video.id,
-          publishDate: video.uploadDate,
-          title: video.title,
+          id: props.params.id,
+          publishDate: video.snippet?.publishedAt || "",
+          title: video.snippet?.title || "",
           image,
-          description: video.description || "",
+          description: video.snippet?.description || "",
           authorName: media.channelName,
-          keywords: video.tags,
-          relatedVideos: video.related.slice(0, 10).map((v) => {
-            return {
-              id: v.id,
-              image: v.thumbnails.best || "",
-              title: v.title
-            }
-          })
+          keywords: video.snippet?.tags || [],
+          relatedVideos: []
         }
       }
     }
