@@ -33,7 +33,6 @@ app.prepare().then(() => {
       </Mail.Doctype>
     )
     mail.send({
-      to: "test-cduk2eupb@srv1.mail-tester.com",
       subject: "Info!",
       html,
       text: "Server ready on port: " + port
