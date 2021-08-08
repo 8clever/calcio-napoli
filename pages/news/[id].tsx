@@ -74,7 +74,7 @@ export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (pro
       }
     }
   } catch (e) {
-
+    console.error(e);
     if (!errSet.has(e.message)) {
       errSet.add(e.message);
       const mail = new Mail();
