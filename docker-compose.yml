@@ -6,5 +6,6 @@ services:
     restart: always
     environment: 
       SMTP_URL: smtps://username:password@smtp.example.com/?pool=true
+      YOUTUBE_API_KEY: YOUR_API_KEY
     ports: 
       - 3000:3000
