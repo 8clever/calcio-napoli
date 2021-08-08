@@ -4,14 +4,17 @@ import nodemailer from 'nodemailer';
 
 export class Mail {
 
-	private transport = nodemailer.createTransport(process.env.SMTP_URL)
+	private transport = 
+		process.env.SMTP_URL ?
+		nodemailer.createTransport(process.env.SMTP_URL) :
+		null
 
 	private from = "support@calcio-napoli.com";
 
 	private to = "godofluck89@gmail.com";
 
 	send = (options: Mail.Send.Options) => {
-		return this.transport.sendMail({
+		return this.transport?.sendMail({
 			...options,
 			from: options.from || this.from,
 			to: options.to || this.to
@@ -21,7 +24,6 @@ export class Mail {
 	public static Doctype = Doctype;
 
 	public static CodeBlock = CodeBlock;
-
 }
 
 export namespace Mail {

@@ -25,7 +25,7 @@
     "rss-parser": "^3.10.0",
     "schema-dts": "^0.8.2",
     "sharp": "^0.26.3",
-    "youtubei": "0.0.1-rc.14"
+    "youtubei": "0.0.1-rc.20"
   },
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.14.2",
