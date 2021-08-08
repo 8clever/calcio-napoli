@@ -1,7 +1,10 @@
 version: "3.9"
 services:
   web:
-    build:
-      context: .
+    build: .
+    image: 8clever/calcio-napoli
     restart: always
-    network_mode: host
+    environment: 
+      SMTP_URL: smtps://username:password@smtp.example.com/?pool=true
+    ports: 
+      - 3000:3000

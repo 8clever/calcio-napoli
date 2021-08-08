@@ -1,23 +1,17 @@
-import Sendmail from 'sendmail'
 import { CodeBlock } from './components/CodeBlock';
 import { Doctype } from './components/Doctype';
-import { promisify } from "util";
+import nodemailer from 'nodemailer';
 
 export class Mail {
 
-	private transport = promisify(Sendmail({
-		dkim: {
-			keySelector: "google",
-			privateKey: process.env.DKIM_PRIVATE_KEY || ""
-		}
-	}));
+	private transport = nodemailer.createTransport(process.env.SMTP_URL)
 
 	private from = "support@calcio-napoli.com";
 
 	private to = "godofluck89@gmail.com";
 
 	send = (options: Mail.Send.Options) => {
-		return this.transport({
+		return this.transport.sendMail({
 			...options,
 			from: options.from || this.from,
 			to: options.to || this.to
