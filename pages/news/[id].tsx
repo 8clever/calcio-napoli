@@ -12,11 +12,9 @@ import { Youtube as HybridYoutube } from "../../src/components/Hybrid"
 import Head from "next/head";
 import { theme } from "../../src/components/Theme";
 import { useAmp } from "next/amp";
-import { Youtube } from "../../src/modules/Youtube";
 import { Mail } from "../../src/modules/Mail";
 import ReactDOMServer from 'react-dom/server';
-import { google } from 'googleapis'
-import { Client } from "youtubei";
+import { YoutubeServer } from "../../src/modules/YoutubeServer";
 
 interface News {
   id: string;
@@ -46,77 +44,13 @@ const errSet = new Set<string>();
 export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (props) => {
   try {
     if (!props.params?.id) throw new Error("Invalid params ID");
-
-    if (!process.env.YOUTUBE_API_KEY) {
-      throw new Error("YOUTUBE_API_KEY required for this app");
-    }
-
-    const youtube = google.youtube({
-      version: "v3",
-      auth: 
-        process.env.YOUTUBE_API_KEY
-    });
-
-    // youtubei attempt
-    try {
-      const client = new Client();
-      const video = await client.getVideo(props.params.id);
-      if (!video) throw new Error("Youtubei: findOne exception");
-
-      const thumb = video.thumbnails.best
-      const image = thumb?.includes("maxres") ? thumb : Youtube.DefaultImage();
-
-      return {
-        props: {
-          news: {
-            id: video.id,
-            publishDate: video.uploadDate,
-            title: video.title,
-            image,
-            description: video.description || "",
-            authorName: media.channelName,
-            keywords: video.tags,
-            relatedVideos: video.related.slice(0, 10).map((v) => {
-              return {
-                id: v.id,
-                image: v.thumbnails.best || "",
-                title: v.title
-              }
-            })
-          }
-        }
+    const youtubeServer = new YoutubeServer();
+    const video = await youtubeServer.getVideo(props.params.id);
+    return {
+      props: {
+        news: video
       }
-    } catch {
-
-      // googleapi v3 attempt
-      const { data } = await youtube.videos.list({
-        id: [
-          props.params.id
-        ],
-        part: [
-          "snippet"
-        ]
-      });
-  
-      const video = data?.items && data.items[0];
-      if (!video) throw new Error("Video not found");
-  
-      const image = video.snippet?.thumbnails?.maxres?.url || Youtube.DefaultImage();
-      return {
-        props: {
-          news: {
-            id: props.params.id,
-            publishDate: video.snippet?.publishedAt || "",
-            title: video.snippet?.title || "",
-            image,
-            description: video.snippet?.description || "",
-            authorName: media.channelName,
-            keywords: video.snippet?.tags || [],
-            relatedVideos: []
-          }
-        }
-      }
-    }
+    };
   } catch (e) {
     console.error(e);
     if (!errSet.has(e.message)) {
