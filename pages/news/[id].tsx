@@ -16,6 +16,7 @@ import { Youtube } from "../../src/modules/Youtube";
 import { Mail } from "../../src/modules/Mail";
 import ReactDOMServer from 'react-dom/server';
 import { google } from 'googleapis'
+import { Client } from "youtubei";
 
 interface News {
   id: string;
@@ -56,30 +57,63 @@ export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (pro
         process.env.YOUTUBE_API_KEY
     });
 
-    const { data } = await youtube.videos.list({
-      id: [
-        props.params.id
-      ],
-      part: [
-        "snippet"
-      ]
-    });
+    // youtubei attempt
+    try {
+      const client = new Client();
+      const video = await client.getVideo(props.params.id);
+      if (!video) throw new Error("Youtubei: findOne exception");
 
-    const video = data?.items && data.items[0];
-    if (!video) throw new Error("Video not found");
+      const thumb = video.thumbnails.best
+      const image = thumb?.includes("maxres") ? thumb : Youtube.DefaultImage();
 
-    const image = video.snippet?.thumbnails?.maxres?.url || Youtube.DefaultImage();
-    return {
-      props: {
-        news: {
-          id: props.params.id,
-          publishDate: video.snippet?.publishedAt || "",
-          title: video.snippet?.title || "",
-          image,
-          description: video.snippet?.description || "",
-          authorName: media.channelName,
-          keywords: video.snippet?.tags || [],
-          relatedVideos: []
+      return {
+        props: {
+          news: {
+            id: video.id,
+            publishDate: video.uploadDate,
+            title: video.title,
+            image,
+            description: video.description || "",
+            authorName: media.channelName,
+            keywords: video.tags,
+            relatedVideos: video.related.slice(0, 10).map((v) => {
+              return {
+                id: v.id,
+                image: v.thumbnails.best || "",
+                title: v.title
+              }
+            })
+          }
+        }
+      }
+    } catch {
+
+      // googleapi v3 attempt
+      const { data } = await youtube.videos.list({
+        id: [
+          props.params.id
+        ],
+        part: [
+          "snippet"
+        ]
+      });
+  
+      const video = data?.items && data.items[0];
+      if (!video) throw new Error("Video not found");
+  
+      const image = video.snippet?.thumbnails?.maxres?.url || Youtube.DefaultImage();
+      return {
+        props: {
+          news: {
+            id: props.params.id,
+            publishDate: video.snippet?.publishedAt || "",
+            title: video.snippet?.title || "",
+            image,
+            description: video.snippet?.description || "",
+            authorName: media.channelName,
+            keywords: video.snippet?.tags || [],
+            relatedVideos: []
+          }
         }
       }
     }
