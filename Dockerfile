@@ -1,4 +1,4 @@
-FROM node:lts-fermium
+FROM node:lts-alpine3.14
 
 RUN mkdir app
 WORKDIR /app
