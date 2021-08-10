@@ -3,8 +3,6 @@ import { Client } from "youtubei";
 import { media } from '../../components/Media';
 import { Youtube } from '../Youtube';
 
-
-
 interface Video {
   id: string;
   image: string;
@@ -58,11 +56,30 @@ export class YoutubeServer {
   private * getVideoGenerator () {
     yield this.getVideoByYoutubei;
     yield this.getVideoByGoogle;
+    yield this.getVideoByYoutubeiSearch;
+  }
+
+  private getVideoByYoutubeiSearch = async (id: string): Promise<Video> => {
+    const videos = await this.youtubeiClient.search(id, { type: "video" });
+    const video = videos[0];
+    if (!video) throw new Error("getVideoByYoutubeiSearch: Video not found");
+    const thumb = video.thumbnails.best
+    const image = thumb?.includes("maxres") ? thumb : Youtube.DefaultImage();
+
+    return {
+      id,
+      publishDate: video.uploadDate || "",
+      title: video.title || "",
+      image,
+      description: video.description,
+      authorName: media.channelName,
+      keywords: [],
+      relatedVideos: []
+    }
   }
 
   private getVideoByYoutubei = async (id: string): Promise<Video> => {
-    const client = new Client();
-    const video = await client.getVideo(id);
+    const video = await this.youtubeiClient.getVideo(id);
     if (!video) throw new Error("Youtubei: findOne exception");
 
     const thumb = video.thumbnails.best
