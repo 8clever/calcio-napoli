@@ -1,11 +1,9 @@
-import { google } from 'googleapis'
+import { google, youtube_v3 } from 'googleapis'
 import { Client } from "youtubei";
 import { media } from '../../components/Media';
 import { Youtube } from '../Youtube';
 
-if (!process.env.YOUTUBE_API_KEY) {
-  throw new Error("YOUTUBE_API_KEY: Invalid env variable");
-}
+
 
 interface Video {
   id: string;
@@ -24,12 +22,22 @@ interface Video {
 
 export class YoutubeServer {
 
-  youtubeiClient = new Client();
+  googleClient: youtube_v3.Youtube;
 
-  googleClient = google.youtube({
-    version: "v3",
-    auth: process.env.YOUTUBE_API_KEY
-  });
+  youtubeiClient: Client;
+
+  constructor () {
+    if (!process.env.YOUTUBE_API_KEY) {
+      throw new Error("YOUTUBE_API_KEY: Invalid env variable");
+    }
+
+    this.googleClient = google.youtube({
+      version: "v3",
+      auth: process.env.YOUTUBE_API_KEY
+    });
+
+    this.youtubeiClient = new Client();
+  }
 
   public getVideo = async (id: string): Promise<Video> => {
     let lastError = '';
