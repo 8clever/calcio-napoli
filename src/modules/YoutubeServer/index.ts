@@ -40,9 +40,6 @@ export class YoutubeServer {
   public getVideo = async (id: string): Promise<Video> => {
     let lastError = '';
     for await (const method of this.getVideoGenerator()) {
-      if (!method) {
-        break;
-      }
       try {
         const video = await method(id);
         return video;
@@ -56,7 +53,7 @@ export class YoutubeServer {
   private * getVideoGenerator () {
     yield this.getVideoByYoutubei;
     yield this.getVideoByGoogle;
-    yield this.getVideoByYoutubeiSearch;
+    return this.getVideoByYoutubeiSearch;
   }
 
   private getVideoByYoutubeiSearch = async (id: string): Promise<Video> => {

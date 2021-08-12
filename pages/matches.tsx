@@ -2,7 +2,6 @@ import { Container } from "../src/components/Grid"
 import Layout from "../src/components/Layout"
 import React from "react";
 import { GetServerSideProps } from "next";
-import { footballApi } from "../src/api/football";
 import { IFootball } from "../src/modules/FootballApi/types";
 import { Image } from "../src/components/Hybrid";
 import FootballDataApi from "../src/modules/FootballApi";
@@ -16,9 +15,11 @@ interface IProps {
 }
 
 export const getServerSideProps: GetServerSideProps<IProps> = async () => {
+  const football = new FootballDataApi();
+  
   const [ live, scheduled ] = await Promise.all([
-    footballApi.matches("LIVE"),
-    footballApi.matches("SCHEDULED")
+    football.matches("LIVE"),
+    football.matches("SCHEDULED")
   ]);
   
   return {

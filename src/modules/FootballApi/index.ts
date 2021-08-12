@@ -3,7 +3,14 @@ import { IFootball } from "./types";
 
 export class FootballDataApi {
 
-  private apiKey = "bcceb73ec95946fcb82e98685655a5e1"
+  private apiKey: string;
+
+  constructor () {
+    if (!process.env.FOOTBALL_API_KEY) {
+      throw new Error("FOOTBALL_API_KEY: Invalid env variable")
+    }
+    this.apiKey = process.env.FOOTBALL_API_KEY;
+  }
 
   private source: string = "https://api.football-data.org/v2/";
 
