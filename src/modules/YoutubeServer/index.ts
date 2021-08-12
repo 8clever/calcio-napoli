@@ -62,7 +62,7 @@ export class YoutubeServer {
       yield this.getVideoByYoutubei;
     }
     yield this.getVideoByGoogle;
-    return this.getVideoByYoutubeiSearch;
+    yield this.getVideoByYoutubeiSearch;
   }
 
   private getVideoByYoutubeiSearch = async (id: string): Promise<Video> => {
