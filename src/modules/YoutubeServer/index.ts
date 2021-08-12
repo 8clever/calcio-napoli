@@ -50,8 +50,17 @@ export class YoutubeServer {
     throw new Error(lastError);
   }
 
+  public static YOUTUBEI_NEXT_REQUEST = new Date().valueOf();
+
+  public static DEFAULT_DELAY = 2000;
+
   private * getVideoGenerator () {
-    yield this.getVideoByYoutubei;
+    if (new Date().valueOf() > YoutubeServer.YOUTUBEI_NEXT_REQUEST) {
+      const rnd = YoutubeServer.DEFAULT_DELAY * Math.random();
+      const delay = new Date().valueOf() + YoutubeServer.DEFAULT_DELAY + rnd;
+      YoutubeServer.YOUTUBEI_NEXT_REQUEST = delay;
+      yield this.getVideoByYoutubei;
+    }
     yield this.getVideoByGoogle;
     return this.getVideoByYoutubeiSearch;
   }
