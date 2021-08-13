@@ -175,7 +175,9 @@ export const AdResponsive = () => {
       <Script 
         strategy="beforeInteractive"
         dangerouslySetInnerHTML={{
-          __html: "(adsbygoogle = window.adsbygoogle || []).push({})"
+          __html: `
+            (adsbygoogle = []).push({})
+          `
         }} 
       />
     </AdContainer>
