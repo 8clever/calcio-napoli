@@ -105,7 +105,7 @@ const Layout = (props: Props) => {
     <>
       <LayoutHead {...props} />
       <Header />
-      <Analytics {...props} />
+      <Analytics />
       <Container fluid>
         <AdResponsive />
       </Container>
