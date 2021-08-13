@@ -38,12 +38,6 @@ export const AdSmallBanner = () => {
 export const AdAuto = () => {
   const isAmp = useAmp();
 
-  React.useEffect(() => {
-    ((window: any) => {
-      window.adsbygoogle = [];
-    })(window);
-  }, []);
-
   if (isAmp) {
     return (
       <AmpAutoAds 
@@ -60,26 +54,8 @@ export const AdAuto = () => {
   );
 }
 
-interface IAnalytics {
-  title?: string;
-}
-
-export const Analytics = (props: IAnalytics) => {
+export const Analytics = () => {
   const isAmp = useAmp();
-
-  React.useEffect(() => {
-    ((w: any) => {
-      w.dataLayer = w.dataLayer || [];
-      const gtag: any = function () {  
-        w.dataLayer.push(arguments); 
-      }
-      gtag('js', new Date());
-      gtag('config', 'UA-55674089-5', {
-        'page_title' : props.title,
-        'page_path': window.location.pathname
-      });
-    })(window);
-  }, [ props.title ]);
 
   if (isAmp) {
     return (
@@ -93,9 +69,21 @@ export const Analytics = (props: IAnalytics) => {
   }
   
   return (
-    <Script 
-      src="https://www.googletagmanager.com/gtag/js?id=UA-55674089-5"
-    />
+    <>
+      <Script 
+        strategy="beforeInteractive"
+        dangerouslySetInnerHTML={{
+        __html: `
+          window.dataLayer = window.dataLayer || [];
+          function gtag(){dataLayer.push(arguments);}
+          gtag('js', new Date());
+          gtag('config', 'UA-55674089-5');  
+        `
+      }}/>
+      <Script 
+        src="https://www.googletagmanager.com/gtag/js?id=UA-55674089-5"
+      />
+    </>
   );
 }
 
@@ -185,6 +173,7 @@ export const AdResponsive = () => {
         data-full-width-responsive="true" 
       />
       <Script 
+        strategy="beforeInteractive"
         dangerouslySetInnerHTML={{
           __html: "(adsbygoogle = window.adsbygoogle || []).push({})"
         }} 
