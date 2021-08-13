@@ -52,7 +52,7 @@ export class YoutubeServer {
 
   public static YOUTUBEI_NEXT_REQUEST = new Date().valueOf();
 
-  public static DEFAULT_DELAY = 2000;
+  public static DEFAULT_DELAY = 1000;
 
   private * getVideoGenerator () {
     if (new Date().valueOf() > YoutubeServer.YOUTUBEI_NEXT_REQUEST) {
