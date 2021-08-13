@@ -7,6 +7,9 @@
     "isolatedModules": false,
     "noEmit": false,
     "jsx": "react",
+    "typeRoots": [
+      "./@types"
+    ]
   },
   "include": [
     "server/**/*.ts",

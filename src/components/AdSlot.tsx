@@ -35,44 +35,6 @@ export const AdSmallBanner = () => {
   )
 }
 
-const  defaultTimeout = 3000;
-
-let pageLoaded = false;
-
-const useTimeout = (ms: number) => {
-  const [ loaded, setLoaded ] = React.useState(pageLoaded); 
-
-  React.useEffect(() => {
-    setTimeout(() => {
-      pageLoaded = true;
-      setLoaded(true);
-    }, ms);
-  }, []);
-
-  return loaded;
-}
-
-const makeScript = (id: string, src: string) => {
-  const el = document.querySelector("#" + id);
-  el?.remove();
-  const script = document.createElement("script");
-  script.id = id;
-  script.async = true;
-  script.src = src;
-  document.body.appendChild(script);
-}
-
-const useScript = (id: string, src: string) => {
-  const isLoaded = useTimeout(defaultTimeout);
-
-  React.useEffect(() => {
-    if (!isLoaded) return;
-    makeScript(id, src);
-  }, [ isLoaded ]);
-
-  return [];
-}
-
 export const AdAuto = () => {
   const isAmp = useAmp();
 
@@ -81,8 +43,6 @@ export const AdAuto = () => {
       window.adsbygoogle = [];
     })(window);
   }, []);
-
-  useScript("pagead", `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${media.google.caPub}`);
 
   if (isAmp) {
     return (
@@ -93,7 +53,11 @@ export const AdAuto = () => {
     )
   }
 
-  return null;
+  return (
+    <Script 
+      src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${media.google.caPub}`}
+    />
+  );
 }
 
 interface IAnalytics {
