@@ -81,7 +81,7 @@ export const AdAuto = () => {
     })(window);
   }, []);
 
-  useScript("pagead", "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js");
+  useScript("pagead", `https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${media.google.caPub}`);
 
   if (isAmp) {
     return (
