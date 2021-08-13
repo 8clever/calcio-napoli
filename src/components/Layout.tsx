@@ -6,7 +6,7 @@ import { theme } from './Theme'
 import { media } from './Media'
 import { useRouter } from "next/router";
 import { makeUrl } from './Pagination'
-import { AdAuto, AdResponsive, Analytics } from './AdSlot'
+import { AdResponsive, Analytics } from './AdSlot'
 import { useAmp } from 'next/amp'
 import { Container } from './Grid'
 import { CookiesNotif } from "./CookiesNotif";
@@ -106,7 +106,6 @@ const Layout = (props: Props) => {
       <LayoutHead {...props} />
       <Header />
       <Analytics {...props} />
-      <AdAuto />
       <Container fluid>
         <AdResponsive />
       </Container>

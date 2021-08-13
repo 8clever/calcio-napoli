@@ -3,6 +3,7 @@ import { AmpAd, AmpAnalytics, AmpAutoAds } from "react-amphtml"
 import React from "react";
 import { media } from "./Media";
 import { theme } from "./Theme";
+import Script from 'next/script';
 
 const caPub = media.google.caPub
 
@@ -182,28 +183,28 @@ export const AdResponsive = () => {
   const isAmp = useAmp();
   const idSlot = "8061989518";
 
-  React.useEffect(() => {
-    ((window: any) => {
-      if (window.adsbygoogle?.loaded === true) return; 
-      window.adsbygoogle.push({});
-    })(window);
-  }, []);
-
   if (isAmp) {
     return (
       <AdContainer>
         <AdFallback />
-        <AmpAd
-          specName="amp-ad with data-enable-refresh attribute"
-          data-enable-refresh
-          height="320"
-          width="100vw"
-          type="adsense"
-          data-ad-client={caPub}
+        <Script 
+          async 
+          src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${media.google.caPub}`}
+          crossOrigin="anonymous" 
+        />
+        <ins 
+          className="adsbygoogle"
+          style={{ display: "block" }}
+          data-ad-client={media.google.caPub}
           data-ad-slot={idSlot}
-          data-auto-format="rspv"
-          data-full-width="">
-        </AmpAd>
+          data-ad-format="auto"
+          data-full-width-responsive="true" 
+        />
+        <Script 
+          dangerouslySetInnerHTML={{
+            __html: "(adsbygoogle = window.adsbygoogle || []).push({})"
+          }} 
+        />
       </AdContainer>
     )
   }
