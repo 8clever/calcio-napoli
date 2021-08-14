@@ -116,10 +116,7 @@ const AdFallback = () => {
       <style jsx>{`
         .ad-fallback {
           position: absolute;
-          left: 0;
-          right: 0;
-          top: 0;
-          bottom: 0;
+          inset: 0;
           display: flex;
           flex-direction: column;
           border-top: none;
@@ -135,9 +132,15 @@ const AdFallback = () => {
   )
 }
 
+const slots = [{}];
+
 export const AdResponsive = () => {
   const isAmp = useAmp();
   const idSlot = "8061989518";
+
+  React.useEffect(() => {
+    slots.push({});
+  }, []);
 
   if (isAmp) {
     return (
@@ -158,8 +161,6 @@ export const AdResponsive = () => {
     )
   }
 
-  const id = 1000 * Math.random();
-
   return (
     <AdContainer>
       <AdFallback />
@@ -169,14 +170,23 @@ export const AdResponsive = () => {
         crossOrigin="anonymous" 
       />
       <div style={{ height: 320 }}>
-        <ins 
-          className={"adsbygoogle " + id}
-          style={{ display: "block" }}
-          data-ad-client={media.google.caPub}
-          data-ad-slot={idSlot}
-          data-ad-format="auto"
-          data-full-width-responsive="true" 
-        />
+        {slots.map((...args) => {
+          return (
+            <ins 
+              className={"adsbygoogle"}
+              style={{ 
+                display: "inline-block", 
+                position: "absolute",
+                inset: 0,
+                zIndex: 10 + args[1]
+              }}
+              data-ad-client={media.google.caPub}
+              data-ad-slot={idSlot}
+              data-ad-format="auto"
+              data-full-width-responsive="true" 
+            />
+          )
+        })}
       </div>
       <Script 
         dangerouslySetInnerHTML={{
