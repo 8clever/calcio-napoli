@@ -173,6 +173,7 @@ export const AdResponsive = () => {
         {slots.map((...args) => {
           return (
             <ins 
+              key={args[1]}
               className={"adsbygoogle"}
               style={{ 
                 display: "inline-block", 
