@@ -49,6 +49,7 @@ export const AdAuto = () => {
 
   return (
     <Script 
+      strategy="lazyOnload"
       src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${media.google.caPub}`}
     />
   );
@@ -71,7 +72,7 @@ export const Analytics = () => {
   return (
     <>
       <Script 
-        strategy="beforeInteractive"
+        id="analytics"
         dangerouslySetInnerHTML={{
         __html: `
           window.dataLayer = window.dataLayer || [];
@@ -81,6 +82,7 @@ export const Analytics = () => {
         `
       }}/>
       <Script 
+        strategy="lazyOnload"
         src="https://www.googletagmanager.com/gtag/js?id=UA-55674089-5"
       />
     </>
@@ -156,11 +158,14 @@ export const AdResponsive = () => {
     )
   }
 
+  const id = Math.random().toString()
+
   return (
     <AdContainer>
       <AdFallback />
       <Script 
-        async 
+        key={id}
+        strategy="lazyOnload"
         src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${media.google.caPub}`}
         crossOrigin="anonymous" 
       />
@@ -173,7 +178,7 @@ export const AdResponsive = () => {
         data-full-width-responsive="true" 
       />
       <Script 
-        strategy="beforeInteractive"
+        id={id}
         dangerouslySetInnerHTML={{
           __html: `
             (adsbygoogle = []).push({})
