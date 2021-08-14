@@ -192,7 +192,7 @@ export const AdResponsive = () => {
       <Script 
         dangerouslySetInnerHTML={{
           __html: `
-            (adsbygoogle = adsbygoogle || []).push({})
+            (adsbygoogle = window.adsbygoogle || []).push({})
           `
         }} 
       />
