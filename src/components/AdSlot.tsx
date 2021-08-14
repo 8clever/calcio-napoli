@@ -3,7 +3,7 @@ import { AmpAd, AmpAnalytics, AmpAutoAds } from "react-amphtml"
 import React from "react";
 import { media } from "./Media";
 import { theme } from "./Theme";
-import Script from 'next/script';
+import { Script } from "./Script";
 
 const caPub = media.google.caPub
 
@@ -158,27 +158,27 @@ export const AdResponsive = () => {
     )
   }
 
-  const id = Math.random().toString()
+  const id = 1000 * Math.random();
 
   return (
     <AdContainer>
       <AdFallback />
       <Script 
-        key={id}
         strategy="lazyOnload"
         src={`https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=${media.google.caPub}`}
         crossOrigin="anonymous" 
       />
-      <ins 
-        className="adsbygoogle"
-        style={{ display: "block", height: 320 }}
-        data-ad-client={media.google.caPub}
-        data-ad-slot={idSlot}
-        data-ad-format="auto"
-        data-full-width-responsive="true" 
-      />
+      <div style={{ height: 320 }}>
+        <ins 
+          className={"adsbygoogle " + id}
+          style={{ display: "block" }}
+          data-ad-client={media.google.caPub}
+          data-ad-slot={idSlot}
+          data-ad-format="auto"
+          data-full-width-responsive="true" 
+        />
+      </div>
       <Script 
-        id={id}
         dangerouslySetInnerHTML={{
           __html: `
             (adsbygoogle = []).push({})
