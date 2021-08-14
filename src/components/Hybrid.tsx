@@ -105,13 +105,13 @@ export const Sidebar = ({ children, toggle, ...props }: SidebarProps) => {
           bottom: 0;
         }
         .sidebar-container.visible .fade {
-          z-index: 1;
+          z-index: 101;
           opacity: 0.4;
           transition: opacity 0.3s;
         }
         .sidebar-container > div {
           transition: 0.3s all;
-          z-index: 2;
+          z-index: 102;
           position: fixed;
           right: 0;
           bottom: 0;
@@ -198,7 +198,7 @@ export const Lightbox = ({ children, ...props }: LightboxProps) => {
         div[open] {
           transition: opacity 0.3s;
           opacity: 1;
-          z-index: 1;
+          z-index: 100;
         }
       `}</style>
     </div>
