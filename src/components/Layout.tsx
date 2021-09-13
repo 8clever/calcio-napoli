@@ -74,7 +74,7 @@ export const LayoutHead = (props: Pick<Props, "title" | "description" | "og" | "
   )
 }
 
-const GlobalStyle = createGlobalStyle`
+export const GlobalStyle = createGlobalStyle`
   h1 {
     font-size: 3.7em;
     margin: 35px 0;
