@@ -10,6 +10,7 @@ import { AdResponsive, Analytics } from './AdSlot'
 import { useAmp } from 'next/amp'
 import { Container } from './Grid'
 import { CookiesNotif } from "./CookiesNotif";
+import { createGlobalStyle } from 'styled-components';
 
 type Props = {
   hybrid?: boolean;
@@ -73,36 +74,33 @@ export const LayoutHead = (props: Pick<Props, "title" | "description" | "og" | "
   )
 }
 
-export const GlobalStyle = () => {
-  return (
-    <style jsx global>{`
-      h1 {
-        font-size: 3.7em;
-        margin: 35px 0;
-      }
-      body {
-        font-family: Roboto, sans-serif;
-        font-size: 14px;
-        background-color: ${theme.color.black};
-        color: ${theme.color.white};
-        max-width: 100vw;
-        overflow-x: hidden;
-        margin: 0;
-      }
-      .gsc-cursor * {
-        color: ${theme.color.white};
-      }
-      div > .gsc-control-cse {
-        padding: 0;
-      }
-    `}</style>
-  )
-}
+const GlobalStyle = createGlobalStyle`
+  h1 {
+    font-size: 3.7em;
+    margin: 35px 0;
+  }
+  body {
+    font-family: Roboto, sans-serif;
+    font-size: 14px;
+    background-color: ${theme.color.black};
+    color: ${theme.color.white};
+    max-width: 100vw;
+    overflow-x: hidden;
+    margin: 0;
+  }
+  .gsc-cursor * {
+    color: ${theme.color.white};
+  }
+  div > .gsc-control-cse {
+    padding: 0;
+  }
+`
 
 const Layout = (props: Props) => {
   const { children } = props;
   return (
     <>
+      <GlobalStyle />
       <LayoutHead {...props} />
       <Header />
       <Analytics />
@@ -111,7 +109,6 @@ const Layout = (props: Props) => {
       </Container>
       {children}
       <Footer />
-      <GlobalStyle />
       <CookiesNotif />
     </>
   )

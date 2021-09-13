@@ -5,7 +5,7 @@ import LazyLoad from "react-lazyload";
 import Link from "next/link";
 import { theme } from "./Theme";
 import { Play } from "./Icon";
-
+import styled from 'styled-components'
 interface ImageProps {
   alt?: string;
   src: string;
@@ -66,6 +66,40 @@ interface SidebarProps {
   open: boolean;
 }
 
+const SidebarContainer = styled.div`
+  & > .fade {
+    z-index: -1;
+    opacity: 0;
+    transition: opacity 0.3s, z-index 0.3s 0.3s;
+    background: black;
+    position: fixed;
+    width: 100%;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+  }
+  &.visible > .fade {
+    z-index: 101;
+    opacity: 0.4;
+    transition: opacity 0.3s;
+  }
+  & > div {
+    transition: 0.3s all;
+    z-index: 102;
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    width: 0px;
+    overflow: hidden;
+
+    &[open] {
+      width: 260px;
+    }
+  }
+`
+
 export const Sidebar = ({ children, toggle, ...props }: SidebarProps) => {
   const isAmp = useAmp();
 
@@ -83,47 +117,17 @@ export const Sidebar = ({ children, toggle, ...props }: SidebarProps) => {
   }
 
   return (
-    <div className={`sidebar-container ${props.open ? "visible" : ""}`}>
-      <div 
-        onClick={toggle}
-        className="fade" 
-      />
-      <div {...props}>
-        {children}
-      </div>
-      <style jsx>{`
-        .sidebar-container .fade {
-          z-index: -1;
-          opacity: 0;
-          transition: opacity 0.3s, z-index 0.3s 0.3s;
-          background: black;
-          position: fixed;
-          width: 100%;
-          left: 0;
-          top: 0;
-          right: 0;
-          bottom: 0;
-        }
-        .sidebar-container.visible .fade {
-          z-index: 101;
-          opacity: 0.4;
-          transition: opacity 0.3s;
-        }
-        .sidebar-container > div {
-          transition: 0.3s all;
-          z-index: 102;
-          position: fixed;
-          right: 0;
-          bottom: 0;
-          top: 0;
-          width: 0px;
-          overflow: hidden;
-        }
-        .sidebar-container > div[open] {
-          width: 260px;
-        }
-      `}</style>
-    </div>
+    <>
+      <SidebarContainer className={props.open ? "visible" : ""}>
+        <div 
+          onClick={toggle}
+          className="fade" 
+        />
+        <div {...props}>
+          {children}
+        </div>
+      </SidebarContainer>
+    </>
   )
 }
 
@@ -165,6 +169,20 @@ interface LightboxProps {
   open?: boolean;
 }
 
+export const LightboxContainer =  styled.div`
+  position: fixed;
+  inset: 0;
+  opacity: 0;
+  z-index: -1;
+  transition: opacity 0.3s, z-index 0.3s 0.3s;
+
+  &[open] {
+    transition: opacity 0.3s;
+    opacity: 1;
+    z-index: 100;
+  }
+`;
+
 export const Lightbox = ({ children, ...props }: LightboxProps) => {
   const isAmp = useAmp();
 
@@ -182,26 +200,9 @@ export const Lightbox = ({ children, ...props }: LightboxProps) => {
   }
 
   return (
-    <div {...props}>
+    <LightboxContainer {...props}>
       {children}
-      <style jsx>{`
-        div {
-          position: fixed;
-          left: 0;
-          top: 0;
-          right: 0;
-          bottom: 0;
-          opacity: 0;
-          z-index: -1;
-          transition: opacity 0.3s, z-index 0.3s 0.3s; 
-        }
-        div[open] {
-          transition: opacity 0.3s;
-          opacity: 1;
-          z-index: 100;
-        }
-      `}</style>
-    </div>
+    </LightboxContainer>
   )
 }
 

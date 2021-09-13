@@ -30,6 +30,7 @@ export const Container = (props: IContainer) => {
       {props.children}
       <style jsx>{`
         div {
+          overflow: hidden;
           ${
             props.fluid ? "" :
             "margin: 0 10px;"

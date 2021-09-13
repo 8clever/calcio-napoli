@@ -51,7 +51,7 @@ export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (pro
         news: video
       }
     };
-  } catch (e) {
+  } catch (e: any) {
     console.error(e);
     if (!errSet.has(e.message)) {
       errSet.add(e.message);
