@@ -3,21 +3,6 @@ import { Client } from "youtubei";
 import { media } from '../../components/Media';
 import { Youtube } from '../Youtube';
 
-interface Video {
-  id: string;
-  image: string;
-  description?: string;
-  title: string;
-  publishDate: string;
-  authorName: string;
-  keywords: string[];
-  relatedVideos: {
-    id: string;
-    image: string;
-    title: string;
-  }[]
-}
-
 export class YoutubeServer {
 
   googleClient: youtube_v3.Youtube;
@@ -37,7 +22,7 @@ export class YoutubeServer {
     this.youtubeiClient = new Client();
   }
 
-  public getVideo = async (id: string): Promise<Video> => {
+  public getVideo: YoutubeServer.GetVideoInfo = async (id) => {
     let lastError = '';
     for await (const method of this.getVideoGenerator()) {
       try {
@@ -68,12 +53,25 @@ export class YoutubeServer {
     yield this.getVideoByYoutubeiSearch;
   }
 
-  private getVideoByYoutubeiSearch = async (id: string): Promise<Video> => {
+  private getRelatedVideosByChannel = async () => {
+    const relatedVideos = await this.youtubeiClient.search(media.channelName, { type: "video" });
+    return relatedVideos.slice(0, 10).map(rv => {
+      return {
+        id: rv.id,
+        image: rv.thumbnails.best || Youtube.DefaultImage(),
+        title: rv.title
+      }
+    })
+  }
+
+  private getVideoByYoutubeiSearch: YoutubeServer.GetVideoInfo = async (id) => {
     const videos = await this.youtubeiClient.search(id, { type: "video" });
     const video = videos[0];
     if (!video) throw new Error("getVideoByYoutubeiSearch: Video not found");
+
     const thumb = video.thumbnails.best
     const image = thumb?.includes("maxres") ? thumb : Youtube.DefaultImage();
+    const relatedVideos = await this.getRelatedVideosByChannel();
 
     return {
       id,
@@ -83,11 +81,11 @@ export class YoutubeServer {
       description: video.description,
       authorName: media.channelName,
       keywords: [],
-      relatedVideos: []
+      relatedVideos
     }
   }
 
-  private getVideoByYoutubei = async (id: string): Promise<Video> => {
+  private getVideoByYoutubei: YoutubeServer.GetVideoInfo = async (id) => {
     const video = await this.youtubeiClient.getVideo(id);
     if (!video) throw new Error("Youtubei: findOne exception");
 
@@ -112,7 +110,7 @@ export class YoutubeServer {
     }
   }
 
-  private getVideoByGoogle = async (id: string): Promise<Video> => {
+  private getVideoByGoogle: YoutubeServer.GetVideoInfo = async (id) => {
     const { data } = await this.googleClient.videos.list({
       id: [
         id
@@ -126,6 +124,7 @@ export class YoutubeServer {
     if (!video) throw new Error("Video not found");
 
     const image = video.snippet?.thumbnails?.maxres?.url || Youtube.DefaultImage();
+    const relatedVideos = await this.getRelatedVideosByChannel();
     return {
       id,
       publishDate: video.snippet?.publishedAt || "",
@@ -134,8 +133,29 @@ export class YoutubeServer {
       description: video.snippet?.description || "",
       authorName: media.channelName,
       keywords: video.snippet?.tags || [],
-      relatedVideos: []
+      relatedVideos
     }
   }
 
+}
+
+export namespace YoutubeServer {
+
+  export interface RelatedVideo {
+    id: string;
+    image: string;
+    title: string;
+  }
+  export interface Video {
+    id: string;
+    image: string;
+    description?: string;
+    title: string;
+    publishDate: string;
+    authorName: string;
+    keywords: string[];
+    relatedVideos: RelatedVideo[];
+  }
+
+  export type GetVideoInfo = (id: string) => Promise<Video> 
 }
