@@ -54,14 +54,18 @@ export class YoutubeServer {
   }
 
   private getRelatedVideosByChannel = async () => {
-    const relatedVideos = await this.youtubeiClient.search(media.channelName, { type: "video" });
-    return relatedVideos.slice(0, 10).map(rv => {
-      return {
-        id: rv.id,
-        image: rv.thumbnails.best || Youtube.DefaultImage(),
-        title: rv.title
-      }
-    })
+    try {
+      const relatedVideos = await this.youtubeiClient.search(media.channelName, { type: "video" });
+      return relatedVideos.slice(0, 10).map(rv => {
+        return {
+          id: rv.id,
+          image: rv.thumbnails.best || Youtube.DefaultImage(),
+          title: rv.title
+        }
+      })
+    } catch {
+      return [];
+    }
   }
 
   private getVideoByYoutubeiSearch: YoutubeServer.GetVideoInfo = async (id) => {
