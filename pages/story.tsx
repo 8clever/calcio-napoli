@@ -11,6 +11,7 @@ import { ParsedUrlQuery } from "querystring";
 import { Thing, WithContext } from "schema-dts";
 import moment from "moment";
 import { StructuredData } from "../src/components/StructuredData";
+import { Youtube } from "../src/modules/Youtube";
 
 export const config = {
   amp: true
@@ -39,7 +40,7 @@ const Story = (props: ChannelProps) => {
       "@type": "WebPage",
       "@id": media.domain + "/story"
     },
-    "image": props.list.map(i => i.thumbnail),
+    "image": props.list.map(i => Youtube.MaxResDefault(i.id)),
     "datePublished": moment().format("YYYY-MM-DD"),
     "dateModified": moment().format("YYYY-MM-DD HH:mm:ss"),
     "publisher": {
@@ -88,7 +89,7 @@ const Story = (props: ChannelProps) => {
                 <AmpImg
                   animate-in="fade-in"
                   specName="default"
-                  src={i.thumbnail}
+                  src={Youtube.MaxResDefault(i.id)}
                   width={720}
                   height={1280}
                   layout={"fill"}
@@ -99,10 +100,16 @@ const Story = (props: ChannelProps) => {
                 template="vertical">
                 <div className="container">
                   <div 
+                    style={{
+                      display: "flex",
+                      alignItems: "center",
+                      gap: 5
+                    }}
                     className="ico" 
                     animate-in-delay="0.3s"
                     animate-in-duration="2s"
                     animate-in="fade-in">
+                    <AmpImg specName="default" width={25} height={25} src="/images/logo_96x96.png" />
                     <div className="brand">
                       Calcio Napoli
                     </div>

@@ -57,14 +57,14 @@ export class YoutubeServer {
 
   /** custom method for receive youtube description */
   private getVideoDescrtiption = async (id: string) => {
-      const res = await fetch("https://m.youtube.com/watch?v=" + id);
-      const text = await res.text() as string;
-      const m = this.VIDEO_DESCRIPTION_REGEX.exec(text);
-      if (m) {
-        const str = m[1].replace(/\\n/gmi, '\n');
-        return str;
-      }
-      return null;
+    const res = await fetch("https://m.youtube.com/watch?v=" + id);
+    const text = await res.text() as string;
+    const m = this.VIDEO_DESCRIPTION_REGEX.exec(text);
+    if (m) {
+      const str = m[1].replace(/\\n/gmi, '\n');
+      return str;
+    }
+    return null;
   }
 
   private getRelatedVideosByChannel = async () => {

@@ -2,6 +2,7 @@ import { GetServerSideProps } from "next"
 import { Channel, IProps as ChannelProps } from "../src/components/Channel"
 import { media } from "../src/components/Media";
 import { Client } from "youtubei"
+import { Youtube } from "../src/modules/Youtube";
 
 interface IQuery {
   page: string;
@@ -30,7 +31,7 @@ export const getServerSideProps: GetServerSideProps<ChannelProps> = async (props
       return {
         id: v.id,
         title: v.title,
-        thumbnail: v.thumbnails[v.thumbnails.length - 1].url
+        thumbnail: v.thumbnails.best || Youtube.DefaultImage()
       }
     });
 
