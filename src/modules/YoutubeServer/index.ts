@@ -99,7 +99,7 @@ export class YoutubeServer {
       publishDate: video.uploadDate || "",
       title: video.title || "",
       image,
-      description: description || "",
+      description: description || video.description || "",
       authorName: media.channelName,
       keywords: [],
       relatedVideos
