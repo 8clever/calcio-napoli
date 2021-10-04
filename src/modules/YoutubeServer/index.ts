@@ -53,6 +53,20 @@ export class YoutubeServer {
     yield this.getVideoByYoutubeiSearch;
   }
 
+  private VIDEO_DESCRIPTION_REGEX = /"description":{"simpleText":"([^"]+)"/g;
+
+  /** custom method for receive youtube description */
+  private getVideoDescrtiption = async (id: string) => {
+      const res = await fetch("https://m.youtube.com/watch?v=" + id);
+      const text = await res.text() as string;
+      const m = this.VIDEO_DESCRIPTION_REGEX.exec(text);
+      if (m) {
+        const str = m[1].replace(/\\n/gmi, '\n');
+        return str;
+      }
+      return null;
+  }
+
   private getRelatedVideosByChannel = async () => {
     try {
       const relatedVideos = await this.youtubeiClient.search(media.channelName, { type: "video" });
@@ -69,20 +83,23 @@ export class YoutubeServer {
   }
 
   private getVideoByYoutubeiSearch: YoutubeServer.GetVideoInfo = async (id) => {
-    const videos = await this.youtubeiClient.search(id, { type: "video" });
+    const [ videos, relatedVideos, description ] = await Promise.all([
+      this.youtubeiClient.search(id, { type: "video" }),
+      this.getRelatedVideosByChannel(),
+      this.getVideoDescrtiption(id)
+    ]);
     const video = videos[0];
     if (!video) throw new Error("getVideoByYoutubeiSearch: Video not found");
 
     const thumb = video.thumbnails.best
     const image = thumb?.includes("maxres") ? thumb : Youtube.DefaultImage();
-    const relatedVideos = await this.getRelatedVideosByChannel();
 
     return {
       id,
       publishDate: video.uploadDate || "",
       title: video.title || "",
       image,
-      description: video.description,
+      description: description || "",
       authorName: media.channelName,
       keywords: [],
       relatedVideos
