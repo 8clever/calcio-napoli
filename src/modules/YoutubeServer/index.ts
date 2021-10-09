@@ -1,5 +1,6 @@
 import { google, youtube_v3 } from 'googleapis'
 import { Client } from "youtubei";
+import { Cache } from '../../components/Cache';
 import { media } from '../../components/Media';
 import { Youtube } from '../Youtube';
 
@@ -8,6 +9,8 @@ export class YoutubeServer {
   googleClient: youtube_v3.Youtube;
 
   youtubeiClient: Client;
+
+  videoCache = new Cache<YoutubeServer.Video>()
 
   constructor () {
     if (!process.env.YOUTUBE_API_KEY) {
@@ -107,13 +110,18 @@ export class YoutubeServer {
   }
 
   private getVideoByYoutubei: YoutubeServer.GetVideoInfo = async (id) => {
+    const isExistCache = await this.videoCache.isExists(id);
+    if (isExistCache) {
+      return this.videoCache.get(id);
+    }
+    
     const video = await this.youtubeiClient.getVideo(id);
     if (!video) throw new Error("Youtubei: findOne exception");
 
     const thumb = video.thumbnails.best
     const image = thumb?.includes("maxres") ? thumb : Youtube.DefaultImage();
 
-    return {
+    const info: YoutubeServer.Video = {
       id: video.id,
       publishDate: video.uploadDate,
       title: video.title,
@@ -129,6 +137,10 @@ export class YoutubeServer {
         }
       })
     }
+
+    await this.videoCache.write(id, info);
+
+    return info;
   }
 
   private getVideoByGoogle: YoutubeServer.GetVideoInfo = async (id) => {

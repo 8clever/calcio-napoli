@@ -1,20 +1,35 @@
 import fs from "fs";
+import util from 'util';
 
-const cachePath = process.cwd() + "/cache/";
+export class Cache<T> {
 
-export const cache = {
-  keys: {
-    ytchannel: cachePath + "ytchannel.json"
+  rootPath = process.cwd() + "/cache/";
+
+  constructor () {
+    this.makeRoot();
   }
-}
 
-export const writeCache = (key:string, data: object) => {
-  if (!fs.existsSync(cachePath)) {
-    fs.mkdirSync(cachePath);
+  private getPath (key: string) {
+    return this.rootPath + key;
   }
-  fs.writeFileSync(key, JSON.stringify(data))
-}
 
-export const getCache = (key: string) => {
-  return JSON.parse(fs.readFileSync(key).toString());
+  async makeRoot () {
+    const isExistCachePath = await util.promisify(fs.exists)(this.rootPath);
+    if (isExistCachePath) return;
+    await util.promisify(fs.mkdir)(this.rootPath);
+  }
+
+  async write (key: string, data: T) {
+    await util.promisify(fs.writeFile)(this.getPath(key), JSON.stringify(data));
+  }
+
+  async isExists (key: string) {
+    return util.promisify(fs.exists)(this.getPath(key));
+  }
+
+  async get (key: string): Promise<T> {
+    const file = await util.promisify(fs.readFile)(this.getPath(key));
+    const text = file.toString();
+    return JSON.parse(text);
+  }
 }
