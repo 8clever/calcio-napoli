@@ -13,7 +13,7 @@ export class Cache<T> {
     return this.rootPath + key;
   }
 
-  async makeRoot () {
+  private async makeRoot () {
     const isExistCachePath = await util.promisify(fs.exists)(this.rootPath);
     if (isExistCachePath) return;
     await util.promisify(fs.mkdir)(this.rootPath);
