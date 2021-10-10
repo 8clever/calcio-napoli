@@ -56,20 +56,6 @@ export class YoutubeServer {
     yield this.getVideoByYoutubeiSearch;
   }
 
-  private VIDEO_DESCRIPTION_REGEX = /"description":{"simpleText":"([^"]+)"/g;
-
-  /** custom method for receive youtube description */
-  private getVideoDescrtiption = async (id: string) => {
-    const res = await fetch("https://m.youtube.com/watch?v=" + id);
-    const text = await res.text() as string;
-    const m = this.VIDEO_DESCRIPTION_REGEX.exec(text);
-    if (m) {
-      const str = m[1].replace(/\\n/gmi, '\n');
-      return str;
-    }
-    return null;
-  }
-
   private getRelatedVideosByChannel = async () => {
     try {
       const relatedVideos = await this.youtubeiClient.search(media.channelName, { type: "video" });
@@ -86,10 +72,9 @@ export class YoutubeServer {
   }
 
   private getVideoByYoutubeiSearch: YoutubeServer.GetVideoInfo = async (id) => {
-    const [ videos, relatedVideos, description ] = await Promise.all([
+    const [ videos, relatedVideos ] = await Promise.all([
       this.youtubeiClient.search(id, { type: "video" }),
-      this.getRelatedVideosByChannel(),
-      this.getVideoDescrtiption(id)
+      this.getRelatedVideosByChannel()
     ]);
     const video = videos[0];
     if (!video) throw new Error("getVideoByYoutubeiSearch: Video not found");
@@ -102,7 +87,7 @@ export class YoutubeServer {
       publishDate: video.uploadDate || "",
       title: video.title || "",
       image,
-      description: description || video.description || "",
+      description: video.description || "",
       authorName: media.channelName,
       keywords: [],
       relatedVideos
