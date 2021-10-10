@@ -26,13 +26,17 @@ export class YoutubeServer {
   }
 
   public getVideo: YoutubeServer.GetVideoInfo = async (id) => {
+    const isExistCache = await this.videoCache.isExists(id);
+    if (isExistCache) {
+      return this.videoCache.get(id);
+    }
+
     let lastError = '';
     for await (const method of this.getVideoGenerator()) {
       try {
         const video = await method(id);
         return video;
       } catch (e) {
-        console.log(e);
         lastError = e.message;
       }
     }
@@ -96,11 +100,6 @@ export class YoutubeServer {
   }
 
   private getVideoByYoutubei: YoutubeServer.GetVideoInfo = async (id) => {
-    const isExistCache = await this.videoCache.isExists(id);
-    if (isExistCache) {
-      return this.videoCache.get(id);
-    }
-    
     const video = await this.youtubeiClient.getVideo(id);
     if (!video) throw new Error("Youtubei: findOne exception");
 
