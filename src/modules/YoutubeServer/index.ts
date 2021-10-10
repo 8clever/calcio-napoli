@@ -32,6 +32,7 @@ export class YoutubeServer {
         const video = await method(id);
         return video;
       } catch (e) {
+        console.log(e);
         lastError = e.message;
       }
     }
