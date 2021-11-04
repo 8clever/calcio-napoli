@@ -8,7 +8,7 @@ async function run () {
   for (const key of list) {
     try {
       const data = await cache.get(key);
-      cacheCompress.write(key, data);
+      await cacheCompress.write(key, data);
     } catch (e) {
       console.log(`invalid key: ${key}, ${e.message}`);
     }
