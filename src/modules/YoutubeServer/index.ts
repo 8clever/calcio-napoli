@@ -10,7 +10,7 @@ export class YoutubeServer {
 
   youtubeiClient: Client;
 
-  videoCache = new Cache<YoutubeServer.Video>()
+  videoCache = new Cache<YoutubeServer.Video>({ compress: true })
 
   constructor () {
     if (!process.env.YOUTUBE_API_KEY) {

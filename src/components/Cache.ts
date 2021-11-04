@@ -1,11 +1,15 @@
-import fs from "fs";
-import util from 'util';
+import { writeFile, mkdir, readFile, access } from 'fs/promises';
+import { deflate, unzip } from "zlib";
+import { promisify } from 'util';
+import { Buffer } from 'buffer';
 
 export class Cache<T> {
 
   rootPath = process.cwd() + "/cache/";
 
-  constructor () {
+  constructor (
+    private config: Cache.Config = {}
+  ) {
     this.makeRoot();
   }
 
@@ -14,22 +18,45 @@ export class Cache<T> {
   }
 
   private async makeRoot () {
-    const isExistCachePath = await util.promisify(fs.exists)(this.rootPath);
-    if (isExistCachePath) return;
-    await util.promisify(fs.mkdir)(this.rootPath);
+    try {
+      await access(this.rootPath);
+    } catch (e) {
+      /** recreate folder if not accessed */
+      await mkdir(this.rootPath);
+    }
   }
 
   async write (key: string, data: T) {
-    await util.promisify(fs.writeFile)(this.getPath(key), JSON.stringify(data));
+    let buff = Buffer.from(JSON.stringify(data));
+    if (this.config.compress) {
+      const zipped = await promisify(deflate)(buff);
+      buff = zipped;
+    }
+    await writeFile(this.getPath(key), buff);
   }
 
   async isExists (key: string) {
-    return util.promisify(fs.exists)(this.getPath(key));
+    try {
+      await access(this.getPath(key))
+      return true;
+    } catch {
+      return false;
+    }
   }
 
   async get (key: string): Promise<T> {
-    const file = await util.promisify(fs.readFile)(this.getPath(key));
+    let file = await readFile(this.getPath(key));
+    if (this.config.compress) {
+      const unzipped = await promisify(unzip)(file);
+      file = unzipped;
+    }
     const text = file.toString();
     return JSON.parse(text);
+  }
+}
+
+export namespace Cache {
+  export interface Config {
+    compress?: boolean;
   }
 }
