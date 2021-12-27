@@ -3,6 +3,3 @@ Allow: /
 
 User-agent: Googlebot
 Disallow: /nogooglebot/
-
-User-agent: bingbot
-Disallow: /
