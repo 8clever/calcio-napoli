@@ -1,0 +1,51 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: calcio-napoli
+  labels:
+    app: web
+  namespace: calcio-napoli
+spec:
+  selector:
+    matchLabels:
+      octopusexport: OctopusExport
+  replicas: 1
+  strategy:
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: web
+        octopusexport: OctopusExport
+    spec:
+      volumes:
+        - name: calcio-napoli-pv
+          persistentVolumeClaim:
+            claimName: calcio-napoli-pvc
+      containers:
+        - name: calcio-napoli
+          image: '8clever/calcio-napoli:master'
+          imagePullPolicy: Always
+          ports:
+            - name: web
+              containerPort: 80
+              protocol: TCP
+          envFrom:
+            - secretRef:
+                name: calcio-napoli-env
+          volumeMounts:
+            - name: calcio-napoli-pv
+              mountPath: /app/cache
+              subPath: ''
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - weight: 100
+              podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                        - web
+                topologyKey: kubernetes.io/hostname
