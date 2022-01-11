@@ -7,6 +7,7 @@ interface Media {
 }
 
 export const media = {
+  version: "1.0.11",
   google: {
     caPub: "ca-pub-7579927697787840"
   },
@@ -36,11 +37,6 @@ export const media = {
     {
       href: "/channels/Calcio_Napoli_TV",
       label: "Calcio Napoli TV",
-      changefreq: "daily"
-    },
-    {
-      href: "/channels/CN24_Live",
-      label: "Calcio Napoli 24 Live",
       changefreq: "daily"
     },
     {
