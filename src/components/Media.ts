@@ -81,10 +81,6 @@ export const media = {
       label: "VIP Software"
     },
     {
-      href: "https://puzzle.simple-games.fun/dirtyclean",
-      label: "Dirty Clean"
-    },
-    {
       href: "/privacypolicy.html",
       label: "Privacy Policy",
       standalone: true
