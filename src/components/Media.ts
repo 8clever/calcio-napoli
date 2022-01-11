@@ -11,7 +11,7 @@ export const media = {
     caPub: "ca-pub-7579927697787840"
   },
   domain: "https://www.calcio-napoli.com",
-  channelName: "Calcio Napoli Podcasts",
+  channelName: "CalcioNapoli24",
   menu: [
     {
       href: "/",
@@ -32,6 +32,11 @@ export const media = {
       href: "/seriea",
       label: "Classifica Serie A",
       changefreq: "daily",
+    },
+    {
+      href: "/channels/Calcio_Napoli_TV",
+      label: "Calcio Napoli TV",
+      changefreq: "daily"
     },
     {
       href: "/channels/CN24_Live",
