@@ -12,7 +12,7 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
   await ch?.nextVideos(Number(pages));
 
   ch?.videos.forEach(i => {
-    items.push(item("/news/" + i.id, "weekly"));
+    items.push(item("/news/" + i.id));
   });
   
   res.setHeader("Content-type", "application/xml; charset=utf-8");

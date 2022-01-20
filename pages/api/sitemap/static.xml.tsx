@@ -11,12 +11,12 @@ export const container = (body: string) => {
   )
 }
 
-export const item = (path: string = "", changefreq: "hourly" | "weekly" | "daily" | "never") => {
+export const item = (path: string = "", lastmod?: Date) => {
   return (
     `
     <url>
       <loc>${media.domain + path}</loc>
-      <changefreq>${changefreq}</changefreq>
+      ${lastmod ? `<lastmod>${lastmod.toJSON()}</lastmod>` : ""}
     </url>
     `
   )
@@ -31,7 +31,7 @@ export default async function handler (
 
   [ media.menu ].forEach(m => {
     m.forEach(i => {
-      items.push(item(i.href, i.changefreq || "weekly"))
+      items.push(item(i.href))
     })
   });
 

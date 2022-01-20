@@ -75,7 +75,16 @@ let config = {
       {
         source: '/googlesearch/:path*',
         destination: "https://www.google.com/search/:path*"
-      }
+      },
+      // sitemap xml
+      {
+        source: '/sitemap.xml',
+        destination: '/api/sitemap/static.xml',
+      },
+      {
+        source: '/sitemap-news.xml',
+        destination: '/api/sitemap/news.xml',
+      },
     ]
   },
 };
