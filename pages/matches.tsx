@@ -7,8 +7,7 @@ import { Image } from "../src/components/Hybrid";
 import FootballDataApi from "../src/modules/FootballApi";
 import moment from "moment";
 
-const title = "Calcio Napoli - Partite recenti e imminenti del"
-
+const title = "Calcio Napoli prossima partita"
 interface IProps {
   live: IFootball.Match.Item[],
   scheduled: IFootball.Match.Item[],
@@ -121,7 +120,7 @@ export const Matches = (props: IProps) => {
           })
         }
 
-        <h1>Partite recenti e imminenti del</h1>
+        <h1>{title}</h1>
         {
           props.scheduled.map(m => {
             return (

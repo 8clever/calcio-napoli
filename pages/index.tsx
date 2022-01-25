@@ -12,14 +12,15 @@ interface IQuery {
 
 export const getServerSideProps: GetServerSideProps<ChannelProps> = async (props) => {
   const query = props.query as IQuery;
-  const title = query.slug?.replace(/_/gmi, " ") || media.channelName;
+  const channelName = query.slug?.replace(/_/gmi, " ") || media.channelName;
+  const channelTitle = query.slug?.replace(/_/gmi, " ") || media.channelTitle;
   const limit = 10;
   const page = Number(query.page) || 1;
   const totalCount = limit * page;
   const loadTimes = Math.ceil(totalCount / 30);
   const yt = new Client();
 
-  const ch = await yt.findOne(title, { 
+  const ch = await yt.findOne(channelName, { 
     type: "channel",
   });
 
@@ -37,7 +38,7 @@ export const getServerSideProps: GetServerSideProps<ChannelProps> = async (props
 
   return {
     props: {
-      title,
+      title: channelTitle,
       list: videos,
       pagination: {
         limit,

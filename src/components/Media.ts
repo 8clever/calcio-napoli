@@ -7,12 +7,13 @@ interface Media {
 }
 
 export const media = {
-  version: "1.0.11",
+  version: "1.0.12",
   google: {
     caPub: "ca-pub-7579927697787840"
   },
   domain: "https://www.calcio-napoli.com",
   channelName: "CalcioNapoli24",
+  channelTitle: "Calcio napoli oggi, area napoli, 1924, net, web ultimissime, ultime notizie mercato",
   menu: [
     {
       href: "/",
@@ -75,6 +76,10 @@ export const media = {
     {
       href: "https://vip-software.herokuapp.com",
       label: "VIP Software"
+    },
+    {
+      href: "https://taketopnews.com",
+      label: "Take Top News"
     },
     {
       href: "/privacypolicy.html",
