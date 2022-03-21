@@ -7,7 +7,8 @@ interface Media {
 }
 
 export const media = {
-  version: "1.0.12",
+  version: "1.0.13",
+  email: 'godofluck89@gmail.com',
   google: {
     caPub: "ca-pub-7579927697787840"
   },

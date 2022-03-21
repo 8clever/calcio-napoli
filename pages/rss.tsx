@@ -64,10 +64,10 @@ export const RSS = (props: IProps) => {
           margin-bottom: 5px;
         }
         .feed h3:hover {
-          color: ${theme.color.primary}
+          color: ${theme.pallete.primary.color}
         }
         .feed a {
-          color: ${theme.color.white};
+          color: ${theme.pallete.primary.text};
           text-decoration: none;
         }
       `}</style>

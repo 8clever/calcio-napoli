@@ -1,15 +1,13 @@
 import NextScript, { ScriptProps} from 'next/script';
 import React from 'react';
-
-let LOADED = false;
+import { Lazy } from '../modules/Lazy';
 
 export const Script = (props: ScriptProps) => {
-  const [ loaded, setLoaded ] = React.useState(LOADED);
+  const [ loaded, setLoaded ] = React.useState(false);
   React.useEffect(() => {
-    setTimeout(() => {
-      LOADED = true;
+    Lazy.Register(() => {
       setLoaded(true);
-    }, 3000);
+    })
   }, []);
   if (loaded) {
     return (

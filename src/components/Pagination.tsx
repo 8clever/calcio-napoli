@@ -63,16 +63,16 @@ export const Pagination = (props: PaginationProps) => {
         }
         .pagination :global(.button) {
           border-radius: 4px;
-          border: 1px solid ${theme.color.white};
+          border: 1px solid ${theme.pallete.background.text};
           margin-right: 15px;
           text-decoration: none;
           padding: 20px;
           transition: all 0.3s;
-          color: ${theme.color.white};
+          color: ${theme.pallete.background.text};
         }
         .pagination :global(.button:hover) {
-          background-color: ${theme.color.white};
-          color: ${theme.color.black};
+          background-color: ${theme.pallete.background.text};
+          color: ${theme.pallete.background.color};
         }
       `}</style>
     </>

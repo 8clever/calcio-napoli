@@ -81,7 +81,7 @@ export const Header = () => {
                 cursor: "pointer",
                 background: "none",
                 border: "none",
-                color: theme.color.white
+                color: theme.pallete.background.text
               }}
               onClick={() => setLightbox(false)}
               on="tap:search-sidebar.close">X
@@ -147,7 +147,7 @@ export const Header = () => {
           margin-right: 15px;
           height: 25px;
           width: 25px;
-          color: ${theme.color.white};
+          color: ${theme.pallete.background.text};
           cursor: pointer;
         }
         .search-form {
@@ -171,8 +171,8 @@ export const Header = () => {
         .search-input *[type='submit'] {
           border: none;
           padding: 10px;
-          color: ${theme.color.white};
-          background: ${theme.color.primary};
+          color: ${theme.pallete.primary.text};
+          background: ${theme.pallete.primary.color};
         }
         .search-input *[type='search'] {
           border: none;
@@ -180,7 +180,7 @@ export const Header = () => {
           margin-right: 5px;
         }
         .header {
-          background: ${theme.color.primary};
+          background: ${theme.pallete.primary.color};
         }
         .header .head {
           min-height: 40px;
@@ -199,13 +199,13 @@ export const Header = () => {
           padding: 8px;
         }
         .header .brand-text {
-          color: ${theme.color.white};
+          color: ${theme.pallete.background.text};
           padding: 0px 15px;
           font-weight: bold;
           font-size: 20px;
         }
         .header :global(.sidebar) {
-          background: ${theme.color.black};
+          background: ${theme.pallete.background.color};
         }
         .header :global(.hamburger) {
           padding: 0;
@@ -221,7 +221,7 @@ export const Header = () => {
         .header :global(.hamburger) div {
           width: 25px;
           height: 3px;
-          background-color: ${theme.color.white};
+          background-color: ${theme.pallete.background.text};
         }
       `}</style>
     </header>

@@ -1,6 +1,7 @@
 import { CodeBlock } from './components/CodeBlock';
 import { Doctype } from './components/Doctype';
 import nodemailer from 'nodemailer';
+import { media } from '../../components/Media';
 
 export class Mail {
 
@@ -11,7 +12,7 @@ export class Mail {
 
 	private from = "support@calcio-napoli.com";
 
-	private to = "godofluck89@gmail.com";
+	private to = media.email;
 
 	send = (options: Mail.Send.Options) => {
 		return this.transport?.sendMail({

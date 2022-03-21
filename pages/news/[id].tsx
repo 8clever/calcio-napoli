@@ -194,7 +194,7 @@ export const News = (props: IProps) => {
       </div>
       <style jsx>{`
         .description-container :global(a) {
-          color: ${theme.color.white};
+          color: ${theme.pallete.background.text};
         }
       `}</style>
     </Layout>

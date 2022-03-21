@@ -9,7 +9,7 @@ async function run () {
     try {
       const data = await cache.get(key);
       await cacheCompress.write(key, data);
-    } catch (e) {
+    } catch (e: any) {
       console.log(`invalid key: ${key}, ${e.message}`);
     }
   }

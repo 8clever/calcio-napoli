@@ -39,7 +39,7 @@ export const Footer = () => {
       <style jsx>{`
         footer {
           padding-top: 15px;
-          background: ${theme.color.primary};
+          background: ${theme.pallete.primary.color};
         }
         footer ul {
           margin: 0;

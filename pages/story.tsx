@@ -150,7 +150,7 @@ const Story = (props: ChannelProps) => {
           right:0;
           bottom: 0;
           padding: 40px 20px;
-          color: ${theme.color.white};
+          color: ${theme.pallete.background.text};
           font-family: Roboto, sans-serif;
           font-size: 25px;
           background: rgba(0,0,0,0.4);
@@ -158,7 +158,7 @@ const Story = (props: ChannelProps) => {
         .container a {
           font-size: 30px;
           text-decoration: none;
-          color: ${theme.color.white};
+          color: ${theme.pallete.background.text};
         }
       `}</style>
     </>

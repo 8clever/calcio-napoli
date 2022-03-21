@@ -280,8 +280,8 @@ export const Youtube = ({ videoId, thumbnail, ...props }: YoutubeProps) => {
           display: flex;
           border: none;
           padding: 20px;
-          background: ${theme.color.primary};
-          color: white;
+          background: ${theme.pallete.primary.color};
+          color: ${theme.pallete.primary.text};
           transition: 0.3s all;
           font-weight: bold;
           font-size: 20px;
@@ -290,8 +290,8 @@ export const Youtube = ({ videoId, thumbnail, ...props }: YoutubeProps) => {
           cursor: pointer;
         }
         .preview-container button:hover {
-          color: ${theme.color.primary};
-          background: white;
+          color: ${theme.pallete.background.color};
+          background: ${theme.pallete.background.text};
         }
         .preview-container :global(svg) {
           height: 22px;
@@ -342,7 +342,7 @@ export const Anchor = ({ href, ampOnly, ...props }: AnchorProps) => {
       <style jsx>{`
         a {
           text-decoration: none;
-          color: ${theme.color.white};
+          color: ${theme.pallete.background.text};
         }
       `}</style>
     </>

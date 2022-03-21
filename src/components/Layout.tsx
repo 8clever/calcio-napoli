@@ -11,12 +11,14 @@ import { useAmp } from 'next/amp'
 import { Container } from './Grid'
 import { CookiesNotif } from "./CookiesNotif";
 import { createGlobalStyle } from 'styled-components';
+import { ImportantNotice } from './ImportantNotice'
 
 type Props = {
   hybrid?: boolean;
   children?: ReactNode
   title: string
   description: string;
+  disableAd?: boolean;
   og?: {
     image?: string;
   }
@@ -82,14 +84,14 @@ export const GlobalStyle = createGlobalStyle`
   body {
     font-family: Roboto, sans-serif;
     font-size: 14px;
-    background-color: ${theme.color.black};
-    color: ${theme.color.white};
+    background-color: ${theme.pallete.background.color};
+    color: ${theme.pallete.background.text};
     max-width: 100vw;
     overflow-x: hidden;
     margin: 0;
   }
   .gsc-cursor * {
-    color: ${theme.color.white};
+    color: ${theme.pallete.background.text};
   }
   div > .gsc-control-cse {
     padding: 0;
@@ -103,9 +105,14 @@ const Layout = (props: Props) => {
       <GlobalStyle />
       <LayoutHead {...props} />
       <Header />
-      <Analytics />
+      <ImportantNotice />
+      { props.disableAd ? null :
+        <Analytics />
+      }
       <Container fluid>
-        <AdResponsive />
+        { props.disableAd ? null :
+          <AdResponsive />
+        }
       </Container>
       {children}
       <Footer />

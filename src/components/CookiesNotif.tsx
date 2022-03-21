@@ -36,9 +36,9 @@ export const CookiesNotif = () => {
       </Container>
       <style jsx>{`
         .cookies {
-          border-top: 2px solid ${theme.color.black};
+          border-top: 2px solid ${theme.pallete.background.color};
           position: fixed;
-          background: ${theme.color.primary};
+          background: ${theme.pallete.primary.color};
           left: 0;
           right: 0;
           bottom: 0;
@@ -55,7 +55,7 @@ export const CookiesNotif = () => {
           cursor: pointer;
           border-radius: 4px;
           padding: 10px;
-          background: ${theme.color.black};
+          background: ${theme.pallete.background.color};
         }
       `}</style>
     </div>

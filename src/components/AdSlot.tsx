@@ -108,10 +108,7 @@ const AdFallback = () => {
   return (
     <div className="ad-fallback">
       <div className="text">
-        AD slot <br/>
-        <small>
-          advertising helps us grow
-        </small>
+        Non ci piacciono gli annunci proprio come te.
       </div>
       <style jsx>{`
         .ad-fallback {
@@ -125,7 +122,7 @@ const AdFallback = () => {
           font-size: 20px;
           text-align: center;
           margin: auto;
-          color: ${theme.color.white};
+          color: ${theme.pallete.background.text};
         }
       `}</style>
     </div>
