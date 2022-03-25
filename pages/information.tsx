@@ -2,7 +2,12 @@ import { Container } from "../src/components/Grid"
 import Layout from "../src/components/Layout"
 import { media } from "../src/components/Media"
 import { theme } from "../src/components/Theme"
-import MD from 'react-markdown';
+import dynamic from 'next/dynamic'
+
+const MD = dynamic({
+  ssr: false,
+  loader: () => import("react-markdown") as any
+})
 
 const title = "Supportaci";
 
