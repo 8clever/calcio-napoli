@@ -1,28 +1,28 @@
 import Link from "next/link";
-import { Container } from "./Grid";
 import { theme } from "./Theme";
 
 export function ImportantNotice () {
   return (
-    <div className="bg">
-      <Container fluid>
-        <Link href="/information">
-          <a href="/information">
-            Informazioni importanti
-          </a>
-        </Link>
-      </Container>
+    <>
+      <Link href="/information">
+        <a>
+          <div className="info">
+            Supportaci
+          </div>
+        </a>
+      </Link>
       <style jsx>{`
-        .bg {
+        .info {
+          cursor: pointer;
+          padding: 10px;
           text-align: center;
-          background: ${theme.pallete.danger.color};
-          padding: 5px;
+          background: ${theme.pallete.primary.lighten};
+          color: ${theme.pallete.primary.text};
         }
-        .bg a {
-          color: ${theme.pallete.danger.text};
+        a {
           text-decoration: none;
         }
       `}</style>
-    </div>
+    </>
   )
 }

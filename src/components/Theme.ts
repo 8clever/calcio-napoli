@@ -2,6 +2,8 @@
 interface Color {
   color: string;
   text: string;
+  lighten?: string;
+  darken?: string;
 }
 
 interface Theme {
@@ -20,6 +22,7 @@ export const theme: Theme = {
   pallete: {
     primary: {
       color: "#2651a5",
+      lighten: "#3c69c1",
       text: white
     },
     warning: {
