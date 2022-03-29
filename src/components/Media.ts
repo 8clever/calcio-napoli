@@ -27,19 +27,19 @@ class Media {
   public static wallets: Wallet[] = [
     {
       name: "BitCoin",
-      address: "bc1qnehsxkuvzmhxwk0dhwvn6r7mewycrujcms7zf5"
+      address: "1LKpi7TJvuUdPbcj8SzP88bXycDCuSdLEE"
     },
     {
       name: "Ethereum",
-      address: "0x2713C6F3101EAe55f0D50264Ceb94538B1C9DECb"
+      address: "0xce8b071addc8ae739832dc67277eb1dea701d2fd"
     },
     {
       name: "Nano",
-      address: "nano_17n137kyqsupq47xfjord3xfhnya8sepmfbu9ksqpcqcyd5ttcume8h9sh6s"
+      address: "nano_3ctz74aey97n7qouc58tw4keth8fdjq3sdygajb7jjbbqi94zexw1dj93m1x"
     },
     {
       name: "Monero",
-      address: "48cjivzYnF7N3TuivqRffBW4CG36n3BcYXjaQjutNNBKgyhBc1r1gorRGcotStWqT9ML3PbFRgPWiTAkLJ2x7HE57vCmCij"
+      address: "85ZsKB4wUoT5Hi4cL85Uu17yFG8FR6zmyGDyFCvqgKekZ1APEYQQZZxSLyJ19nqSdkFgNZsEgQSnLJrZLHLFUkDrSZJgpbk"
     }
   ]
 
