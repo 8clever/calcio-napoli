@@ -33,8 +33,9 @@ app.prepare().then(() => {
   const makeProxy = (name: string, from: string, to: string, replaces: string[]) => {
 
     const middleware = proxy(to, {
+      https: true,
       userResDecorator: async (_res, data, req) => {
-        
+
         for (const img of images) {
           if (req.path.includes(img)) {
             return data;
