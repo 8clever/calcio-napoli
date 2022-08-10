@@ -17,9 +17,8 @@ export const SportItalia = () => {
           width: "100%"
         }}
         frameBorder="false"
-        src={"/it?proxy=/iframe/sportradar"}>
-        <base href="/" />
-      </iframe>
+        src={"/it?proxy=sportcenter"} 
+      />
     </>
   )
 }

@@ -14,25 +14,21 @@ const port = process.env.PORT || 3000;
 app.prepare().then(() => {
   const server = express();
 
-  const proxies: Record<string, express.RequestHandler> = {}
+  const proxies: Partial<Record<string, express.RequestHandler>> = {}
 
   server.use((req, res, next) => {
-    const from = req.query.proxy as string;
+    const name = req.query.proxy as string;
+    const proxy = proxies[name];
 
-    if (from) {
-      for (const key of Object.keys(proxies)) {
-        if (from.includes(key)) {
-          const proxy = proxies[key];
-          proxy(req, res, next);
-          return;
-        }
-      }
+    if (proxy) {
+      proxy(req, res, next);
+      return;
     }
 
     next();
   })
 
-  const makeProxy = (from: string, to: string, replaces: string[]) => {
+  const makeProxy = (name: string, from: string, to: string, replaces: string[]) => {
 
     const images = ['.png', '.jpg', '.jpeg'];
 
@@ -55,12 +51,12 @@ app.prepare().then(() => {
       }
     });
     
-    proxies[from] = middleware;
+    proxies[name] = middleware;
 
     server.use(from, middleware);
   }
 
-  makeProxy("/iframe/sportradar", "https://sportcenter.sir.sportradar.com", [
+  makeProxy("sportcenter", "/iframe/sportradar", "https://sportcenter.sir.sportradar.com", [
     '/static',
     '/assets',
     '/betradar/css',
