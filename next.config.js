@@ -1,4 +1,3 @@
-
 const withPWA = require('next-pwa');
 
 const LANGS = {
@@ -15,11 +14,6 @@ let config = {
   },
   async rewrites() {
     return [
-      // root
-      {
-        source: "/:path*",
-        destination: "/:path*"
-      },
       // fctables
       {
         source: "/teams/ssc-napoli-194680/:path*",
@@ -33,23 +27,6 @@ let config = {
       {
         source: '/classifiche/:path*',
         destination: "https://sharing.iamcalcio.it/classifiche/:path*"
-      },
-      // sportcenter
-      {
-        source: "/static/sportitalia/:path*",
-        destination: "https://sportcenter.sir.sportradar.com/static/sportitalia/:path*"
-      },
-      {
-        source: "/translations/:path*",
-        destination: "https://sportcenter.sir.sportradar.com/translations/:path*"
-      },
-      {
-        source: '/assets/:path*',
-        destination: "https://sportcenter.sir.sportradar.com/assets/:path*"
-      },
-      {
-        source: '/sportitalia/:path*',
-        destination: 'https://sportcenter.sir.sportradar.com/sportitalia/:path*',
       },
       // google
       {

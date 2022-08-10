@@ -16,7 +16,7 @@ export const SportItalia = () => {
           width: "100%"
         }}
         frameBorder="false"
-        src='https://sportcenter.sir.sportradar.com/sportitalia/' 
+        src={"/iframe/sportradar/it"}
       />
     </>
   )
