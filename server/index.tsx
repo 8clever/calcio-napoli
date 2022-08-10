@@ -15,10 +15,18 @@ app.prepare().then(() => {
   const server = express();
 
   const makeProxy = (from: string, to: string, replaces: string[]) => {
+
+    const images = ['.png', '.jpg', '.jpeg'];
+    
     server.use(from, proxy(to, {
-      userResDecorator: async (...params) => {
-        const data = params[1];
+      userResDecorator: async (_res, data, req) => {
         let result = data.toString()
+
+        for (const img of images) {
+          if (req.path.includes(img)) {
+            return data;
+          }
+        }
 
         for (const match of replaces) {
           //const re = new RegExp(`((?:href|src|p)=(?:"|')?)(${match})`, "gm")
