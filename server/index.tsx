@@ -11,6 +11,8 @@ const app = next({ dev: !production });
 const handle = app.getRequestHandler();
 const port = process.env.PORT || 3000;
 
+const images = ['.png', '.jpg', '.jpeg'];
+
 app.prepare().then(() => {
   const server = express();
 
@@ -29,8 +31,6 @@ app.prepare().then(() => {
   })
 
   const makeProxy = (name: string, from: string, to: string, replaces: string[]) => {
-
-    const images = ['.png', '.jpg', '.jpeg'];
 
     const middleware = proxy(to, {
       userResDecorator: async (_res, data, req) => {
