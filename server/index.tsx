@@ -14,11 +14,29 @@ const port = process.env.PORT || 3000;
 app.prepare().then(() => {
   const server = express();
 
+  const proxies: Record<string, express.RequestHandler> = {}
+
+  server.use((req, res, next) => {
+    const from = req.query.proxy as string;
+
+    if (from) {
+      for (const key of Object.keys(proxies)) {
+        if (from.includes(key)) {
+          const proxy = proxies[key];
+          proxy(req, res, next);
+          return;
+        }
+      }
+    }
+
+    next();
+  })
+
   const makeProxy = (from: string, to: string, replaces: string[]) => {
 
     const images = ['.png', '.jpg', '.jpeg'];
-    
-    server.use(from, proxy(to, {
+
+    const middleware = proxy(to, {
       userResDecorator: async (_res, data, req) => {
         let result = data.toString()
 
@@ -29,14 +47,17 @@ app.prepare().then(() => {
         }
 
         for (const match of replaces) {
-          //const re = new RegExp(`((?:href|src|p)=(?:"|')?)(${match})`, "gm")
           const re = new RegExp(`(${match})`, "gm")
           result = result.replace(re, `${from}$1`);
         }
 
         return result;
       }
-    }))
+    });
+    
+    proxies[from] = middleware;
+
+    server.use(from, middleware);
   }
 
   makeProxy("/iframe/sportradar", "https://sportcenter.sir.sportradar.com", [

@@ -5,6 +5,7 @@ import { Header } from "../src/components/Header";
 const title = "Calcio Napoli - Statistiche dettagliate della partita";
 
 export const SportItalia = () => {
+
   return (
     <>
       <GlobalStyle />
@@ -16,8 +17,9 @@ export const SportItalia = () => {
           width: "100%"
         }}
         frameBorder="false"
-        src={"/iframe/sportradar/it"}
-      />
+        src={"/it?proxy=/iframe/sportradar"}>
+        <base href="/" />
+      </iframe>
     </>
   )
 }
