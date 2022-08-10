@@ -36,9 +36,6 @@ app.prepare().then(() => {
       https: true,
       userResDecorator: async (_res, data, req) => {
 
-        console.log(data)
-        console.log(req.path, images)
-
         for (const img of images) {
           if (req.path.includes(img)) {
             return data;
