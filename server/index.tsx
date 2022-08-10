@@ -34,13 +34,14 @@ app.prepare().then(() => {
 
     const middleware = proxy(to, {
       userResDecorator: async (_res, data, req) => {
-        let result = data.toString()
-
+        
         for (const img of images) {
           if (req.path.includes(img)) {
             return data;
           }
         }
+
+        let result = data.toString()
 
         for (const match of replaces) {
           const re = new RegExp(`(${match})`, "gm")
