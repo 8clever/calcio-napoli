@@ -63,8 +63,8 @@ export const getServerSideProps: GetServerSideProps<ChannelProps> = async (props
   }
 
   cache[key] = {
-    /** cache should expired after 10 minutes */
-    expired: now + 1000 * 60 * 10,
+    /** cache should expired after 6 hours */
+    expired: now + 1000 * 60 * 60 * 6,
     props: responseProps
   };
 
