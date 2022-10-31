@@ -10,8 +10,24 @@ interface IQuery {
   [key: string]: string;
 }
 
+type Cache = {
+  expired: number;
+  props: ChannelProps
+}
+
+const cache: Record<string, Cache> = {};
+
 export const getServerSideProps: GetServerSideProps<ChannelProps> = async (props) => {
   const query = props.query as IQuery;
+  const key = JSON.stringify(query);
+  const now = new Date().valueOf();
+
+  if (cache[key] && cache[key].expired > now) {
+    return {
+      props: cache[key].props
+    }
+  }
+
   const channelName = query.slug?.replace(/_/gmi, " ") || media.channelName;
   const channelTitle = query.slug?.replace(/_/gmi, " ") || media.channelTitle;
   const limit = 10;
@@ -36,17 +52,26 @@ export const getServerSideProps: GetServerSideProps<ChannelProps> = async (props
       }
     });
 
-  return {
-    props: {
-      title: channelTitle,
-      list: videos,
-      pagination: {
-        limit,
-        page,
-        totalCount: 100,
-      }
+  const responseProps: ChannelProps = {
+    title: channelTitle,
+    list: videos,
+    pagination: {
+      limit,
+      page,
+      totalCount: 100,
     }
   }
+
+  cache[key] = {
+    /** cache should expired after 10 minutes */
+    expired: now + 1000 * 60 * 10,
+    props: responseProps
+  };
+
+  return {
+    props: responseProps
+  }
+
 }
 
 export const config = {
