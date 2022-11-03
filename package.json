@@ -29,7 +29,8 @@
     "schema-dts": "^0.10.0",
     "sharp": "^0.28.3",
     "styled-components": "^5.3.1",
-    "youtubei": "0.0.1-rc.20"
+    "youtubei": "0.0.1-rc.20",
+    "yt-channel-info": "^3.2.1"
   },
   "devDependencies": {
     "@babel/plugin-proposal-decorators": "^7.14.5",

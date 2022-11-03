@@ -49,6 +49,8 @@ class Media {
 
   public static channelTitle = "Calcio napoli oggi, area napoli, 1924, net, web ultimissime, ultime notizie mercato";
 
+  public static readonly channelId = "CN24redazione"
+
   public static menu: MenuItem[] = [
     {
       href: "/",
@@ -71,7 +73,7 @@ class Media {
       changefreq: "daily",
     },
     {
-      href: "/channels/Calcio_Napoli_TV",
+      href: "/channels/UCDsSMbkW-poeGDgHlZ5yFMA",
       label: "Calcio Napoli TV",
       changefreq: "daily"
     },

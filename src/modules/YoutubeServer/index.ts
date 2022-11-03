@@ -3,7 +3,7 @@ import { Client } from "youtubei";
 import { Cache } from '../../components/Cache';
 import { media } from '../../components/Media';
 import { Youtube } from '../Youtube';
-
+import ytch from 'yt-channel-info'
 export class YoutubeServer {
 
   googleClient: youtube_v3.Youtube;
@@ -154,6 +154,33 @@ export class YoutubeServer {
       relatedVideos
     }
   }
+
+  getChannelVideos = async (channelId: string, loadTimes: number) => {
+    const loadedVideos = await ytch.getChannelVideos({ channelId, sortBy: "newest" });
+    let continuation = loadedVideos.continuation;
+
+    for (let n = 0; n < loadTimes - 1; n++) {
+      if (continuation) {
+        const addVideos = await ytch.getChannelVideosMore({ continuation });
+        loadedVideos.items.push(...addVideos.items);
+        continuation = addVideos.continuation;
+      }
+    }
+    
+    const videos = (loadedVideos.items)
+      .map(v => {
+        const len = v.videoThumbnails?.length || 0;
+        const thumbnail = v.videoThumbnails?.[len -1].url || Youtube.DefaultImage()
+        return {
+          id: v.videoId,
+          title: v.title,
+          thumbnail
+        }
+      });
+
+    return videos;
+  }
+
 
 }
 
