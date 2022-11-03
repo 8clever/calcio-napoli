@@ -155,7 +155,7 @@ export class YoutubeServer {
     }
   }
 
-  getChannelVideos = async (channelId: string, loadTimes: number) => {
+  getChannelVideos = async (channelId: string, loadTimes: number = 1) => {
     const loadedVideos = await ytch.getChannelVideos({ channelId, sortBy: "newest" });
     let continuation = loadedVideos.continuation;
 
