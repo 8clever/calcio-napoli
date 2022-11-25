@@ -13,7 +13,7 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
     const timestamp = Date.now()
     items.push(item("/news/" + i.id, new Date(timestamp)));
   });
-  
+
   res.setHeader("Content-type", "application/xml; charset=utf-8");
   res.send(
     container(

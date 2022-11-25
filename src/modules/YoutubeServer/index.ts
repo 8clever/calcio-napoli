@@ -161,9 +161,13 @@ export class YoutubeServer {
 
     for (let n = 0; n < loadTimes - 1; n++) {
       if (continuation) {
-        const addVideos = await ytch.getChannelVideosMore({ continuation });
-        loadedVideos.items.push(...addVideos.items);
-        continuation = addVideos.continuation;
+        try {
+          const addVideos = await ytch.getChannelVideosMore({ continuation });
+          loadedVideos.items.push(...addVideos.items);
+          continuation = addVideos.continuation;
+        } catch {
+          break;
+        }
       }
     }
     
