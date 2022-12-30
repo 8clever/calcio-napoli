@@ -58,10 +58,11 @@ app.prepare().then(() => {
     server.use(from, middleware);
   }
 
+  makeProxy("betradar", "/betradar", "https://sportcenter.sir.sportradar.com", [])
+
   makeProxy("sportcenter", "/iframe/sportradar", "https://sportcenter.sir.sportradar.com", [
     '/static',
     '/assets',
-    '/betradar/css',
     '/translations'
   ])
 
