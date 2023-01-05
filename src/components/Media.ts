@@ -16,7 +16,7 @@ interface Google {
 }
 
 class Media {
-  public static version = "1.0.13";
+  public static version = "1.0.14";
 
   public static email = "godofluck89@gmail.com";
 
@@ -32,14 +32,6 @@ class Media {
     {
       name: "Ethereum",
       address: "0xce8b071addc8ae739832dc67277eb1dea701d2fd"
-    },
-    {
-      name: "Nano",
-      address: "nano_3ctz74aey97n7qouc58tw4keth8fdjq3sdygajb7jjbbqi94zexw1dj93m1x"
-    },
-    {
-      name: "Monero",
-      address: "85ZsKB4wUoT5Hi4cL85Uu17yFG8FR6zmyGDyFCvqgKekZ1APEYQQZZxSLyJ19nqSdkFgNZsEgQSnLJrZLHLFUkDrSZJgpbk"
     }
   ]
 
@@ -111,14 +103,6 @@ class Media {
   ]
 
   public static partners: MenuItem[] = [
-    {
-      href: "https://vip-software.herokuapp.com",
-      label: "VIP Software"
-    },
-    {
-      href: "https://taketopnews.com",
-      label: "Take Top News"
-    },
     {
       href: "/privacypolicy.html",
       label: "Privacy Policy",

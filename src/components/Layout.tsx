@@ -11,7 +11,6 @@ import { useAmp } from 'next/amp'
 import { Container } from './Grid'
 import { CookiesNotif } from "./CookiesNotif";
 import { createGlobalStyle } from 'styled-components';
-import { ImportantNotice } from './ImportantNotice'
 
 type Props = {
   hybrid?: boolean;
@@ -105,7 +104,6 @@ const Layout = (props: Props) => {
       <GlobalStyle />
       <LayoutHead {...props} />
       <Header />
-      <ImportantNotice />
       { props.disableAd ? null :
         <Analytics />
       }
