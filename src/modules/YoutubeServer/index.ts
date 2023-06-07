@@ -64,7 +64,7 @@ export class YoutubeServer {
   private getRelatedVideosByChannel = async () => {
     try {
       const relatedVideos = await this.youtubeiClient.search(media.channelName, { type: "video" });
-      return relatedVideos.slice(0, 10).map(rv => {
+      return relatedVideos.items.slice(0, 10).map(rv => {
         return {
           id: rv.id,
           image: rv.thumbnails.best || Youtube.DefaultImage(),
@@ -81,7 +81,7 @@ export class YoutubeServer {
       this.youtubeiClient.search(id, { type: "video" }),
       this.getRelatedVideosByChannel()
     ]);
-    const video = videos[0];
+    const video = videos.items[0];
     if (!video) throw new Error("getVideoByYoutubeiSearch: Video not found");
 
     const thumb = video.thumbnails.best
@@ -114,7 +114,7 @@ export class YoutubeServer {
       description: video.description || "",
       authorName: media.channelName,
       keywords: video.tags,
-      relatedVideos: video.related.slice(0, 10).map((v) => {
+      relatedVideos: video.related.items.slice(0, 10).map((v) => {
         return {
           id: v.id,
           image: v.thumbnails.best || "",

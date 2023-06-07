@@ -29,7 +29,7 @@
     "schema-dts": "^0.10.0",
     "sharp": "^0.28.3",
     "styled-components": "^5.3.1",
-    "youtubei": "0.0.1-rc.20",
+    "youtubei": "^1.1.2",
     "yt-channel-info": "^3.2.1"
   },
   "devDependencies": {
