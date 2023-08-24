@@ -7,7 +7,7 @@ RUN npm i --force
 RUN npm run build
 RUN npm i --omit=dev --force --freeze
 
-FROM FROM node:lts-alpine
+FROM node:lts-alpine
 WORKDIR /app
 COPY --from=build /app/package.json ./package.json
 COPY --from=build /app/dist ./dist
