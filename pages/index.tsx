@@ -1,7 +1,7 @@
 import { GetServerSideProps } from "next"
 import { Channel, IProps as ChannelProps } from "../src/components/Channel"
 import { media } from "../src/components/Media";
-import ytch from 'yt-channel-info'
+import { Innertube, UniversalCache } from 'youtubei.js';
 import { YoutubeServer } from "../src/modules/YoutubeServer";
 
 interface IQuery {
@@ -17,6 +17,10 @@ type Cache = {
 const cache: Record<string, Cache> = {};
 
 export const getServerSideProps: GetServerSideProps<ChannelProps> = async (props) => {
+  const ytch = await Innertube.create({
+    cache: new UniversalCache(false)
+  });
+
   const query = props.query as any as IQuery;
   const key = JSON.stringify(query);
   const now = new Date().valueOf();
@@ -28,7 +32,7 @@ export const getServerSideProps: GetServerSideProps<ChannelProps> = async (props
   }
 
   const channelId = query.slug || media.channelId
-  const channelInfo = await ytch.getChannelInfo({ channelId });
+  const channelInfo = await ytch.getChannel(channelId);
   const limit = 10;
   const page = Number(query.page) || 1;
   const totalCount = limit * page;
@@ -38,7 +42,7 @@ export const getServerSideProps: GetServerSideProps<ChannelProps> = async (props
   const videos = loadVideos.slice(totalCount - limit, totalCount)
 
   const responseProps: ChannelProps = {
-    title: channelInfo.description,
+    title: channelInfo.metadata.description || channelInfo.metadata.title || "",
     list: videos,
     pagination: {
       limit,

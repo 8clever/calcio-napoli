@@ -41,7 +41,7 @@ class Media {
 
   public static channelTitle = "Calcio napoli oggi, area napoli, 1924, net, web ultimissime, ultime notizie mercato";
 
-  public static readonly channelId = "CN24redazione"
+  public static readonly channelId = "UCFZaLPCquo5ROTGiayRS8LQ"
 
   public static menu: MenuItem[] = [
     {
