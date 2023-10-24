@@ -15,6 +15,7 @@ import { useAmp } from "next/amp";
 import { Mail } from "../../src/modules/Mail";
 import ReactDOMServer from 'react-dom/server';
 import { YoutubeServer } from "../../src/modules/YoutubeServer";
+import { readFile } from 'fs/promises';
 
 interface News {
   id: string;
@@ -41,9 +42,20 @@ interface IQuery extends ParsedUrlQuery {
 
 const errSet = new Set<string>();
 
+let blacklist = '';
+
 export const getServerSideProps: GetServerSideProps<IProps, IQuery> = async (props) => {
   try {
-    if (!props.params?.id) throw new Error("Invalid params ID");
+    if (!blacklist) {
+      blacklist = (await readFile(process.cwd() + '/public/blacklist.txt')).toString();
+    }
+
+    if (!props.params?.id) 
+      throw new Error("Invalid params ID");
+    
+    if (blacklist.includes(props.params.id))
+      throw new Error("Content blockd by author");
+
     const youtubeServer = new YoutubeServer();
     const video = await youtubeServer.getVideo(props.params.id);
     return {
